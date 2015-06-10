@@ -5,14 +5,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
-
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import persist.ReaderCSV;
+import persist.WriterCSV;
+import core.Reader;
 
 public class HomePanel extends JFrame implements ActionListener {
 
@@ -134,6 +138,22 @@ public class HomePanel extends JFrame implements ActionListener {
 		public  void    actionPerformed(ActionEvent e)
 		{
 			System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
+			ArrayList<String[]> test2 = new ArrayList<String[]>();
+			ReaderCSV test1= new ReaderCSV();
+			try {
+				test1.readCsv(test2,textFieldFilePath.getText());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			WriterCSV test3= new WriterCSV();
+			String pathnewfile=new String("testFichiercsv.csv");
+			try {
+				test3.writeCsv(test2, pathnewfile);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 

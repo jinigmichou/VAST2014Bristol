@@ -1,28 +1,21 @@
 package core;
 
-
-
 import java.util.ArrayList;
 
-
-
-public abstract class Reader{
+public abstract class Writer {
 	private ArrayList<String[]> myFile;
 	private String myFilePath;
 	
-	public Reader(){
+	public Writer(){
 		
 	}
-	public Reader(ArrayList<String[]> myFile, String myFilePath){
+	public Writer(ArrayList<String[]> myFile, String myFilePath){
 		myFile=this.myFile;
 		myFilePath=this.myFilePath;
 	}
 	
-	public abstract void readCsv(ArrayList<String[]> myFile, String myFilePath) throws Exception;
+	public abstract void writeCsv(ArrayList<String[]> myFile, String myFilePath) throws Exception;
 		
-		
-		
-	
 	public ArrayList<String[]> getMyFile() {
 		return myFile;
 	}
