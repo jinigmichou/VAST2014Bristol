@@ -9,7 +9,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.JPanel;
+
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -18,8 +18,7 @@ public class HomePanel extends JFrame implements ActionListener {
 
 	private JFrame frame;
 	private JTextField textFieldFilePath;
-	private JButton btnBrowse, btnValid;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -69,17 +68,17 @@ public class HomePanel extends JFrame implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, textFieldFilePath, -129, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(textFieldFilePath);
 		textFieldFilePath.setColumns(10);
-		
+
 		JButton btnBrowse = new JButton("Browse");
 		springLayout.putConstraint(SpringLayout.NORTH, btnBrowse, -5, SpringLayout.NORTH, lblFilePath);
 		springLayout.putConstraint(SpringLayout.WEST, btnBrowse, 6, SpringLayout.EAST, textFieldFilePath);
 		frame.getContentPane().add(btnBrowse);
-		
+
 		JButton btnValid = new JButton("Valid");
 		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 22, SpringLayout.SOUTH, textFieldFilePath);
 		springLayout.putConstraint(SpringLayout.EAST, btnValid, 0, SpringLayout.EAST, textFieldFilePath);
 		frame.getContentPane().add(btnValid);
-		
+
 		btnBrowse.addActionListener(this);
 		btnValid.addActionListener(new TraitementValid());
 	}
@@ -115,7 +114,7 @@ public class HomePanel extends JFrame implements ActionListener {
 	/*public void actionPerformed(ActionEvent e) {
 		Object  source=e.getSource();
 		// TODO Auto-generated method stub
-		
+
 		if (e.equals(btnBrowse)){
 		}
 		else if (e.equals(btnValid)){
@@ -123,27 +122,27 @@ public class HomePanel extends JFrame implements ActionListener {
 		}
 		System.out.println("coucou");
 		System.out.println(source.toString());
-		
-		
-	}*/
-	    
-	     public  class   TraitementValid implements   ActionListener
-	    {
-	         /**
-	         * obligatoire car test implémente l'interface ActionListener
-	         */
-	        public  void    actionPerformed(ActionEvent e)
-	        {
-	        	System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
-	        }
-	    }
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			textFieldFilePath.setText(this.selectFile());
-    		String test = textFieldFilePath.getText();
-    		System.out.println("essaie "+test);
-			
+
+	}*/
+
+	public  class   TraitementValid implements   ActionListener
+	{
+		/**
+		 * obligatoire car test implémente l'interface ActionListener
+		 */
+		public  void    actionPerformed(ActionEvent e)
+		{
+			System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		textFieldFilePath.setText(this.selectFile());
+		String test = textFieldFilePath.getText();
+		System.out.println("essaie "+test);
+
+	}
 }
 
