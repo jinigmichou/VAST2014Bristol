@@ -1,18 +1,20 @@
 package persist;
 
+import core.DataSet;
+
 public class CSVKit extends PersistKit {
 
 	/**
 	 * Method CSVKit
-	 * @return an dataset of type selected
+	 * @return a data set of type selected
 	 */
 
-	/*@Override
-	public dataset createDataset() {
+	@Override
+	public DataSet generateDataSet() {
 
-		User user = new UserJDBC();
-		return user;
+		DataSet dataset = new DataSetJDBC();
+		return dataset;
 
-	}*/
+	}
 
 }

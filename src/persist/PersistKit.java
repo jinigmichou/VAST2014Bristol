@@ -1,5 +1,7 @@
 package persist;
 
+import core.DataSet;
+
 public abstract class PersistKit {
 
 	/* The instance of our kit */
@@ -7,9 +9,6 @@ public abstract class PersistKit {
 
 	/* types of persists which are possible */
 	public static final int CSV = 1;
-	public static final int JDBC = 2;
-	public static final int SERIALIZABLE = 3;
-	public static final int XML = 4;
 	
     /* Method create which creates the class with the good type of persist */
 	 //public abstract User createUser(); 
@@ -18,23 +17,18 @@ public abstract class PersistKit {
      * @param type of persist
      * @return kit of persist selected
      */
+	
+	/* Method generate which creates one class with the good type of persist */
+    public abstract DataSet generateDataSet(); 
     
     public static PersistKit createKit(int type) {
 
         if (persistKit == null) {
 
-            if (type == JDBC) {
+            if (type == CSV) {
             	
-                persistKit = new JDBCKit();
-
-            } else  if (type == SERIALIZABLE) {
-
-                persistKit = new SerializableKit();
-
-            } else  if (type == XML) {
-
-                persistKit = new XMLKit();
-            } 
+                persistKit = new CSVKit();
+            }  
         }
 
         return persistKit;
