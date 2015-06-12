@@ -19,7 +19,7 @@ public abstract class PersistKit {
      */
 	
 	/* Method generate which creates one class with the good type of persist */
-    public abstract DataSet generateDataSet(); 
+    public abstract /*DataSet*/ void generateDataSet(); 
     
     public static PersistKit createKit(int type) {
 

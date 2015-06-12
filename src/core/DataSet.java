@@ -61,4 +61,12 @@ public class DataSet {
 	public void setDataSetInterval(String dataSetInterval) {
 		this.interval = dataSetInterval;
 	}
+
+	public static DataSet getDataSet() {
+		return dataSet;
+	}
+
+	public static void setDataSet(DataSet dataSet) {
+		DataSet.dataSet = dataSet;
+	}
 }

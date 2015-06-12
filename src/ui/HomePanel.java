@@ -131,7 +131,7 @@ public class HomePanel extends JFrame implements ActionListener {
 	public  class   TraitementValid implements   ActionListener
 	{
 		public  void    actionPerformed(ActionEvent e)
-		{
+		{/*
 			System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
 			ArrayList<String[]> test2 = new ArrayList<String[]>();
 			ReaderCSV test1= new ReaderCSV();
@@ -183,9 +183,9 @@ public class HomePanel extends JFrame implements ActionListener {
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			*/}
 		}
-	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

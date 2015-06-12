@@ -14,25 +14,22 @@ import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 
-
-
-
 /**
  * 
- * @author groupe entier
+ * @author All 
  *
  */
+
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener {
-
 	
-	//type de persistance choisi
+	//persist choosen
 	//private int persistType;
 	
 	private static JPanel panelDisplay;
 	private SpringLayout springLayout;
 	
-	private HomeView homePanel;
+	private ChooseDataSourceView chooseDataSourceView;
 	private Test testPanel;
 	//private AccountView accountPanel;
 	
@@ -66,17 +63,13 @@ public class MainView extends JFrame implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, panelDisplay, -10, SpringLayout.EAST, getContentPane());
 		getContentPane().add(panelDisplay);
 		
-		
-		
-		
-		
-		JButton homeButton = new JButton("Home");
-		homePanel = new HomeView();
+		JButton homeButton = new JButton("Manage DB");
+		chooseDataSourceView = new ChooseDataSourceView();
 		springLayout.putConstraint(SpringLayout.NORTH, homeButton, 10, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, homeButton, 10, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, homeButton, -613, SpringLayout.EAST, getContentPane());
 		homeButton.addActionListener(this);
-		homeButton.setActionCommand("Home");
+		homeButton.setActionCommand("Manage DB");
 		getContentPane().add(homeButton);
 		
 		JButton btnTest = new JButton("test");
@@ -87,14 +80,7 @@ public class MainView extends JFrame implements ActionListener {
 		btnTest.setActionCommand("test");
 		getContentPane().add(btnTest);
 		
-		
-		
-		
 		setVisible(true);
-		
-		
-		
-		
 		
 	}
 	
@@ -107,12 +93,10 @@ public class MainView extends JFrame implements ActionListener {
 		panelDisplay.removeAll();
 		panelDisplay.repaint();
 		panelDisplay.revalidate();
-		System.out.println("coucou1");
 		//add the new JPanel
 		panelDisplay.add(panel);
 		panelDisplay.repaint();
 		panelDisplay.revalidate();
-		System.out.println("coucou");
 		
 	}
 	
@@ -120,10 +104,10 @@ public class MainView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e)
 	{
 		String cmd = e.getActionCommand();
-		if(cmd.equals("Home")){ 
-			homePanel = new HomeView();
+		if(cmd.equals("Manage DB")){ 
+			chooseDataSourceView = new ChooseDataSourceView();
 			System.out.println("coucou");
-			changePanel(homePanel);
+			changePanel(chooseDataSourceView);
 			setVisible(true);
 		}
 		if(cmd.equals("test")){ 
@@ -134,4 +118,5 @@ public class MainView extends JFrame implements ActionListener {
 		}
 		
 	}
+
 }

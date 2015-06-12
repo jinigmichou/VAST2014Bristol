@@ -10,10 +10,10 @@ public class CSVKit extends PersistKit {
 	 */
 
 	@Override
-	public DataSet generateDataSet() {
+	public /*Dataset*/ void generateDataSet() {
 
-		DataSet dataset = new DataSetJDBC();
-		return dataset;
+		//DataSet dataset = new DataSetJDBC(0);
+		//return dataset;
 
 	}
 
