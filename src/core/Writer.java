@@ -15,9 +15,9 @@ public class Writer {
 		
 	}
 	public Writer(ArrayList<String[]> myFile, String myFilePath, WriterCSV myWriter){
-		myFile=this.myFile;
-		myFilePath=this.myFilePath;
-		myWriter=this.myWriter;
+		this.myFile=myFile;
+		this.myFilePath=myFilePath;
+		this.myWriter=myWriter;
 		
 	}
 	

@@ -131,8 +131,13 @@ public class HomePanel extends JFrame implements ActionListener {
 	public  class   TraitementValid implements   ActionListener
 	{
 		public  void    actionPerformed(ActionEvent e)
+<<<<<<< Updated upstream
 		{/*
 			System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
+=======
+		{
+			/*System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
+>>>>>>> Stashed changes
 			ArrayList<String[]> test2 = new ArrayList<String[]>();
 			ReaderCSV test1= new ReaderCSV();
 			try {
@@ -183,7 +188,11 @@ public class HomePanel extends JFrame implements ActionListener {
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+<<<<<<< Updated upstream
 			*/}
+=======
+			}*/
+>>>>>>> Stashed changes
 		}
 	
 

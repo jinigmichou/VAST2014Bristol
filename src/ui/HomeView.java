@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,14 +15,17 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
 
-import core.Reader;
-import persist.ReaderCSV;
 import persist.WriterCSV;
+import core.Operator;
+import core.Reader;
+import core.Writer;
+
 
 public class HomeView extends JPanel implements ActionListener{
 	
-	private JPanel homePanel;
+
 	private JTextField textFieldFilePath;
+
 	/**
 	 * Create the panel.
 	 */
@@ -106,12 +108,15 @@ public class HomeView extends JPanel implements ActionListener{
 
 			System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
 			ArrayList<String[]> test2 = new ArrayList<String[]>();
-			Reader test1= new Reader(textFieldFilePath.getText());
+			String filePath= textFieldFilePath.getText();
+			System.out.println("file path : "+filePath);
+			Reader myreader= new Reader(filePath);
+			System.out.println("le chemin du fichier est 2: "+myreader.getMyFilePath());
 			try {
-				System.out.println("array "+test1.getMyFile());
+				System.out.println("array "+myreader.getMyFile());
 				System.out.println("File path "+textFieldFilePath.getText());
 				
-				test1.readCsv(test1.getMyFilePath());
+				test2=myreader.readCsv(myreader.getMyFilePath());
 				for (int i= 0; i<test2.get(0).length; i++){
 					System.out.println(test2.get(0)[i]);
 					//comboBoxColumnName.addItem(test2.get(0)[i]);
@@ -121,11 +126,19 @@ public class HomeView extends JPanel implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			test1.sortColumn(test2, 1);
+			test2.remove(0);
+
+			//tri
 			
+			Operator myOperator= new Operator(test2);
+			myOperator.sortColumn(test2, 1);
+			myOperator.tranformDate(test2, 0);
+			test2=myOperator.sortTimestamp(test2, 0);
+			test2=myOperator.journeyCalculation(test2);
+			myOperator.verifyJourney(test2);
 
 			WriterCSV test3= new WriterCSV();
-			String pathnewfile=new String("testFichiercsv.csv");
+			String pathnewfile=new String("testFichiercsv1.csv");
 			try {
 				test3.writeCsv(test2, pathnewfile);
 			} catch (Exception e1) {
