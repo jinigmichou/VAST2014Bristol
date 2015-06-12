@@ -11,15 +11,20 @@ public class ReaderCSV extends Reader{
 	private ArrayList<String[]> myFile;
 	private String myFilePath;
 	
-	
+	public ReaderCSV(String myFilePath) {
+		myFilePath= this.myFilePath;
+	}
 	@Override
-	public void readCsv(ArrayList<String[]> myFile, String myFilePath) throws Exception {
-		CSVReader reader = new CSVReader(new FileReader(myFilePath));
+	public ArrayList<String[]> readCsv(String myFilePath) throws Exception {
+		System.out.println("essaie4"+ getMyFilePath());
+		CSVReader reader = new CSVReader(new FileReader(getMyFilePath()));
+		ArrayList<String[]> myTab=new ArrayList<String[]>();
 		String[] nextLine;
 		while ((nextLine = reader.readNext()) != null){	
-			myFile.add(nextLine);
+			myTab.add(nextLine);
 			}
 		reader.close();
+		return myTab ;
 	}
 	public ArrayList<String[]> getMyFile() {
 		return myFile;

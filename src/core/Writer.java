@@ -2,19 +2,28 @@ package core;
 
 import java.util.ArrayList;
 
-public abstract class Writer {
+import persist.WriterCSV;
+
+
+
+public class Writer {
 	private ArrayList<String[]> myFile;
 	private String myFilePath;
+	private WriterCSV myWriter;
 	
 	public Writer(){
 		
 	}
-	public Writer(ArrayList<String[]> myFile, String myFilePath){
+	public Writer(ArrayList<String[]> myFile, String myFilePath, WriterCSV myWriter){
 		myFile=this.myFile;
 		myFilePath=this.myFilePath;
+		myWriter=this.myWriter;
+		
 	}
 	
-	public abstract void writeCsv(ArrayList<String[]> myFile, String myFilePath) throws Exception;
+	public  void writeCsv(ArrayList<String[]> myFile, String myFilePath) throws Exception{
+		myWriter.writeCsv(myFile, myFilePath);
+	}
 		
 	public ArrayList<String[]> getMyFile() {
 		return myFile;

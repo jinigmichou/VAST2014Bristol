@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,11 +19,20 @@ import persist.ReaderCSV;
 import persist.WriterCSV;
 import core.Reader;
 
+import javax.swing.JComboBox;
+
+
+
 public class HomePanel extends JFrame implements ActionListener {
 
 	private JFrame frame;
 	private JTextField textFieldFilePath;
-	
+	public static  JComboBox<String> comboBoxColumnName;
+	public SpringLayout springLayout;
+	public JLabel lblReferenceColumn;
+
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -83,6 +93,8 @@ public class HomePanel extends JFrame implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, btnValid, 0, SpringLayout.EAST, textFieldFilePath);
 		frame.getContentPane().add(btnValid);
 
+		
+
 		btnBrowse.addActionListener(this);
 		btnValid.addActionListener(new TraitementValid());
 	}
@@ -114,27 +126,10 @@ public class HomePanel extends JFrame implements ActionListener {
 		return file;
 	}
 
-	//@Override
-	/*public void actionPerformed(ActionEvent e) {
-		Object  source=e.getSource();
-		// TODO Auto-generated method stub
-
-		if (e.equals(btnBrowse)){
-		}
-		else if (e.equals(btnValid)){
-			System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
-		}
-		System.out.println("coucou");
-		System.out.println(source.toString());
-
-
-	}*/
+	
 
 	public  class   TraitementValid implements   ActionListener
 	{
-		/**
-		 * obligatoire car test implémente l'interface ActionListener
-		 */
 		public  void    actionPerformed(ActionEvent e)
 		{
 			System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
@@ -142,10 +137,45 @@ public class HomePanel extends JFrame implements ActionListener {
 			ReaderCSV test1= new ReaderCSV();
 			try {
 				test1.readCsv(test2,textFieldFilePath.getText());
+				for (int i= 0; i<test2.get(0).length; i++){
+					System.out.println(test2.get(0)[i]);
+					//comboBoxColumnName.addItem(test2.get(0)[i]);
+					
+
+				}
+				
+				
+				JFrame frame1 = new JFrame();
+				frame1.setBounds(100, 100, 640, 480);
+				frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+				SpringLayout springLayout1= new SpringLayout();
+				frame1.getContentPane().setLayout(springLayout1);
+				
+				JLabel lblReferenceColumn = new JLabel("Reference column:");
+				springLayout1.putConstraint(SpringLayout.NORTH, lblReferenceColumn, 88, SpringLayout.SOUTH, textFieldFilePath);
+				springLayout1.putConstraint(SpringLayout.WEST, lblReferenceColumn, 10, SpringLayout.WEST, frame.getContentPane());
+				frame1.getContentPane().add(lblReferenceColumn);
+				
+				JComboBox<String> columnbox = new JComboBox<String>(test2.get(0));
+				springLayout1.putConstraint(SpringLayout.NORTH, columnbox, -4, SpringLayout.NORTH, lblReferenceColumn);
+				springLayout1.putConstraint(SpringLayout.WEST, columnbox, 18, SpringLayout.EAST, lblReferenceColumn);
+				springLayout1.putConstraint(SpringLayout.EAST, columnbox, 224, SpringLayout.EAST, lblReferenceColumn);
+				
+				columnbox.setForeground(Color.blue);
+				
+				frame1.getContentPane().add(columnbox);
+				
+				frame1.setVisible(true);
+				frame.setVisible(false);
+
+				
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
 			WriterCSV test3= new WriterCSV();
 			String pathnewfile=new String("testFichiercsv.csv");
 			try {
