@@ -23,7 +23,7 @@ import core.Writer;
 
 public class HomeView extends JPanel implements ActionListener{
 	
-
+	private MainView mainView;
 	private JTextField textFieldFilePath;
 
 	/**
@@ -34,14 +34,20 @@ public class HomeView extends JPanel implements ActionListener{
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.WHITE);
 		SpringLayout springLayout = new SpringLayout();
+		SpringLayout springLayout_1 = new SpringLayout();
+		
 
 
 		JLabel lblFilePath = new JLabel("File path: ");
+		springLayout_1.putConstraint(SpringLayout.NORTH, lblFilePath, 12, SpringLayout.NORTH, this);
+		springLayout_1.putConstraint(SpringLayout.WEST, lblFilePath, 24, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, lblFilePath, 70, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblFilePath, 25, SpringLayout.WEST, this);
 		add(lblFilePath);
 
 		textFieldFilePath = new JTextField();
+		springLayout_1.putConstraint(SpringLayout.NORTH, textFieldFilePath, -6, SpringLayout.NORTH, lblFilePath);
+		springLayout_1.putConstraint(SpringLayout.WEST, textFieldFilePath, 6, SpringLayout.EAST, lblFilePath);
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldFilePath, 70, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldFilePath, 6, SpringLayout.EAST, lblFilePath);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldFilePath, 214, SpringLayout.EAST, lblFilePath);
@@ -49,18 +55,22 @@ public class HomeView extends JPanel implements ActionListener{
 		textFieldFilePath.setColumns(10);
 
 		JButton btnBrowse = new JButton("Browse");
+		springLayout_1.putConstraint(SpringLayout.NORTH, btnBrowse, -5, SpringLayout.NORTH, lblFilePath);
+		springLayout_1.putConstraint(SpringLayout.WEST, btnBrowse, 6, SpringLayout.EAST, textFieldFilePath);
 		springLayout.putConstraint(SpringLayout.WEST, btnBrowse, 6, SpringLayout.EAST, textFieldFilePath);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnBrowse, 0, SpringLayout.SOUTH, textFieldFilePath);
 		btnBrowse.addActionListener(this);
 		btnBrowse.setActionCommand("Browse");
 		add(btnBrowse);
 
-		JButton btnValid = new JButton("Valid");
-		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 18, SpringLayout.SOUTH, textFieldFilePath);
-		springLayout.putConstraint(SpringLayout.EAST, btnValid, 0, SpringLayout.EAST, textFieldFilePath);
-		btnValid.addActionListener(this);
-		btnValid.setActionCommand("Valid");
-		add(btnValid);
+		JButton btnSort = new JButton("Sort");
+		springLayout_1.putConstraint(SpringLayout.NORTH, btnSort, 15, SpringLayout.SOUTH, textFieldFilePath);
+		springLayout_1.putConstraint(SpringLayout.WEST, btnSort, 0, SpringLayout.WEST, textFieldFilePath);
+		springLayout.putConstraint(SpringLayout.NORTH, btnSort, 18, SpringLayout.SOUTH, textFieldFilePath);
+		springLayout.putConstraint(SpringLayout.EAST, btnSort, 0, SpringLayout.EAST, textFieldFilePath);
+		btnSort.addActionListener(this);
+		btnSort.setActionCommand("Sort");
+		add(btnSort);
 
 		
 		setVisible(true);
@@ -104,7 +114,7 @@ public class HomeView extends JPanel implements ActionListener{
 			System.out.println("essaie "+test);
 			
 		}
-		else if(cmd.equals("Valid")){ 
+		else if(cmd.equals("Sort")){ 
 
 			System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
 			ArrayList<String[]> test2 = new ArrayList<String[]>();
@@ -126,10 +136,12 @@ public class HomeView extends JPanel implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			SortView sortview= new SortView(test2.get(0));
+			MainView.changePanel(sortview);
 			test2.remove(0);
 
 			//tri
-			
+			/*
 			Operator myOperator= new Operator(test2);
 			myOperator.sortColumn(test2, 1);
 			myOperator.tranformDate(test2, 0);
@@ -147,7 +159,7 @@ public class HomeView extends JPanel implements ActionListener{
 			}
 		
 			
-		}
+		*/}
 
 	}
 	

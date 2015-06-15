@@ -43,7 +43,7 @@ public class MainView extends JFrame implements ActionListener {
 		//this.persistType = persistType;
 		//On instancie une facadeUser pour la vue
 		setTitle("Welcome");
-		setResizable(true);
+		setResizable(false);
 		initialize();
 	}
 

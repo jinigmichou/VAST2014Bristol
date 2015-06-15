@@ -249,8 +249,9 @@ public class Operator {
 				myFile.remove(i);
 				j++;
 			}
-			System.out.println(j);
+			
 		}
+		System.out.println(j);
 	}
 
 
