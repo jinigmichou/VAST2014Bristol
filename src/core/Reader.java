@@ -31,16 +31,9 @@ public class Reader{
 	}
 
 	public ArrayList<String[]>  readCsv(String myFilePath) throws Exception{
-		System.out.println("essaie3"+ getMyFilePath());
 		ReaderCSV myReader= new ReaderCSV(this.getMyFilePath());
 		return myReader.readCsv(myFilePath);
 	}
-
-	
-
-
-
-
 
 	public ArrayList<String[]> getMyFile() {
 		return myFile;

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -121,6 +122,10 @@ public class HomeView extends JPanel implements ActionListener{
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Browse")){ 
 			textFieldFilePath.setText(this.selectFile());
+			String recup;
+			recup = textFieldFilePath.getText();
+			
+			MainView.logger.log(Level.INFO, "Click on the buttom Browse, choice of the file "+ recup);
 	
 			
 		}
@@ -128,15 +133,18 @@ public class HomeView extends JPanel implements ActionListener{
 
 			ArrayList<String[]> test2 = new ArrayList<String[]>();
 			String filePath= textFieldFilePath.getText();
+			MainView.logger.log(Level.INFO, "Click on the buttom Sort, it sorted the file " + filePath);
 			
 			Reader myreader= new Reader(filePath);
+			
+			String result = "" ;
 			
 			try {
 				
 				
 				test2=myreader.readCsv(myreader.getMyFilePath());
 				for (int i= 0; i<test2.get(0).length; i++){
-					System.out.println(test2.get(0)[i]);
+					result = result + test2.get(0)[i] + ", ";
 					//comboBoxColumnName.addItem(test2.get(0)[i]);
 				}
 
@@ -144,9 +152,11 @@ public class HomeView extends JPanel implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			MainView frame = new MainView();
-			frame.setContentPane(new SortView(test2.get(0), test2));
 			
+			MainView.logger.log(Level.INFO, "In the file there are " + result + "as data");
+			
+			SortView sortview= new SortView(test2.get(0), test2);
+			MainView.changePanel(sortview);
 			
 
 		}
