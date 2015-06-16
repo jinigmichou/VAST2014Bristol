@@ -127,6 +127,8 @@ public class MainView extends JFrame implements ActionListener {
 		panelDisplay.repaint();
 		panelDisplay.revalidate();
 		
+		
+		
 	}
 	
 	@Override
@@ -141,10 +143,17 @@ public class MainView extends JFrame implements ActionListener {
 			
 		}
 		if(cmd.equals("test")){ 
-			testPanel = new Test();
+
+			this.setContentPane(new Test());
+			/*testPanel = new Test();
+			changePanel(testPanel);*/
+
+			
 			logger.log(Level.INFO, "Click on the buttom test");
-			changePanel(testPanel);
+			
+
 			setVisible(true);
+			
 		}
 		
 	}

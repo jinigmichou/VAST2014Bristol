@@ -23,7 +23,7 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 	 */
 	public SortByJourneyView( ArrayList<String[]> myFile)  {
 		this.myFile=myFile;
-		
+		/*a */
 		
 		JLabel lblTimeBetweenTwo = new JLabel("Time between two journeys: ");
 		lblTimeBetweenTwo.setBounds(49, 52, 180, 16);
@@ -55,7 +55,9 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		if(cmd.equals("Order")){ 
 			getMyFile().remove(0);
 			Operator.tranformDate(this.getMyFile(), 0);
-			ArrayList<String[]> test3 = Operator.sortTimestamp(this.getMyFile(), 0);
+			System.out.println(timeChoosen*60000);
+			ArrayList<String[]> test3 = Operator.sortTimestamp(this.getMyFile(), 0, timeChoosen*60000);
+			
 			try {
 				Writer.writeCsv(test3, "sortByjourney.csv");
 				MainView.logger.log(Level.INFO, "Click on the buttom SortByJourney, choice of the file "+ this.getMyFile());

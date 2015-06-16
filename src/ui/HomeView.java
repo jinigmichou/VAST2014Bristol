@@ -24,16 +24,15 @@ import core.Writer;
 
 public class HomeView extends JPanel implements ActionListener{
 	
-	private MainView mainView;
+	private MainView frame;
 	private JTextField textFieldFilePath;
-	private String[] tabs;
 	
 
 	/**
 	 * Create the panel.
 	 */
 	public HomeView() {
-
+		
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.WHITE);
 		SpringLayout springLayout = new SpringLayout();
@@ -122,13 +121,11 @@ public class HomeView extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Browse")){ 
-			
 			textFieldFilePath.setText(this.selectFile());
 			String recup;
 			recup = textFieldFilePath.getText();
 			
 			MainView.logger.log(Level.INFO, "Click on the buttom Browse, choice of the file "+ recup);
-			
 	
 			
 		}
@@ -142,15 +139,12 @@ public class HomeView extends JPanel implements ActionListener{
 			
 			String result = "" ;
 			
-			try {				
+			try {
+				
 				
 				test2=myreader.readCsv(myreader.getMyFilePath());
-				
 				for (int i= 0; i<test2.get(0).length; i++){
-					//System.out.println(test2.get(0)[i]);
 					result = result + test2.get(0)[i] + ", ";
-					/*tab[i] = test2.get(0)[i];
-					System.out.println(tab[i]);*/
 					//comboBoxColumnName.addItem(test2.get(0)[i]);
 				}
 
@@ -187,7 +181,42 @@ public class HomeView extends JPanel implements ActionListener{
 				e1.printStackTrace();
 			}
 			SortByJourneyView sortview= new SortByJourneyView(test2);
-			MainView.changePanel(sortview);		
+			MainView.changePanel(sortview);
 		}
+			else if(cmd.equals("Calculate")){
+				
+				ArrayList<String[]> test2 = new ArrayList<String[]>();
+				String filePath= textFieldFilePath.getText();
+				
+				Reader myreader= new Reader(filePath);
+				
+				try {
+					
+					
+					test2=myreader.readCsv(myreader.getMyFilePath());
+					for (int i= 0; i<test2.get(0).length; i++){
+						System.out.println(test2.get(0)[i]);
+						//comboBoxColumnName.addItem(test2.get(0)[i]);
+					}
+
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				/*CalculJourneyView journeyview= new CalculJourneyView(test2.get(0), test2);
+				MainView.changePanel(journeyview);*/
+				MainView frame = new MainView();
+				frame.setContentPane(new CalculJourneyView(test2.get(0), test2));
+				/*testPanel = new Test();
+				changePanel(testPanel);*/
+				setVisible(true);
+				
+			}
+			
+			
+		
+
 	}
+	
+
 }

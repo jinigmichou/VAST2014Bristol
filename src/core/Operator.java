@@ -49,7 +49,7 @@ public class Operator {
 		});
 	}
 
-	public static ArrayList<String[]> sortTimestamp(ArrayList<String[]> myFile, int columnDate){
+	public static ArrayList<String[]> sortTimestamp(ArrayList<String[]> myFile, int columnDate, int timeInterval){
 
 		ArrayList<String[]> myFile2= new ArrayList<String[]>();
 		String[] title ={"idCar","StartTimeStamp","StartLat","StartLon", "FinishTimestamp", "FinishLat", "FinishLon"};
@@ -78,7 +78,7 @@ public class Operator {
 				currentStamp[3]=stamp[3];
 			}
 
-			if (myFile.get(i)[1].equals(myFile.get(i+1)[1]) && !compareTimeStamp(myFile.get(i)[columnDate], myFile.get(i+1)[columnDate], 600000)){
+			if (myFile.get(i)[1].equals(myFile.get(i+1)[1]) && !compareTimeStamp(myFile.get(i)[columnDate], myFile.get(i+1)[columnDate], timeInterval )){
 
 				currentStamp[4]=myFile.get(i)[0];
 				currentStamp[5]=myFile.get(i)[2];
@@ -151,7 +151,7 @@ public class Operator {
 	 * @param myFile
 	 * @return
 	 */
-	public  ArrayList<String[]> journeyCalculation(ArrayList<String[]> myFile){
+	public static ArrayList<String[]> journeyCalculation(ArrayList<String[]> myFile, int start_time, int finish_time, int lat_start, int lon_start, int lat_finish, int lon_finish, String unit){
 		ArrayList<String[]> myFile2= new ArrayList<String[]>();
 		String[] title ={"idCar","StartDate", "FinishDate","latStart","lonStart","latFinish","lonFinish", "Distance"};
 
@@ -160,19 +160,20 @@ public class Operator {
 			String[] currentStamp= new String[8];
 			currentStamp[0]=myFile.get(i)[0];
 			//distance calculation
-			currentStamp[7] = String.valueOf(distance(myFile.get(i)[2], myFile.get(i)[3], myFile.get(i)[5], myFile.get(i)[6], "N"));
+			currentStamp[7] = String.valueOf(distance(myFile.get(i)[lat_start], myFile.get(i)[lon_start], myFile.get(i)[lat_finish], myFile.get(i)[lon_finish], unit));
 			//start time
-			currentStamp[1] = usingDateFormatter(Long.valueOf(myFile.get(i)[1]));
+			currentStamp[1] = usingDateFormatter(Long.valueOf(myFile.get(i)[start_time]));
 			//finish time
-			currentStamp[2] = usingDateFormatter(Long.valueOf(myFile.get(i)[4]));
+			currentStamp[2] = usingDateFormatter(Long.valueOf(myFile.get(i)[finish_time]));
 			//start location
-			currentStamp[3] = myFile.get(i)[2];//lat
-			currentStamp[4] = myFile.get(i)[3];//lon
+			currentStamp[3] = myFile.get(i)[lat_start];//lat
+			currentStamp[4] = myFile.get(i)[lon_start];//lon
 			//finish location
-			currentStamp[5] = myFile.get(i)[5];//lat
-			currentStamp[6] = myFile.get(i)[6];//lon
+			currentStamp[5] = myFile.get(i)[lat_finish];//lat
+			currentStamp[6] = myFile.get(i)[lon_finish];//lon
 
 			myFile2.add(currentStamp);
+
 		}
 
 		return myFile2;
@@ -187,7 +188,7 @@ public class Operator {
 	 * @param unit kind of unit, K for Km or N for mile
 	 * @return
 	 */
-	public double distance(String latStart, String lonStart, String latFinish, String lonFinish, String unit) {
+	public static double distance(String latStart, String lonStart, String latFinish, String lonFinish, String unit) {
 
 		double lat1 = Double.parseDouble(latStart);
 		double lat2 = Double.parseDouble(latFinish);
@@ -214,7 +215,7 @@ public class Operator {
 	 * @param rad
 	 * @return
 	 */
-	public double rad2deg(double rad) {
+	public static double rad2deg(double rad) {
 		return (rad * 180 / Math.PI);
 	}
 
@@ -224,7 +225,7 @@ public class Operator {
 	 * @param deg
 	 * @return
 	 */
-	public double deg2rad(double deg) {
+	public static double deg2rad(double deg) {
 		return (deg * Math.PI / 180.0);
 	}
 
@@ -234,7 +235,7 @@ public class Operator {
 	 * @param input is timestamp at Long format
 	 * @return
 	 */
-	public String usingDateFormatter(long input){
+	public static String usingDateFormatter(long input){
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
 		Date date = new Date(input);
 		Calendar cal = new GregorianCalendar();
@@ -246,16 +247,19 @@ public class Operator {
 	 * Function to remove journey which distance is null or equals to NaN
 	 * @param myFile
 	 */
-	public void verifyJourney(ArrayList<String[]> myFile){
-		int j =0;
+	public static ArrayList<String[]> verifyJourney(ArrayList<String[]> myFile){
+		ArrayList<String[]> myFileError = new ArrayList<String[]>();
+		myFileError.add(myFile.get(0));
 		for (int i=1;i<myFile.size();i++){
-			if (myFile.get(i)[7].equals("0.0")||myFile.get(i)[7].equals("NaN")){
-				myFile.remove(i);
-				j++;
-			}
+			for(int j=0; j<myFile.get(0).length;j++){
+				if (myFile.get(i)[j].equals("0.0")||myFile.get(i)[j].equals("NaN")){
+					myFileError.add(myFile.get(i));
+					myFile.remove(i);
 
+				}
+			}
 		}
-		System.out.println(j);
+		return myFileError;
 	}
 
 
