@@ -172,7 +172,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 			
 		}
 		else if (cmd.equals("Cancel")){
-			MainView frame = new MainView();
+			MainView frame = new MainView(0);
 			frame.setContentPane(new HomeView());
 			
 		}

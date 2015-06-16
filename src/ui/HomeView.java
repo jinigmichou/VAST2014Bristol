@@ -151,7 +151,7 @@ public class HomeView extends JPanel implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			MainView frame = new MainView();
+			MainView frame = new MainView(0);
 			MainView.logger.log(Level.INFO, "In the file there are " + result + "as data");
 			frame.setContentPane(new SortView(test2.get(0), test2));
 
@@ -181,7 +181,7 @@ public class HomeView extends JPanel implements ActionListener{
 				e1.printStackTrace();
 			}
 
-			MainView frame = new MainView();
+			MainView frame = new MainView(0);
 
 			frame.setContentPane(new SortByJourneyView(test2));
 
@@ -208,7 +208,7 @@ public class HomeView extends JPanel implements ActionListener{
 			}
 			/*CalculJourneyView journeyview= new CalculJourneyView(test2.get(0), test2);
 				MainView.changePanel(journeyview);*/
-			MainView frame = new MainView();
+			MainView frame = new MainView(0);
 			frame.setContentPane(new CalculJourneyView(test2.get(0), test2));
 			/*testPanel = new Test();
 				changePanel(testPanel);*/
@@ -216,7 +216,7 @@ public class HomeView extends JPanel implements ActionListener{
 
 		}
 		else if(cmd.equals("Return")){
-			MainView frame = new MainView();
+			MainView frame = new MainView(0);
 			frame.setContentPane(new ChooseDataSourceView());
 			setVisible(true);
 		}

@@ -112,7 +112,7 @@ public class SortView extends JPanel implements ActionListener {
 			this.getMyFile().remove(0);
 			
 			Operator.sortColumn(this.getMyFile(), columnChoosen);
-			String filepath = "fileSorted";
+			String filepath = "CsvData/fileSorted";
 			this.getMyFile().add(0, this.getTitle());
 
 			MainView.logger.log(Level.INFO, "Choice of " + this.getTitle()[columnChoosen] + " from the ComboBox to sort the file");
@@ -142,7 +142,7 @@ public class SortView extends JPanel implements ActionListener {
 			MainView.logger.log(Level.INFO, "Cancel, go back to Home Page ");}
 
 		else if(cmd.equals("Back")){ 
-			MainView frame=new MainView();
+			MainView frame=new MainView(0);
 
 			frame.setContentPane(new HomeView());
 

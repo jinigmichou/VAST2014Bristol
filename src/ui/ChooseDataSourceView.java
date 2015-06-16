@@ -60,7 +60,7 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 		String cmd = e.getActionCommand();
 		if(cmd.equals("CSV")){ 
 			MainView.logger.log(Level.INFO, "Click on the buttom CSV, choice of CSV database");
-			MainView frame = new MainView();
+			MainView frame = new MainView(0);
 			frame.setContentPane(new HomeView());
 			setVisible(true);
 		}

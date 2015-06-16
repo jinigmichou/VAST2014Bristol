@@ -2,27 +2,15 @@ package ui;
 
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
-import javax.swing.JLabel;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import javax.swing.SwingConstants;
-
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.*;
 
-/**
- * 
- * @author All 
- *
- */
 
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener {
@@ -47,13 +35,13 @@ public class MainView extends JFrame implements ActionListener {
 	 * Create the application.
 	 */
 	public static void main(String[] args){
-		new MainView();
+		new MainView(1);
 	}
-	public MainView() {
+	public MainView(int log) {
 				
 		//this.persistType = persistType;
 		//On instancie une facadeUser pour la vue
-		
+		if(log==1){
 		try {
 			Handler fh = new FileHandler("log", true);
 			fh.setFormatter(new SimpleFormatter());
@@ -68,7 +56,7 @@ public class MainView extends JFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		}
 		setTitle("Welcome");
 		setResizable(false);
 		initialize();
