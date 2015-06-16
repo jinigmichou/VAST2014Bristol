@@ -54,3 +54,5 @@ Jun 16, 2015 2:14:02 PM ui.HomeView actionPerformed
 INFO: Click on the buttom Sort, it sorted the file /Users/nicolaspelce/VAST2014/gps.csv
 Jun 16, 2015 2:14:04 PM ui.HomeView actionPerformed
 INFO: In the file there are Timestamp, id, lat, long, as data
+Jun 16, 2015 4:13:03 PM ui.MainView <init>
+INFO: Start up of the program
