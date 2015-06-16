@@ -21,7 +21,7 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 	 */
 	public SortByJourneyView( ArrayList<String[]> myFile)  {
 		this.myFile=myFile;
-		/**/
+		/*a*/
 		
 		JLabel lblTimeBetweenTwo = new JLabel("Time between two journeys: ");
 		lblTimeBetweenTwo.setBounds(49, 52, 180, 16);
