@@ -14,6 +14,13 @@ public class Writer {
 	public Writer(){
 		
 	}
+	
+	public Writer(ArrayList<String[]> myFile, String myFilePath){
+		this.myFile=myFile;
+		this.myFilePath=myFilePath;
+
+		
+	}
 	public Writer(ArrayList<String[]> myFile, String myFilePath, WriterCSV myWriter){
 		this.myFile=myFile;
 		this.myFilePath=myFilePath;
@@ -21,8 +28,9 @@ public class Writer {
 		
 	}
 	
-	public  void writeCsv(ArrayList<String[]> myFile, String myFilePath) throws Exception{
-		myWriter.writeCsv(myFile, myFilePath);
+	public static void writeCsv(ArrayList<String[]> myFile, String myFilePath) throws Exception{
+
+		WriterCSV.writeCsv(myFile, myFilePath);
 	}
 		
 	public ArrayList<String[]> getMyFile() {

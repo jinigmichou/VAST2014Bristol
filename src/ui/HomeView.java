@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,12 +26,13 @@ public class HomeView extends JPanel implements ActionListener{
 	
 	private MainView mainView;
 	private JTextField textFieldFilePath;
+	
 
 	/**
 	 * Create the panel.
 	 */
 	public HomeView() {
-		System.out.println("je vais y arriver");
+
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.WHITE);
 		SpringLayout springLayout = new SpringLayout();
@@ -71,6 +73,16 @@ public class HomeView extends JPanel implements ActionListener{
 		btnSort.addActionListener(this);
 		btnSort.setActionCommand("Sort");
 		add(btnSort);
+		
+		JButton btnCalculate = new JButton("Calculate journey");
+		btnCalculate.addActionListener(this);
+		btnCalculate.setActionCommand("Calculate");
+		add(btnCalculate);
+		
+		JButton btnSortByJourney = new JButton("Sort by journey");
+		btnSortByJourney.addActionListener(this);
+		btnSortByJourney.setActionCommand("SortByJourney");
+		add(btnSortByJourney);
 
 		
 		setVisible(true);
@@ -110,21 +122,18 @@ public class HomeView extends JPanel implements ActionListener{
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Browse")){ 
 			textFieldFilePath.setText(this.selectFile());
-			String test = textFieldFilePath.getText();
-			System.out.println("essaie "+test);
+	
 			
 		}
 		else if(cmd.equals("Sort")){ 
 
-			System.out.println("le chemin du fichier est : "+textFieldFilePath.getText());
 			ArrayList<String[]> test2 = new ArrayList<String[]>();
 			String filePath= textFieldFilePath.getText();
-			System.out.println("file path : "+filePath);
+			
 			Reader myreader= new Reader(filePath);
-			System.out.println("le chemin du fichier est 2: "+myreader.getMyFilePath());
+			
 			try {
-				System.out.println("array "+myreader.getMyFile());
-				System.out.println("File path "+textFieldFilePath.getText());
+				
 				
 				test2=myreader.readCsv(myreader.getMyFilePath());
 				for (int i= 0; i<test2.get(0).length; i++){
@@ -136,30 +145,36 @@ public class HomeView extends JPanel implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			SortView sortview= new SortView(test2.get(0));
+			
+			SortView sortview= new SortView(test2.get(0), test2);
 			MainView.changePanel(sortview);
-			test2.remove(0);
+			
 
-			//tri
-			/*
-			Operator myOperator= new Operator(test2);
-			myOperator.sortColumn(test2, 1);
-			myOperator.tranformDate(test2, 0);
-			test2=myOperator.sortTimestamp(test2, 0);
-			test2=myOperator.journeyCalculation(test2);
-			myOperator.verifyJourney(test2);
-
-			WriterCSV test3= new WriterCSV();
-			String pathnewfile=new String("testFichiercsv1.csv");
+		}
+		else if(cmd.equals("SortByJourney")){
+			
+			ArrayList<String[]> test2 = new ArrayList<String[]>();
+			String filePath= textFieldFilePath.getText();
+			
+			Reader myreader= new Reader(filePath);
+			
 			try {
-				test3.writeCsv(test2, pathnewfile);
+				
+				
+				test2=myreader.readCsv(myreader.getMyFilePath());
+
+		
+
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		
+			SortByJourneyView sortview= new SortByJourneyView(test2);
+			MainView.changePanel(sortview);
 			
-		*/}
+			
+			
+		}
 
 	}
 	

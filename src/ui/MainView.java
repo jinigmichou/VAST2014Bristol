@@ -106,13 +106,11 @@ public class MainView extends JFrame implements ActionListener {
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Manage DB")){ 
 			chooseDataSourceView = new ChooseDataSourceView();
-			System.out.println("coucou");
 			changePanel(chooseDataSourceView);
 			setVisible(true);
 		}
 		if(cmd.equals("test")){ 
 			testPanel = new Test();
-			System.out.println("coucou");
 			changePanel(testPanel);
 			setVisible(true);
 		}

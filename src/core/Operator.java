@@ -17,21 +17,23 @@ public class Operator {
 	public Operator(ArrayList<String[]> myFile){
 		this.myFile=myFile;
 	}
-	public static int compare(String[] s1, String[] s2,int Column){
+
+
+	/*public static int compare(String[] s1, String[] s2,int Column){
 		if (s1[Column]==s2[Column])
 			return 0;
 		else if ( s1[Column].compareTo(s2[Column]) < 0)
 			return 1;
 		else
 			return -1;
-	}
+	}*/
 
 	/**
 	 * This function sorts an ArrayList<String[]> by lexicographical order
 	 * @param myFile
 	 * @param Column it is the reference column for  sorting
 	 */
-	public void sortColumn(ArrayList<String[]> myFile, final int Column){
+	public static void sortColumn(ArrayList<String[]> myFile, final int Column){
 		Collections.sort(myFile, new Comparator<String[]>(){
 			@Override
 			public int compare(String[] s1, String[] s2) {
@@ -47,7 +49,7 @@ public class Operator {
 		});
 	}
 
-	public ArrayList<String[]> sortTimestamp(ArrayList<String[]> myFile, int columnDate){
+	public static ArrayList<String[]> sortTimestamp(ArrayList<String[]> myFile, int columnDate){
 
 		ArrayList<String[]> myFile2= new ArrayList<String[]>();
 		String[] title ={"idCar","StartTimeStamp","StartLat","StartLon", "FinishTimestamp", "FinishLat", "FinishLon"};
@@ -100,7 +102,7 @@ public class Operator {
 	 * @param myFile is the file to update
 	 * @param columnDate is the column number of column date
 	 */
-	public void tranformDate(ArrayList<String[]> myFile, int columnDate){
+	public static void tranformDate(ArrayList<String[]> myFile, int columnDate){
 		int i = 0;
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		for(i=0;i<myFile.size();i++){
@@ -118,6 +120,8 @@ public class Operator {
 
 		}
 	}
+
+
 	/**
 	 * Function to compare timeStamp
 	 * return True if time between the two timestamps is smaller than timeInterval in ms.
@@ -127,7 +131,7 @@ public class Operator {
 	 * @param timeInterval time minimum between two journeys in ms
 	 * @return
 	 */
-	public boolean compareTimeStamp(String s1, String s2, int timeInterval){
+	public static boolean compareTimeStamp(String s1, String s2, int timeInterval){
 
 		long i1= Long.parseLong(s1);
 		long i2= Long.parseLong(s2);
@@ -141,7 +145,7 @@ public class Operator {
 		}
 
 	}
-	
+
 	/**
 	 * This function permits to generate an ArrayList<String[]> including distance, start/finish location
 	 * @param myFile
@@ -173,7 +177,7 @@ public class Operator {
 
 		return myFile2;
 	}
-	
+
 	/**
 	 * function to calculate distance between two points. One point i equivalent to a latitude point and a longitude point
 	 * @param latStart latitude start degree decimal
@@ -249,7 +253,7 @@ public class Operator {
 				myFile.remove(i);
 				j++;
 			}
-			
+
 		}
 		System.out.println(j);
 	}
