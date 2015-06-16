@@ -72,12 +72,12 @@ public class SortView extends JPanel implements ActionListener {
 		btnValid.setActionCommand("Valid");
 		add(btnValid);
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Back");
 		springLayout.putConstraint(SpringLayout.EAST, btnCancel, -22, SpringLayout.WEST, btnValid);
 		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 0, SpringLayout.NORTH, btnCancel);
 		springLayout.putConstraint(SpringLayout.NORTH, btnCancel, 25, SpringLayout.SOUTH, comboBox);
 		btnCancel.addActionListener(this);
-		btnCancel.setActionCommand("Cancel");
+		btnCancel.setActionCommand("Back");
 		add(btnCancel);
 		
 		 textArea = new JTextArea();
@@ -135,10 +135,17 @@ public class SortView extends JPanel implements ActionListener {
 			textArea.append("File "+filepath+".csv has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 			textArea.append("File "+filepath+"Error.csv has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 		}
+
 		else if(cmd.equals("Cancel")){ 
 			HomeView homeview=new HomeView();
 			MainView.changePanel(homeview);
-			MainView.logger.log(Level.INFO, "Cancel, go back to Home Page ");
+			MainView.logger.log(Level.INFO, "Cancel, go back to Home Page ");}
+
+		else if(cmd.equals("Back")){ 
+			MainView frame=new MainView();
+
+			frame.setContentPane(new HomeView());
+
 			
 		}
 		else if(cmd.equals("combo")){ 

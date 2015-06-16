@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -40,6 +41,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		this.myFile=myFile;
 		setLayout(null);
 		String unit="N";
+		setBackground(Color.LIGHT_GRAY);
 
 		JLabel lblStart = new JLabel("Start:");
 		lblStart.setBounds(31, 22, 61, 16);

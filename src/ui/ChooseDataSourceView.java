@@ -19,36 +19,33 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 	private MainView mainView;
 
 	public ChooseDataSourceView() {
-		SpringLayout springLayout = new SpringLayout();
-
+		setBackground(Color.LIGHT_GRAY);
+		
+		
+		setLayout(null);
+		
 		JLabel lblChooseDataSource = new JLabel("Choose Data Source");
-		springLayout.putConstraint(SpringLayout.NORTH, lblChooseDataSource, 10, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, lblChooseDataSource, 153, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblChooseDataSource, 26, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, lblChooseDataSource, 287, SpringLayout.WEST, this);
+		lblChooseDataSource.setBounds(90, 33, 180, 16);
+		
 		add(lblChooseDataSource);
 
 		JButton csv = new JButton("CSV");
-		springLayout.putConstraint(SpringLayout.NORTH, csv, 65, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, csv, -300, SpringLayout.EAST, this);
+		csv.setBounds(90, 70, 180, 16);
 		csv.addActionListener(this);
 		csv.setActionCommand("CSV");
 		add(csv);
 		
 		JButton sql = new JButton("SQL");
-
-		springLayout.putConstraint(SpringLayout.NORTH, sql, 0, SpringLayout.NORTH, csv);
-		springLayout.putConstraint(SpringLayout.WEST, sql, 16, SpringLayout.EAST, csv);
-		springLayout.putConstraint(SpringLayout.EAST, sql, -4, SpringLayout.EAST, lblChooseDataSource);
+		sql.setBounds(90, 98, 180, 16);
 		add(sql);
 
 		JButton xml = new JButton("XML");
+		xml.setBounds(90, 130, 180, 16);
 		xml.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, xml, 65, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, xml, 16, SpringLayout.EAST, xml);
+		
 		add(xml);
 	}
 
@@ -63,8 +60,8 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 		String cmd = e.getActionCommand();
 		if(cmd.equals("CSV")){ 
 			MainView.logger.log(Level.INFO, "Click on the buttom CSV, choice of CSV database");
-			homeView = new HomeView();
-			MainView.changePanel(homeView);
+			MainView frame = new MainView();
+			frame.setContentPane(new HomeView());
 			setVisible(true);
 		}
 		if(cmd.equals("SQL")){ 

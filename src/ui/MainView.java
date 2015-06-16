@@ -137,8 +137,8 @@ public class MainView extends JFrame implements ActionListener {
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Manage DB")){ 
 			logger.log(Level.INFO, "Click on the buttom Manage DB");
-			chooseDataSourceView = new ChooseDataSourceView();
-			changePanel(chooseDataSourceView);
+			this.setContentPane(new ChooseDataSourceView());
+			
 			setVisible(true);
 			
 		}
