@@ -52,7 +52,9 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		if(cmd.equals("Order")){ 
 			getMyFile().remove(0);
 			Operator.tranformDate(this.getMyFile(), 0);
-			ArrayList<String[]> test3 = Operator.sortTimestamp(this.getMyFile(), 0);
+			System.out.println(timeChoosen*60000);
+			ArrayList<String[]> test3 = Operator.sortTimestamp(this.getMyFile(), 0, timeChoosen*60000);
+			
 			try {
 				Writer.writeCsv(test3, "sortByjourney.csv");
 			} catch (Exception e1) {

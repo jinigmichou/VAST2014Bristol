@@ -12,7 +12,7 @@ public class Test extends JPanel {
 	public Test() {
 		
 		SpringLayout springLayout = new SpringLayout();
-		//setLayout(springLayout);
+		setLayout(springLayout);
 		
 		JLabel lblNewLabel = new JLabel("TESTTTETTETE");
 		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 140, SpringLayout.NORTH, this);

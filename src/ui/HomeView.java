@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,7 +23,7 @@ import core.Writer;
 
 public class HomeView extends JPanel implements ActionListener{
 	
-	private MainView mainView;
+	private MainView frame;
 	private JTextField textFieldFilePath;
 	
 
@@ -32,7 +31,7 @@ public class HomeView extends JPanel implements ActionListener{
 	 * Create the panel.
 	 */
 	public HomeView() {
-
+		
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.WHITE);
 		SpringLayout springLayout = new SpringLayout();
@@ -145,9 +144,9 @@ public class HomeView extends JPanel implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			MainView frame = new MainView();
+			frame.setContentPane(new SortView(test2.get(0), test2));
 			
-			SortView sortview= new SortView(test2.get(0), test2);
-			MainView.changePanel(sortview);
 			
 
 		}
@@ -171,10 +170,39 @@ public class HomeView extends JPanel implements ActionListener{
 			}
 			SortByJourneyView sortview= new SortByJourneyView(test2);
 			MainView.changePanel(sortview);
-			
-			
-			
 		}
+			else if(cmd.equals("Calculate")){
+				
+				ArrayList<String[]> test2 = new ArrayList<String[]>();
+				String filePath= textFieldFilePath.getText();
+				
+				Reader myreader= new Reader(filePath);
+				
+				try {
+					
+					
+					test2=myreader.readCsv(myreader.getMyFilePath());
+					for (int i= 0; i<test2.get(0).length; i++){
+						System.out.println(test2.get(0)[i]);
+						//comboBoxColumnName.addItem(test2.get(0)[i]);
+					}
+
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				/*CalculJourneyView journeyview= new CalculJourneyView(test2.get(0), test2);
+				MainView.changePanel(journeyview);*/
+				MainView frame = new MainView();
+				frame.setContentPane(new CalculJourneyView(test2.get(0), test2));
+				/*testPanel = new Test();
+				changePanel(testPanel);*/
+				setVisible(true);
+				
+			}
+			
+			
+		
 
 	}
 	

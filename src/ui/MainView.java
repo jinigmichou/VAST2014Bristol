@@ -98,6 +98,8 @@ public class MainView extends JFrame implements ActionListener {
 		panelDisplay.repaint();
 		panelDisplay.revalidate();
 		
+		
+		
 	}
 	
 	@Override
@@ -110,9 +112,11 @@ public class MainView extends JFrame implements ActionListener {
 			setVisible(true);
 		}
 		if(cmd.equals("test")){ 
-			testPanel = new Test();
-			changePanel(testPanel);
+			this.setContentPane(new Test());
+			/*testPanel = new Test();
+			changePanel(testPanel);*/
 			setVisible(true);
+			
 		}
 		
 	}
