@@ -21,7 +21,6 @@ public class Reader{
 	public Reader(String myFilePath){
 		
 		this.myFilePath = myFilePath;
-		System.out.println(myFilePath);
 
 	}
 	public Reader(ArrayList<String[]> myFile, String myFilePath, ReaderCSV myReader){

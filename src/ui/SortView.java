@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javafx.scene.control.ComboBox;
 
@@ -32,11 +33,7 @@ public class SortView extends JPanel implements ActionListener {
 		this.title=title;
 		int columnChoosen=0;
 		SpringLayout springLayout = new SpringLayout();
-		
-		
-		
-
-		
+				
 		JLabel lblSelectReferenceColumn = new JLabel("Select reference column");
 		springLayout.putConstraint(SpringLayout.NORTH, lblSelectReferenceColumn, 61, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblSelectReferenceColumn, 34, SpringLayout.WEST, this);
@@ -93,10 +90,10 @@ public class SortView extends JPanel implements ActionListener {
 			Operator.sortColumn(this.getMyFile(), columnChoosen);
 
 			this.getMyFile().add(0, this.getTitle());
+			MainView.logger.log(Level.INFO, "Choice of " + this.getTitle()[columnChoosen] + " from the ComboBox to sort the file");
 			
-		
 			try {
-				Writer.writeCsv(this.getMyFile(), "test2.csv");
+				Writer.writeCsv(this.getMyFile(), "SortFile.csv");
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -107,14 +104,12 @@ public class SortView extends JPanel implements ActionListener {
 		else if(cmd.equals("Cancel")){ 
 			HomeView homeview=new HomeView();
 			MainView.changePanel(homeview);
+			MainView.logger.log(Level.INFO, "Cancel, go back to Home Page ");
 			
 		}
 		else if(cmd.equals("combo")){ 
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			columnChoosen = choice.getSelectedIndex();
-			
-			
-		
 		}
 	}
 	public String[] getTitle() {

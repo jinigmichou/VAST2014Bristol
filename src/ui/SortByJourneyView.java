@@ -3,6 +3,7 @@ package ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import core.Operator;
 import core.Writer;
 
 public class SortByJourneyView extends JPanel implements ActionListener{
+	
 	private Integer timeChoosen;
 	private ArrayList<String[]> myFile;
 	/**
@@ -44,6 +46,7 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		add(btnCancel);
 
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -55,6 +58,7 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 			ArrayList<String[]> test3 = Operator.sortTimestamp(this.getMyFile(), 0);
 			try {
 				Writer.writeCsv(test3, "sortByjourney.csv");
+				MainView.logger.log(Level.INFO, "Click on the buttom SortByJourney, choice of the file "+ this.getMyFile());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -55,7 +55,7 @@ public class MainView extends JFrame implements ActionListener {
 		//On instancie une facadeUser pour la vue
 		
 		try {
-			Handler fh = new FileHandler("/Users/nicolaspelce/Desktop/log", true);
+			Handler fh = new FileHandler("log", true);
 			fh.setFormatter(new SimpleFormatter());
 			logger.addHandler(fh);
 			logger.log(Level.INFO, "Start up of the program");

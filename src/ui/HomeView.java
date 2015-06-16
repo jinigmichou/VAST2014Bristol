@@ -170,6 +170,8 @@ public class HomeView extends JPanel implements ActionListener{
 			
 			ArrayList<String[]> test2 = new ArrayList<String[]>();
 			String filePath= textFieldFilePath.getText();
+						
+			MainView.logger.log(Level.INFO, "Click on the buttom SortByJourney, choice of the file "+ filePath);
 			
 			Reader myreader= new Reader(filePath);
 			
