@@ -13,6 +13,10 @@ import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.*;
 
 /**
  * 
@@ -31,6 +35,12 @@ public class MainView extends JFrame implements ActionListener {
 	
 	private ChooseDataSourceView chooseDataSourceView;
 	private Test testPanel;
+	
+	protected static Logger logger=
+		    Logger.getLogger("ui.MainView");
+
+	
+	
 	//private AccountView accountPanel;
 	
 	/**
@@ -40,13 +50,32 @@ public class MainView extends JFrame implements ActionListener {
 		new MainView();
 	}
 	public MainView() {
+				
 		//this.persistType = persistType;
 		//On instancie une facadeUser pour la vue
+		
+		try {
+			Handler fh = new FileHandler("/Users/nicolaspelce/Desktop/log", true);
+			fh.setFormatter(new SimpleFormatter());
+			logger.addHandler(fh);
+			logger.log(Level.INFO, "Start up of the program");
+			
+			
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		setTitle("Welcome");
 		setResizable(false);
 		initialize();
 	}
 
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -105,12 +134,15 @@ public class MainView extends JFrame implements ActionListener {
 	{
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Manage DB")){ 
+			logger.log(Level.INFO, "Click on the buttom Manage DB");
 			chooseDataSourceView = new ChooseDataSourceView();
 			changePanel(chooseDataSourceView);
 			setVisible(true);
+			
 		}
 		if(cmd.equals("test")){ 
 			testPanel = new Test();
+			logger.log(Level.INFO, "Click on the buttom test");
 			changePanel(testPanel);
 			setVisible(true);
 		}

@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 import java.awt.Color;
+import java.util.logging.Level;
 
 public class ChooseDataSourceView extends JPanel implements ActionListener{
 
@@ -56,26 +57,25 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 	 * @param panel
 	 */
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		String cmd = e.getActionCommand();
 		if(cmd.equals("CSV")){ 
+			MainView.logger.log(Level.INFO, "Click on the buttom CSV, choice of CSV database");
 			homeView = new HomeView();
-			System.out.println("coucou");
 			MainView.changePanel(homeView);
 			setVisible(true);
 		}
 		if(cmd.equals("SQL")){ 
+			MainView.logger.log(Level.INFO, "Click on the buttom SQL, choice of SQL database");
 			testPanel = new Test();
-			System.out.println("coucou");
 			MainView.changePanel(testPanel);
 			setVisible(true);
 		}
-		if(cmd.equals("XML")){ 
+		if(cmd.equals("XML")){
+			MainView.logger.log(Level.INFO, "Click on the buttom XML, choice of XML database");
 			testPanel = new Test();
-			System.out.println("coucou");
 			MainView.changePanel(testPanel);
 			setVisible(true);
 		}

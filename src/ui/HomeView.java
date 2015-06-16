@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.swing.JButton;
-
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,6 +26,7 @@ public class HomeView extends JPanel implements ActionListener{
 	
 	private MainView mainView;
 	private JTextField textFieldFilePath;
+	private String[] tabs;
 	
 
 	/**
@@ -121,7 +122,13 @@ public class HomeView extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Browse")){ 
+			
 			textFieldFilePath.setText(this.selectFile());
+			String recup;
+			recup = textFieldFilePath.getText();
+			
+			MainView.logger.log(Level.INFO, "Click on the buttom Browse, choice of the file "+ recup);
+			
 	
 			
 		}
@@ -129,15 +136,21 @@ public class HomeView extends JPanel implements ActionListener{
 
 			ArrayList<String[]> test2 = new ArrayList<String[]>();
 			String filePath= textFieldFilePath.getText();
+			MainView.logger.log(Level.INFO, "Click on the buttom Sort, it sorted the file " + filePath);
 			
 			Reader myreader= new Reader(filePath);
 			
-			try {
-				
+			String result = "" ;
+			
+			try {				
 				
 				test2=myreader.readCsv(myreader.getMyFilePath());
+				
 				for (int i= 0; i<test2.get(0).length; i++){
-					System.out.println(test2.get(0)[i]);
+					//System.out.println(test2.get(0)[i]);
+					result = result + test2.get(0)[i] + ", ";
+					/*tab[i] = test2.get(0)[i];
+					System.out.println(tab[i]);*/
 					//comboBoxColumnName.addItem(test2.get(0)[i]);
 				}
 
@@ -145,6 +158,8 @@ public class HomeView extends JPanel implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
+			MainView.logger.log(Level.INFO, "In the file there are " + result + "as data");
 			
 			SortView sortview= new SortView(test2.get(0), test2);
 			MainView.changePanel(sortview);
@@ -170,13 +185,7 @@ public class HomeView extends JPanel implements ActionListener{
 				e1.printStackTrace();
 			}
 			SortByJourneyView sortview= new SortByJourneyView(test2);
-			MainView.changePanel(sortview);
-			
-			
-			
+			MainView.changePanel(sortview);		
 		}
-
 	}
-	
-
 }
