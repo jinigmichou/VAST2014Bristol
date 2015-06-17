@@ -2,10 +2,10 @@ package ui;
 
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
-
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -72,16 +72,18 @@ public class MainView extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		springLayout = new SpringLayout();
 		getContentPane().setLayout(springLayout);
-		
+	
+		getContentPane().setBackground(Color.LIGHT_GRAY);
 		panelDisplay = new JPanel();
+		panelDisplay.setBackground(Color.LIGHT_GRAY);
 		springLayout.putConstraint(SpringLayout.NORTH, panelDisplay, 169, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, panelDisplay, 10, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, panelDisplay, -10, SpringLayout.SOUTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, panelDisplay, -10, SpringLayout.EAST, getContentPane());
 		getContentPane().add(panelDisplay);
 		
-		JButton homeButton = new JButton("Manage DB");
-		chooseDataSourceView = new ChooseDataSourceView();
+		JButton homeButton = new JButton("Click to Start");
+		chooseDataSourceView = new ChooseDataSourceView(this);
 		springLayout.putConstraint(SpringLayout.NORTH, homeButton, 10, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, homeButton, 10, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, homeButton, -613, SpringLayout.EAST, getContentPane());
@@ -89,13 +91,7 @@ public class MainView extends JFrame implements ActionListener {
 		homeButton.setActionCommand("Manage DB");
 		getContentPane().add(homeButton);
 		
-		JButton btnTest = new JButton("test");
-		testPanel = new Test();
-		springLayout.putConstraint(SpringLayout.NORTH, btnTest, 0, SpringLayout.NORTH, homeButton);
-		springLayout.putConstraint(SpringLayout.WEST, btnTest, 32, SpringLayout.EAST, homeButton);
-		btnTest.addActionListener(this);
-		btnTest.setActionCommand("test");
-		getContentPane().add(btnTest);
+		
 		
 		setVisible(true);
 		
@@ -105,18 +101,20 @@ public class MainView extends JFrame implements ActionListener {
 	 * Methode qui change le panel en fonction des actions
 	 * @param panel
 	 */
-	public static void changePanel(JPanel panel){
+	
+	public void changePanel(JPanel panel){
 		//remove ancient JPanel if exist
-		panelDisplay.removeAll();
+		/*panelDisplay.removeAll();
 		panelDisplay.repaint();
-		panelDisplay.revalidate();
+		panelDisplay.revalidate();*/
 		//add the new JPanel
-		panelDisplay.add(panel);
+		/*panelDisplay.add(panel);
 		panelDisplay.repaint();
-		panelDisplay.revalidate();
+		panelDisplay.revalidate();*/
 		
-		
-		
+		this.setContentPane(panel);
+		System.out.println("coucou1");
+		setVisible(true);	
 	}
 	
 	@Override
@@ -124,25 +122,13 @@ public class MainView extends JFrame implements ActionListener {
 	{
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Manage DB")){ 
-			logger.log(Level.INFO, "Click on the buttom Manage DB");
-			this.setContentPane(new ChooseDataSourceView());
-			
-			setVisible(true);
-			
-		}
-		if(cmd.equals("test")){ 
-
-			this.setContentPane(new Test());
-			/*testPanel = new Test();
-			changePanel(testPanel);*/
-
-			
-			logger.log(Level.INFO, "Click on the buttom test");
-			
-
-			setVisible(true);
+			logger.log(Level.INFO, "Click on the buttom start application");
+			changePanel(new ChooseDataSourceView(this));
+			System.out.println("coucou");
+			//setVisible(true);
 			
 		}
+
 		
 	}
 

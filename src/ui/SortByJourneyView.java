@@ -4,11 +4,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import java.util.logging.Level;
-
 import java.util.Date;
-
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JPanel;
@@ -21,16 +18,20 @@ import core.Operator;
 import core.Writer;
 
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class SortByJourneyView extends JPanel implements ActionListener{
 	
 	private Integer timeChoosen;
 	private ArrayList<String[]> myFile;
 	private JTextArea textArea;
+	private JTextField textFieldfileName;
+	private MainView frame;
 	/**
 	 * Create the panel.
 	 */
-	public SortByJourneyView( ArrayList<String[]> myFile)  {
+	public SortByJourneyView(MainView frame, ArrayList<String[]> myFile)  {
+		this.frame = frame;
 		this.myFile=myFile;
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -53,8 +54,10 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		btnCalculate.setActionCommand("Order");
 		add(btnCalculate);
 
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Back");
 		btnCancel.setBounds(253, 134, 117, 29);
+		btnCancel.addActionListener(this);
+		btnCancel.setActionCommand("Cancel");
 		add(btnCancel);
 
 		JLabel lblMinutes = new JLabel("minutes");
@@ -66,6 +69,15 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(36, 211, 533, 143);
 		add(scrollPane);
+		
+		JLabel lblNameOfNew = new JLabel("Name of new file: ");
+		lblNameOfNew.setBounds(39, 29, 126, 16);
+		add(lblNameOfNew);
+		
+		textFieldfileName = new JTextField();
+		textFieldfileName.setBounds(177, 23, 184, 28);
+		add(textFieldfileName);
+		textFieldfileName.setColumns(10);
 
 	}
 	
@@ -80,11 +92,11 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 			System.out.println(timeChoosen*60000);
 			ArrayList<String[]> test = Operator.sortTimestamp(this.getMyFile(), 0, timeChoosen*60000);
 			ArrayList<String[]> testError = Operator.verifyJourney(test);
-			String fileName = "sortByJourney";
+			String fileName = "CsvData/"+this.textFieldfileName.getText();
 			try {
 
 				
-				MainView.logger.log(Level.INFO, "Click on the buttom SortByJourney, choice of the file "+ this.getMyFile());
+				MainView.logger.log(Level.INFO, "Click on the buttom SortByJourney, new file is "+this.textFieldfileName.getText());
 
 				Writer.writeCsv(test, fileName+".csv");
 				Writer.writeCsv(testError, fileName+"Error.csv");
@@ -103,7 +115,9 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 
 		}
 		else if(cmd.equals("Cancel")){
-
+			
+			frame.changePanel(new HomeView(frame));
+		
 		}
 		else if (cmd.equals("combo")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();

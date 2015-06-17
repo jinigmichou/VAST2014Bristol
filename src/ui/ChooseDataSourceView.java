@@ -16,9 +16,10 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 	private HomeView homeView;
 	private Test testPanel;
 	private static JPanel panelDisplay;
-	private MainView mainView;
+	private MainView frame;
 
-	public ChooseDataSourceView() {
+	public ChooseDataSourceView(MainView frame) {
+		this.frame = frame;
 		setBackground(Color.LIGHT_GRAY);
 		
 		
@@ -60,20 +61,21 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 		String cmd = e.getActionCommand();
 		if(cmd.equals("CSV")){ 
 			MainView.logger.log(Level.INFO, "Click on the buttom CSV, choice of CSV database");
-			MainView frame = new MainView(0);
-			frame.setContentPane(new HomeView());
-			setVisible(true);
+			//MainView frame = new MainView(0);
+			//frame.setContentPane(new HomeView());
+			this.frame.changePanel(new HomeView(frame));
+			//setVisible(true);
 		}
 		if(cmd.equals("SQL")){ 
 			MainView.logger.log(Level.INFO, "Click on the buttom SQL, choice of SQL database");
 			testPanel = new Test();
-			MainView.changePanel(testPanel);
+			//MainView.changePanel(testPanel);
 			setVisible(true);
 		}
 		if(cmd.equals("XML")){
 			MainView.logger.log(Level.INFO, "Click on the buttom XML, choice of XML database");
 			testPanel = new Test();
-			MainView.changePanel(testPanel);
+			//MainView.changePanel(testPanel);
 			setVisible(true);
 		}
 	}

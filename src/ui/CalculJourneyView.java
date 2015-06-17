@@ -19,6 +19,7 @@ import core.Operator;
 import core.Writer;
 
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class CalculJourneyView extends JPanel implements ActionListener{
 
@@ -32,13 +33,16 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 	private int F_Lon;
 	private String unit;
 	private ArrayList<String[]> myFile;
+	private MainView frame;
 	
 	public JTextArea textArea;
+	private JTextField textFieldFileName;
 	/**
 	 * Create the panel.
 	 */
-	public CalculJourneyView(String[] title, ArrayList<String[]> myFile) {
+	public CalculJourneyView(MainView frame, String[] title, ArrayList<String[]> myFile) {
 		this.myFile=myFile;
+		this.frame = frame;
 		setLayout(null);
 		String unit="N";
 		setBackground(Color.LIGHT_GRAY);
@@ -140,6 +144,15 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(30, 344, 649, 118);
 		add(scrollPane);
+		
+		JLabel lblNameOfNew = new JLabel("Name of new file: ");
+		lblNameOfNew.setBounds(31, 284, 133, 16);
+		add(lblNameOfNew);
+		
+		textFieldFileName = new JTextField();
+		textFieldFileName.setBounds(186, 278, 169, 28);
+		add(textFieldFileName);
+		textFieldFileName.setColumns(10);
 	
 	}
 	
@@ -152,7 +165,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		if(cmd.equals("Valid")){
 			ArrayList<String[]> myFile2 = new ArrayList<String[]>();
 			ArrayList<String[]> myFileError = new ArrayList<String[]>();
-			String fileName= "JourneyWithDistance";
+			String fileName= "CsvData/"+this.textFieldFileName.getText();
 			myFile2 = Operator.journeyCalculation(myFile, S_Time, F_Time, S_Lat, S_Lon, F_Lat, F_Lon, unit);
 			myFileError = Operator.verifyJourney(myFile2);
 			try {
@@ -172,8 +185,8 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 			
 		}
 		else if (cmd.equals("Cancel")){
-			MainView frame = new MainView(0);
-			frame.setContentPane(new HomeView());
+			
+			frame.changePanel(new HomeView(frame));
 			
 		}
 		else if (cmd.equals("comboBox_S_Time")){

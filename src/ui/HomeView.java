@@ -10,6 +10,7 @@ import java.util.logging.Level;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -31,9 +32,9 @@ public class HomeView extends JPanel implements ActionListener{
 	/**
 	 * Create the panel.
 	 */
-	public HomeView() {
+	public HomeView(MainView frame) {
 
-		
+		this.frame = frame;
 		setBackground(Color.LIGHT_GRAY);
 		
 
@@ -78,7 +79,7 @@ public class HomeView extends JPanel implements ActionListener{
 		add(btnReturn);
 		
 		JButton btnSort = new JButton("Sort");
-		btnSort.setBounds(50, 110, 180, 16);
+		btnSort.setBounds(50, 112, 180, 16);
 		btnSort.addActionListener(this);
 		btnSort.setActionCommand("Sort");
 		add(btnSort);
@@ -151,10 +152,10 @@ public class HomeView extends JPanel implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			MainView frame = new MainView(0);
+			
 			MainView.logger.log(Level.INFO, "In the file there are " + result + "as data");
-			frame.setContentPane(new SortView(test2.get(0), test2));
-
+			
+			frame.changePanel(new SortView(frame,test2.get(0), test2));
 
 
 		}
@@ -181,9 +182,9 @@ public class HomeView extends JPanel implements ActionListener{
 				e1.printStackTrace();
 			}
 
-			MainView frame = new MainView(0);
+			
 
-			frame.setContentPane(new SortByJourneyView(test2));
+			frame.changePanel(new SortByJourneyView(frame,test2));
 
 		}
 		else if(cmd.equals("Calculate")){
@@ -206,18 +207,16 @@ public class HomeView extends JPanel implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			/*CalculJourneyView journeyview= new CalculJourneyView(test2.get(0), test2);
-				MainView.changePanel(journeyview);*/
-			MainView frame = new MainView(0);
-			frame.setContentPane(new CalculJourneyView(test2.get(0), test2));
-			/*testPanel = new Test();
-				changePanel(testPanel);*/
-			setVisible(true);
+			
+			
+			frame.changePanel(new CalculJourneyView(frame, test2.get(0), test2));
+			
+		
 
 		}
 		else if(cmd.equals("Return")){
 			MainView frame = new MainView(0);
-			frame.setContentPane(new ChooseDataSourceView());
+			frame.changePanel(new ChooseDataSourceView(frame));
 			setVisible(true);
 		}
 

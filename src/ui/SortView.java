@@ -25,6 +25,7 @@ import core.Operator;
 import core.Writer;
 
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class SortView extends JPanel implements ActionListener {
 	
@@ -33,11 +34,14 @@ public class SortView extends JPanel implements ActionListener {
 	private int columnChoosen;
 	private ArrayList<String[]> myFile;
 	private JTextArea textArea;
+	private JTextField textFieldFileName;
+	private MainView frame;
 	/**
 	 * Create the panel.
 	 */
-	public SortView(String[] title, ArrayList<String[]> myFile) {
+	public SortView(MainView frame, String[] title, ArrayList<String[]> myFile) {
 		
+		this.frame = frame;
 		this.myFile=myFile;
 		this.title=title;
 		int columnChoosen=0;
@@ -88,6 +92,17 @@ public class SortView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 485, SpringLayout.WEST, this);
 		textArea.setEditable(false);
 		add(scrollPane);
+		
+		JLabel lblNameOfSorted = new JLabel("Name of sorted file: ");
+		springLayout.putConstraint(SpringLayout.WEST, lblNameOfSorted, 22, SpringLayout.EAST, comboBox);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblNameOfSorted, 0, SpringLayout.SOUTH, lblSelectReferenceColumn);
+		add(lblNameOfSorted);
+		
+		textFieldFileName = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldFileName, 0, SpringLayout.NORTH, comboBox);
+		springLayout.putConstraint(SpringLayout.WEST, textFieldFileName, 21, SpringLayout.EAST, lblNameOfSorted);
+		add(textFieldFileName);
+		textFieldFileName.setColumns(10);
 
 
 	}
@@ -112,13 +127,13 @@ public class SortView extends JPanel implements ActionListener {
 			this.getMyFile().remove(0);
 			
 			Operator.sortColumn(this.getMyFile(), columnChoosen);
-			String filepath = "CsvData/fileSorted";
+			
 			this.getMyFile().add(0, this.getTitle());
 
 			MainView.logger.log(Level.INFO, "Choice of " + this.getTitle()[columnChoosen] + " from the ComboBox to sort the file");
 
 			ArrayList<String[]> test3 = Operator.verifyJourney(getMyFile());
-
+			String filepath = "CsvData/"+this.textFieldFileName.getText();
 			
 			try {
 
@@ -137,14 +152,14 @@ public class SortView extends JPanel implements ActionListener {
 		}
 
 		else if(cmd.equals("Cancel")){ 
-			HomeView homeview=new HomeView();
-			MainView.changePanel(homeview);
+			
+			frame.changePanel(new HomeView(frame));
 			MainView.logger.log(Level.INFO, "Cancel, go back to Home Page ");}
 
 		else if(cmd.equals("Back")){ 
-			MainView frame=new MainView(0);
+			
 
-			frame.setContentPane(new HomeView());
+			frame.changePanel(new HomeView(frame));
 
 			
 		}
