@@ -16,21 +16,24 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import core.Operator;
 import core.Reader;
+import core.Writer;
 
 import javax.swing.JTextArea;
 
-public class MergeView extends JPanel implements ActionListener {
+public class AppendView extends JPanel implements ActionListener {
 
 	private MainView frame;
 	private JTextField textFieldFile1;
 	private JTextField textFieldFile2;
 	private JTextArea textArea;
+	private JTextField textFieldFileName;
 	/**
 	 * Create the panel.
 	 */
 
-	public MergeView(MainView frame) {
+	public AppendView(MainView frame) {
 		this.frame = frame;
 
 		SpringLayout springLayout = new SpringLayout();
@@ -102,6 +105,17 @@ public class MergeView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, 242, SpringLayout.SOUTH, textFieldFile2);
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, btnBrowse1);
 		add(scrollPane);
+
+		JLabel lblNameOfNew = new JLabel("Name of new file: ");
+		springLayout.putConstraint(SpringLayout.NORTH, lblNameOfNew, 19, SpringLayout.SOUTH, textFieldFile2);
+		springLayout.putConstraint(SpringLayout.WEST, lblNameOfNew, 0, SpringLayout.WEST, lblTheOtherFile);
+		add(lblNameOfNew);
+
+		textFieldFileName = new JTextField();
+		springLayout.putConstraint(SpringLayout.SOUTH, textFieldFileName, -6, SpringLayout.NORTH, btnBack);
+		springLayout.putConstraint(SpringLayout.EAST, textFieldFileName, 0, SpringLayout.EAST, textFieldFile1);
+		add(textFieldFileName);
+		textFieldFileName.setColumns(10);
 	}
 
 	public String selectFile(){
@@ -160,25 +174,30 @@ public class MergeView extends JPanel implements ActionListener {
 			Reader myreader1 = new Reader(filePath1);
 			Reader myreader2 = new Reader(filePath2);
 
-			//String result = "" ;
+
+
 
 			try {
-
-
 				myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
 				myFile2 = myreader2.readCsv(myreader2.getMyFilePath());
-				/*for (int i= 0; i<test2.get(0).length; i++){
-					result = result + test2.get(0)[i] + ", ";
-					//comboBoxColumnName.addItem(test2.get(0)[i]);
-				}*/
 
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			if (myFile1.get(0).length!=myFile2.get(0).length){
+				textArea.append("It is impossible to append these two files because they does not have the same number of columns. \n");
+			}
+			else{
+				try {
+					Writer.writeCsv(Operator.appendFileToAnOther(myFile1, myFile2), "CsvData/"+textFieldFileName.getText()+".csv");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				textArea.append("Operation was a sucess, "+filePath2+" have been appended to "+filePath1+"; \n");
 
-
-			frame.changePanel(new MergingView(frame, myFile1, myFile2));
+			}
 
 
 		}

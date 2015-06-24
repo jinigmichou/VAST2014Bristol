@@ -42,6 +42,8 @@ public class HomeView extends JPanel implements ActionListener{
 		setBackground(Color.LIGHT_GRAY);
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
+		//this.setSize(frame.getSize());
+		setSize(640, 480);
 
 
 		JLabel lblFilePath = new JLabel("File path: ");
@@ -88,8 +90,9 @@ public class HomeView extends JPanel implements ActionListener{
 		add(btnSortByJourney);
 
 		JButton btnReturn = new JButton("Return to data type");
-		springLayout.putConstraint(SpringLayout.WEST, btnReturn, 0, SpringLayout.WEST, lblFilePath);
-		springLayout.putConstraint(SpringLayout.EAST, btnReturn, 0, SpringLayout.EAST, lblFilePath);
+		springLayout.putConstraint(SpringLayout.NORTH, btnReturn, 10, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, btnReturn, 535, SpringLayout.WEST, lblFilePath);
+		springLayout.putConstraint(SpringLayout.EAST, btnReturn, -55, SpringLayout.EAST, this);
 		btnReturn.addActionListener(this);
 		btnReturn.setActionCommand("Return");
 		add(btnReturn);
@@ -114,8 +117,7 @@ public class HomeView extends JPanel implements ActionListener{
 		add(btnAccess);
 
 		JButton btnDate = new JButton("Tranform Date");
-		springLayout.putConstraint(SpringLayout.NORTH, btnReturn, 6, SpringLayout.SOUTH, btnDate);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnReturn, 35, SpringLayout.SOUTH, btnDate);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnReturn, -190, SpringLayout.SOUTH, btnDate);
 		springLayout.putConstraint(SpringLayout.NORTH, btnDate, 6, SpringLayout.SOUTH, btnCalculate);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnDate, 32, SpringLayout.SOUTH, btnCalculate);
 		springLayout.putConstraint(SpringLayout.WEST, btnDate, 50, SpringLayout.WEST, this);
@@ -135,20 +137,29 @@ public class HomeView extends JPanel implements ActionListener{
 
 		textArea = new JTextArea();
 		textArea.setEditable(false);
+
 		JScrollPane scrollpane = new JScrollPane(textArea);
-		springLayout.putConstraint(SpringLayout.NORTH, scrollpane, 29, SpringLayout.SOUTH, btnReturn);
-		springLayout.putConstraint(SpringLayout.WEST, scrollpane, 0, SpringLayout.WEST, lblFilePath);
-		springLayout.putConstraint(SpringLayout.SOUTH, scrollpane, 180, SpringLayout.SOUTH, btnReturn);
-		springLayout.putConstraint(SpringLayout.EAST, scrollpane, 566, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.WEST, scrollpane, -40, SpringLayout.WEST, lblFilePath);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollpane, -10, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, scrollpane, 630, SpringLayout.WEST, this);
 		add(scrollpane);
 
 		JButton btnDeleteAColumn = new JButton("Delete a column");
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAColumn, 5, SpringLayout.SOUTH, btnMergeCsvFiles);
-		springLayout.putConstraint(SpringLayout.WEST, btnDeleteAColumn, 10, SpringLayout.WEST, btnMergeCsvFiles);
+		springLayout.putConstraint(SpringLayout.WEST, btnDeleteAColumn, 0, SpringLayout.WEST, btnAccess);
 		springLayout.putConstraint(SpringLayout.EAST, btnDeleteAColumn, 0, SpringLayout.EAST, btnAccess);
 		btnDeleteAColumn.addActionListener(this);
 		btnDeleteAColumn.setActionCommand("delete");
 		add(btnDeleteAColumn);
+
+		JButton btnAppendFileTo = new JButton("Append file to an other");
+		springLayout.putConstraint(SpringLayout.NORTH, scrollpane, 62, SpringLayout.SOUTH, btnAppendFileTo);
+		springLayout.putConstraint(SpringLayout.NORTH, btnAppendFileTo, -1, SpringLayout.NORTH, btnDate);
+		springLayout.putConstraint(SpringLayout.WEST, btnAppendFileTo, 0, SpringLayout.WEST, btnAccess);
+		springLayout.putConstraint(SpringLayout.EAST, btnAppendFileTo, 0, SpringLayout.EAST, btnAccess);
+		btnAppendFileTo.addActionListener(this);
+		btnAppendFileTo.setActionCommand("append");
+		add(btnAppendFileTo);
 
 
 		setVisible(true);
@@ -347,6 +358,7 @@ public class HomeView extends JPanel implements ActionListener{
 
 		}
 		else if(cmd.equals("delete")){
+
 			if (textFieldFilePath.getText().equals("")){
 				textArea.append("Please, select file from file browser  \n");
 			}
@@ -364,6 +376,9 @@ public class HomeView extends JPanel implements ActionListener{
 				}
 				frame.changePanel(new DeleteColumnView(frame, myTab));
 			}
+		}
+		else if(cmd.equals("append")){
+			frame.changePanel(new AppendView(frame));
 		}
 
 	}

@@ -23,13 +23,15 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 		setBackground(Color.LIGHT_GRAY);
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
-		
+		//this.setSize(frame.getSize());
+		setSize(640, 480);
+
 		JLabel lblChooseDataSource = new JLabel("Choose Data Source");
 		springLayout.putConstraint(SpringLayout.NORTH, lblChooseDataSource, 31, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblChooseDataSource, 90, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblChooseDataSource, 47, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, lblChooseDataSource, -180, SpringLayout.EAST, this);
-		
+
 		add(lblChooseDataSource);
 
 		JButton csv = new JButton("CSV");
@@ -40,11 +42,11 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 		csv.addActionListener(this);
 		csv.setActionCommand("CSV");
 		add(csv);
-		
+
 		JButton sql = new JButton("SQL");
 		springLayout.putConstraint(SpringLayout.WEST, sql, 90, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, sql, 254, SpringLayout.WEST, this);
-		
+
 		add(sql);
 
 		JButton xml = new JButton("XML");
@@ -58,7 +60,7 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		
+
 		add(xml);
 	}
 
