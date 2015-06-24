@@ -21,27 +21,39 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 	public ChooseDataSourceView(MainView frame) {
 		this.frame = frame;
 		setBackground(Color.LIGHT_GRAY);
-		
-		
-		setLayout(null);
+		SpringLayout springLayout = new SpringLayout();
+		setLayout(springLayout);
 		
 		JLabel lblChooseDataSource = new JLabel("Choose Data Source");
-		lblChooseDataSource.setBounds(90, 33, 180, 16);
+		springLayout.putConstraint(SpringLayout.NORTH, lblChooseDataSource, 31, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblChooseDataSource, 90, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblChooseDataSource, 47, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, lblChooseDataSource, -180, SpringLayout.EAST, this);
 		
 		add(lblChooseDataSource);
 
 		JButton csv = new JButton("CSV");
-		csv.setBounds(90, 70, 180, 16);
+		springLayout.putConstraint(SpringLayout.NORTH, csv, 21, SpringLayout.SOUTH, lblChooseDataSource);
+		springLayout.putConstraint(SpringLayout.WEST, csv, 0, SpringLayout.WEST, lblChooseDataSource);
+		springLayout.putConstraint(SpringLayout.SOUTH, csv, 50, SpringLayout.SOUTH, lblChooseDataSource);
+		springLayout.putConstraint(SpringLayout.EAST, csv, 164, SpringLayout.WEST, lblChooseDataSource);
 		csv.addActionListener(this);
 		csv.setActionCommand("CSV");
 		add(csv);
 		
 		JButton sql = new JButton("SQL");
-		sql.setBounds(90, 98, 180, 16);
+		springLayout.putConstraint(SpringLayout.WEST, sql, 90, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.EAST, sql, 254, SpringLayout.WEST, this);
+		
 		add(sql);
 
 		JButton xml = new JButton("XML");
-		xml.setBounds(90, 130, 180, 16);
+		springLayout.putConstraint(SpringLayout.NORTH, sql, 3, SpringLayout.SOUTH, xml);
+		springLayout.putConstraint(SpringLayout.SOUTH, sql, 32, SpringLayout.SOUTH, xml);
+		springLayout.putConstraint(SpringLayout.NORTH, xml, 6, SpringLayout.SOUTH, csv);
+		springLayout.putConstraint(SpringLayout.SOUTH, xml, 35, SpringLayout.SOUTH, csv);
+		springLayout.putConstraint(SpringLayout.EAST, xml, 254, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.WEST, xml, 90, SpringLayout.WEST, this);
 		xml.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -61,10 +73,7 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 		String cmd = e.getActionCommand();
 		if(cmd.equals("CSV")){ 
 			MainView.logger.log(Level.INFO, "Click on the buttom CSV, choice of CSV database");
-			//MainView frame = new MainView(0);
-			//frame.setContentPane(new HomeView());
 			this.frame.changePanel(new HomeView(frame));
-			//setVisible(true);
 		}
 		if(cmd.equals("SQL")){ 
 			MainView.logger.log(Level.INFO, "Click on the buttom SQL, choice of SQL database");

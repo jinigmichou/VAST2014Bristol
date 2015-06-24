@@ -57,7 +57,7 @@ public class MainView extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		}
-		setTitle("Welcome");
+		setTitle("Csv Application");
 		setResizable(false);
 		initialize();
 	}

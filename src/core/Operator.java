@@ -1,5 +1,6 @@
 package core;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -120,6 +121,7 @@ public class Operator {
 
 		}
 	}
+
 
 
 	/**
@@ -243,6 +245,35 @@ public class Operator {
 		cal.setTime(date);
 		return sdf.format(date);
 	}
+	public static void timeStampToDate(ArrayList<String[]> myFile, int columnDate, String dateFormat){
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);  
+		for(int i = 1;i<myFile.size();i++){
+
+			Date date = new Date( Long.parseLong(myFile.get(i)[columnDate]));
+			Calendar cal = new GregorianCalendar();
+			sdf.setCalendar(cal);
+			cal.setTime(date);
+			myFile.get(i)[columnDate] = sdf.format(date);
+		}
+	}
+	public static void dateStringtoTimestamp(ArrayList<String[]> myFile, int columnDate, String dateFormat){
+		int i = 0;
+		SimpleDateFormat format = new SimpleDateFormat(dateFormat);
+		for(i=1;i<myFile.size();i++){
+			Date date = new Date();
+			try {
+				date = format.parse(myFile.get(i)[columnDate]);
+
+
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			long timestamp = date.getTime();
+			myFile.get(i)[columnDate] = Long.toString(timestamp);
+
+		}
+	}
 	/**
 	 * Function to remove journey which distance is null or equals to NaN
 	 * @param myFile
@@ -262,14 +293,60 @@ public class Operator {
 		return myFileError;
 	}
 
+	public static ArrayList<String> selectDistinctValuesInAColumn(ArrayList<String[]> myFile, int column){
+		ArrayList<String> tab = new ArrayList<String>();
+		for (int i = 0 ; i<myFile.size() ; i++){
+			if(!tab.contains(myFile.get(i)[column])){
+				tab.add(myFile.get(i)[column]);
+			}
+		}
+		return tab;
+	}
+	public static ArrayList<String[]> twoCsvFilesMerging(ArrayList<String[]> myFile1, int column1,ArrayList<String[]> myFile2, int column2){
+		ArrayList<String[]> result = new ArrayList<String[]>();
+		result.add(concat(myFile2.get(0),myFile1.get(0)));
 
 
-	public ArrayList<String[]> getMyFile() {
-		return myFile;
+		for(int i = 1; i<myFile2.size();i++){
+			for(int j= 1; j<myFile1.size(); j++){
+				if (myFile2.get(i)[column2].equals(myFile1.get(j)[column1])){
+					result.add(concat(myFile2.get(i),myFile1.get(j)));
+
+				}
+			}
+		}
+		return result;
+	}
+	public static String[] concat(String[] a, String[] b) {
+		int aLen = a.length;
+		int bLen = b.length;
+		String[] c= new String[aLen+bLen];
+		System.arraycopy(a, 0, c, 0, aLen);
+		System.arraycopy(b, 0, c, aLen, bLen);
+		return c;
+	}
+	public static ArrayList<String[]> cloneArrayList(ArrayList<String[]> myfile){
+		ArrayList<String[]> myfile2 = new ArrayList<String[]>(myfile.size()); 
+		for(int i = 0 ; i< myfile.size(); i++){
+			myfile2.add(myfile.get(i).clone());
+		}
+		return myfile2;
 	}
 
-	public void setMyFile(ArrayList<String[]> myFile) {
-		this.myFile = myFile;
+	public static ArrayList<String[]> deleteColumn(ArrayList<String[]> myFile, int column){
+		ArrayList<String[]> myFileResult = new ArrayList<String[]>();
+		for(int i = 0 ; i<myFile.size(); i++){
+			String[] tabStamp = new String[myFile.get(0).length-1];
+			int k = 0;
+			for (int j = 0 ; j < myFile.get(i).length ; j++){
+				if (j!=column){
+					tabStamp[k] = myFile.get(i)[j];
+					k++;
+				}
+			}
+			myFileResult.add(tabStamp);
+		}
+		return myFileResult;
 	}
 
 }

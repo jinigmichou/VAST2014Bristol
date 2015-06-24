@@ -122,7 +122,7 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		else if (cmd.equals("combo")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			timeChoosen = (Integer) choice.getSelectedItem();
-			System.out.println(timeChoosen);
+
 		}
 	}
 
