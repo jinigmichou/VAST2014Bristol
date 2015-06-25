@@ -60,3 +60,21 @@ Jun 24, 2015 10:17:39 AM ui.ChooseDataSourceView actionPerformed
 INFO: Click on the buttom CSV, choice of CSV database
 Jun 24, 2015 10:17:50 AM ui.HomeView actionPerformed
 INFO: Click on the buttom Browse, choice of the file /Users/jacquez/Documents/workspace/VAST2014Bristol/essaie24merge.csv
+Jun 24, 2015 11:17:37 AM ui.MainView <init>
+INFO: Start up of the program
+Jun 24, 2015 11:17:39 AM ui.MainView actionPerformed
+INFO: Click on the buttom start application
+Jun 24, 2015 11:17:40 AM ui.ChooseDataSourceView actionPerformed
+INFO: Click on the buttom CSV, choice of CSV database
+Jun 24, 2015 11:18:34 AM ui.MainView <init>
+INFO: Start up of the program
+Jun 24, 2015 11:18:35 AM ui.MainView actionPerformed
+INFO: Click on the buttom start application
+Jun 24, 2015 11:18:36 AM ui.ChooseDataSourceView actionPerformed
+INFO: Click on the buttom CSV, choice of CSV database
+Jun 24, 2015 11:25:57 AM ui.MainView <init>
+INFO: Start up of the program
+Jun 24, 2015 11:25:58 AM ui.MainView actionPerformed
+INFO: Click on the buttom start application
+Jun 24, 2015 11:25:59 AM ui.ChooseDataSourceView actionPerformed
+INFO: Click on the buttom CSV, choice of CSV database

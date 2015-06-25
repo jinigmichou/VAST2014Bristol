@@ -61,9 +61,8 @@ public class HomeView extends JPanel implements ActionListener{
 
 		JButton btnBrowse = new JButton("Browse");
 		springLayout.putConstraint(SpringLayout.NORTH, btnBrowse, -5, SpringLayout.NORTH, lblFilePath);
-		springLayout.putConstraint(SpringLayout.WEST, btnBrowse, 24, SpringLayout.EAST, textFieldFilePath);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnBrowse, 79, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, btnBrowse, 204, SpringLayout.EAST, textFieldFilePath);
+		springLayout.putConstraint(SpringLayout.WEST, btnBrowse, 6, SpringLayout.EAST, textFieldFilePath);
+		springLayout.putConstraint(SpringLayout.EAST, btnBrowse, 150, SpringLayout.EAST, textFieldFilePath);
 		btnBrowse.addActionListener(this);
 		btnBrowse.setActionCommand("Browse");
 		add(btnBrowse);
@@ -125,6 +124,7 @@ public class HomeView extends JPanel implements ActionListener{
 		add(btnDate);
 
 		JButton btnMergeCsvFiles = new JButton("Merge Csv files");
+		springLayout.putConstraint(SpringLayout.SOUTH, btnBrowse, -55, SpringLayout.NORTH, btnMergeCsvFiles);
 		springLayout.putConstraint(SpringLayout.NORTH, btnMergeCsvFiles, 6, SpringLayout.SOUTH, btnAccess);
 		springLayout.putConstraint(SpringLayout.WEST, btnMergeCsvFiles, 251, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnMergeCsvFiles, 35, SpringLayout.SOUTH, btnAccess);
@@ -144,12 +144,48 @@ public class HomeView extends JPanel implements ActionListener{
 
 		JButton btnDeleteAColumn = new JButton("Delete a column");
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAColumn, 5, SpringLayout.SOUTH, btnMergeCsvFiles);
-		springLayout.putConstraint(SpringLayout.WEST, btnDeleteAColumn, 10, SpringLayout.WEST, btnMergeCsvFiles);
+		springLayout.putConstraint(SpringLayout.WEST, btnDeleteAColumn, 0, SpringLayout.WEST, btnAccess);
 		springLayout.putConstraint(SpringLayout.EAST, btnDeleteAColumn, 0, SpringLayout.EAST, btnAccess);
 		btnDeleteAColumn.addActionListener(this);
 		btnDeleteAColumn.setActionCommand("delete");
 		add(btnDeleteAColumn);
-
+		
+		JButton btnLog = new JButton("Log Application");
+		springLayout.putConstraint(SpringLayout.NORTH, btnLog, 0, SpringLayout.NORTH, btnSort);
+		springLayout.putConstraint(SpringLayout.WEST, btnLog, 23, SpringLayout.EAST, btnAccess);
+		springLayout.putConstraint(SpringLayout.EAST, btnLog, 203, SpringLayout.EAST, btnAccess);
+		btnLog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				frame.changePanel(new LogView(frame));
+			}
+		});
+		btnLog.setActionCommand("Log");
+		add(btnLog);
+		
+		JButton btnTraceback = new JButton("Traceback");
+		springLayout.putConstraint(SpringLayout.WEST, btnTraceback, 23, SpringLayout.EAST, btnMergeCsvFiles);
+		springLayout.putConstraint(SpringLayout.NORTH, btnTraceback, 1, SpringLayout.NORTH, btnSortByJourney);
+		springLayout.putConstraint(SpringLayout.EAST, btnTraceback, 203, SpringLayout.EAST, btnMergeCsvFiles);
+		btnTraceback.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				frame.changePanel(new TracebackView(frame));
+			}
+		});
+		btnTraceback.setActionCommand("Traceback");
+		add(btnTraceback);
+		
+		JButton btnDeductions = new JButton("Deductions");
+		springLayout.putConstraint(SpringLayout.NORTH, btnDeductions, 0, SpringLayout.NORTH, btnDeleteAColumn);
+		springLayout.putConstraint(SpringLayout.WEST, btnDeductions, 23, SpringLayout.EAST, btnDeleteAColumn);
+		springLayout.putConstraint(SpringLayout.EAST, btnDeductions, 203, SpringLayout.EAST, btnDeleteAColumn);
+		btnDeductions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnDeductions.setActionCommand("Deductions");
+		add(btnDeductions);
 
 		setVisible(true);
 	}
