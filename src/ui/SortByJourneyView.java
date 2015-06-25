@@ -21,7 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class SortByJourneyView extends JPanel implements ActionListener{
-	
+
 	private Integer timeChoosen;
 	private ArrayList<String[]> myFile;
 	private JTextArea textArea;
@@ -35,6 +35,8 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		this.myFile=myFile;
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
+		//this.setSize(frame.getSize());
+		setSize(640, 480);
 
 		JLabel lblTimeBetweenTwo = new JLabel("Time between two journeys: ");
 		lblTimeBetweenTwo.setBounds(36, 75, 180, 16);
@@ -69,18 +71,18 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(36, 211, 533, 143);
 		add(scrollPane);
-		
+
 		JLabel lblNameOfNew = new JLabel("Name of new file: ");
 		lblNameOfNew.setBounds(39, 29, 126, 16);
 		add(lblNameOfNew);
-		
+
 		textFieldfileName = new JTextField();
 		textFieldfileName.setBounds(177, 23, 184, 28);
 		add(textFieldfileName);
 		textFieldfileName.setColumns(10);
 
 	}
-	
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -95,7 +97,7 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 			String fileName = "CsvData/"+this.textFieldfileName.getText();
 			try {
 
-				
+
 				MainView.logger.log(Level.INFO, "Click on the buttom SortByJourney, new file is "+this.textFieldfileName.getText());
 
 				Writer.writeCsv(test, fileName+".csv");
@@ -111,13 +113,13 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 			this.textArea.append("file "+fileName+".csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 			this.textArea.append("file "+fileName+"Error.csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 
-
+			frame.changePanel(new HomeView(frame));
 
 		}
 		else if(cmd.equals("Cancel")){
-			
+
 			frame.changePanel(new HomeView(frame));
-		
+
 		}
 		else if (cmd.equals("combo")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();

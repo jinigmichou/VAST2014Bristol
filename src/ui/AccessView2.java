@@ -37,6 +37,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 	 * Create the panel.
 	 */
 	public AccessView2(MainView frame, ArrayList<String[]> myFile, int columnID, int columnDay, String dateFormat) {
+
 		setForeground(Color.LIGHT_GRAY);
 		this.frame = frame;
 		this.myFile = myFile;
@@ -47,6 +48,8 @@ public class AccessView2 extends JPanel implements ActionListener {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
+		//this.setSize(frame.getSize());
+		setSize(640, 480);
 
 
 		JLabel lblDataAreaAccess = new JLabel("Data Area Access");
@@ -132,7 +135,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 		btnWriteIntoFile.addActionListener(this);
 		btnWriteIntoFile.setActionCommand("write");
 		add(btnWriteIntoFile);
-		
+
 		JLabel lblFileName = new JLabel("File name:");
 		springLayout.putConstraint(SpringLayout.WEST, lblFileName, 0, SpringLayout.WEST, textFieldFilePath);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblFileName, -6, SpringLayout.NORTH, textFieldFilePath);
@@ -148,42 +151,42 @@ public class AccessView2 extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("valid")){
-			
-			
-				ArrayList<String[]> myFilestamp2 = Operator.cloneArrayList(myFile);
-
-				
-				Operator.dateStringtoTimestamp(myFilestamp2, columnDay, dateFormat);
-
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				Date myDate= new Date();
-				try {
-					myDate =  format.parse(date);
-
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
 
-				long timestamp = myDate.getTime();
-				date = Long.toString(timestamp);
-				for (int i = 1; i<myFile.size(); i++){
+			ArrayList<String[]> myFilestamp2 = Operator.cloneArrayList(myFile);
 
 
-					if(myFile.get(i)[columnID].equals(user) && Operator.compareTimeStamp(date, myFilestamp2.get(i)[columnDay], 86400000))
-					{	myFilestampForWriting.add(myFile.get(i));
-					for(int j =0; j< myFile.get(i).length;j++){
-						this.textArea.append(myFile.get(0)[j]+" : "+myFile.get(i)[j].toString()+" ; ");
+			Operator.dateStringtoTimestamp(myFilestamp2, columnDay, dateFormat);
 
-					}
-					this.textArea.append("\n");
-					}
-				}
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date myDate= new Date();
+			try {
+				myDate =  format.parse(date);
 
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 
-		
+
+			long timestamp = myDate.getTime();
+			date = Long.toString(timestamp);
+			for (int i = 1; i<myFile.size(); i++){
+
+
+				if(myFile.get(i)[columnID].equals(user) && Operator.compareTimeStamp(date, myFilestamp2.get(i)[columnDay], 86400000))
+				{	myFilestampForWriting.add(myFile.get(i));
+				for(int j =0; j< myFile.get(i).length;j++){
+					this.textArea.append(myFile.get(0)[j]+" : "+myFile.get(i)[j].toString()+" ; ");
+
+				}
+				this.textArea.append("\n");
+				}
+			}
+
+		}
+
+
 		else if (cmd.equals("back")){
 
 			frame.changePanel(new AccessView1(frame, myFile));

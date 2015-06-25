@@ -37,6 +37,8 @@ public class MergingView extends JPanel implements ActionListener {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
+		//this.setSize(frame.getSize());
+		setSize(640, 480);
 
 		JComboBox comboBox1 = new JComboBox(this.file1.get(0));
 		springLayout.putConstraint(SpringLayout.NORTH, comboBox1, 32, SpringLayout.NORTH, this);
@@ -126,16 +128,16 @@ public class MergingView extends JPanel implements ActionListener {
 				}
 			}
 		}
-			else if (cmd.equals("combo1")){
-				JComboBox<String> choice1 = (JComboBox<String>)e.getSource();
-				columnFile1 = choice1.getSelectedIndex();
-			}
-			else if (cmd.equals("combo2")){
-				JComboBox<String> choice2 = (JComboBox<String>)e.getSource();
-				columnFile2 =  choice2.getSelectedIndex();
-			}
-			else if (cmd.equals("back")){
-				frame.changePanel(new HomeView(frame));
-			}
+		else if (cmd.equals("combo1")){
+			JComboBox<String> choice1 = (JComboBox<String>)e.getSource();
+			columnFile1 = choice1.getSelectedIndex();
+		}
+		else if (cmd.equals("combo2")){
+			JComboBox<String> choice2 = (JComboBox<String>)e.getSource();
+			columnFile2 =  choice2.getSelectedIndex();
+		}
+		else if (cmd.equals("back")){
+			frame.changePanel(new HomeView(frame));
 		}
 	}
+}

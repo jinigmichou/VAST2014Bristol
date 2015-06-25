@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -14,12 +15,17 @@ import javax.swing.JButton;
 import core.Operator;
 import core.Writer;
 
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+
 public class DateView extends JPanel implements ActionListener {
 	private MainView frame;
 	private ArrayList<String[]> myFile;
 	private int column;
 	private String initialFormat;
 	private String requiredFormat;
+	private JTextField textFieldFileName;
+	private JTextArea textArea;
 	/**
 	 * Create the panel.
 	 */
@@ -29,6 +35,8 @@ public class DateView extends JPanel implements ActionListener {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
+		//this.setSize(frame.getSize());
+		setSize(640, 480);
 
 		JLabel lblColumnReference = new JLabel("Column Reference: ");
 		springLayout.putConstraint(SpringLayout.NORTH, lblColumnReference, 55, SpringLayout.NORTH, this);
@@ -45,7 +53,7 @@ public class DateView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.WEST, lblRequiredDateFormat, 0, SpringLayout.WEST, lblColumnReference);
 		add(lblRequiredDateFormat);
 
-		String [] dateFormatInitial = {"dd/MM/yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm", "Timestamp","MM/dd/yyy HH:mm:ss"};
+		String [] dateFormatInitial = {"dd/MM/yyyy HH:mm:ss","dd-MM-yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm","MM/dd/yyy HH:mm:ss", "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy","Timestamp"};
 		JComboBox comboBoxInitialFormat = new JComboBox(dateFormatInitial);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxInitialFormat, 35, SpringLayout.EAST, lblNewLabel);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxInitialFormat, -276, SpringLayout.EAST, this);
@@ -54,7 +62,7 @@ public class DateView extends JPanel implements ActionListener {
 		comboBoxInitialFormat.setActionCommand("comboBoxInitialFormat");
 		add(comboBoxInitialFormat);
 
-		String [] dateFormatRequired = {"dd/MM/yyyy HH:mm:ss","dd/MM/yyyy HH:mm","dd/MM/yyyy","Timestamp"};
+		String [] dateFormatRequired = {"dd/MM/yyyy HH:mm:ss","dd/MM/yyyy HH:mm","dd/MM/yyyy","yyyy-MM-dd'T'HH:mm","Timestamp","MM/dd/yyy HH:mm:ss"};
 		JComboBox comboBoxRequiredFormat = new JComboBox(dateFormatRequired);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxRequiredFormat, -4, SpringLayout.NORTH, lblRequiredDateFormat);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxRequiredFormat, 20, SpringLayout.EAST, lblRequiredDateFormat);
@@ -64,8 +72,7 @@ public class DateView extends JPanel implements ActionListener {
 		add(comboBoxRequiredFormat);
 
 		JButton btnValid = new JButton("Valid");
-		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 41, SpringLayout.SOUTH, comboBoxRequiredFormat);
-		springLayout.putConstraint(SpringLayout.EAST, btnValid, -276, SpringLayout.EAST, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnValid, 0, SpringLayout.EAST, comboBoxInitialFormat);
 		btnValid.addActionListener(this);
 		btnValid.setActionCommand("Valid");
 		add(btnValid);
@@ -77,29 +84,64 @@ public class DateView extends JPanel implements ActionListener {
 		btnBack.setActionCommand("back");
 		add(btnBack);
 
-		JComboBox<String> comboBoxColumn = new JComboBox<String>(myFile.get(0));
+		JComboBox comboBoxColumn = new JComboBox(myFile.get(0));
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxColumn, -4, SpringLayout.NORTH, lblColumnReference);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxColumn, 0, SpringLayout.WEST, comboBoxInitialFormat);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxColumn, 1, SpringLayout.EAST, comboBoxInitialFormat);
 		comboBoxColumn.addActionListener(this);
 		comboBoxColumn.setActionCommand("comboBoxColumn");
 		add(comboBoxColumn);
+
+		textFieldFileName = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 18, SpringLayout.SOUTH, textFieldFileName);
+		springLayout.putConstraint(SpringLayout.WEST, textFieldFileName, 0, SpringLayout.WEST, comboBoxInitialFormat);
+		add(textFieldFileName);
+		textFieldFileName.setColumns(10);
+
+		JLabel lblNameOfNew = new JLabel("Name of new file: ");
+		springLayout.putConstraint(SpringLayout.NORTH, lblNameOfNew, 52, SpringLayout.SOUTH, lblRequiredDateFormat);
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldFileName, -6, SpringLayout.NORTH, lblNameOfNew);
+		springLayout.putConstraint(SpringLayout.WEST, lblNameOfNew, 0, SpringLayout.WEST, lblColumnReference);
+		add(lblNameOfNew);
+
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		JScrollPane scrollpane = new JScrollPane(textArea);
+		springLayout.putConstraint(SpringLayout.NORTH, scrollpane, 27, SpringLayout.SOUTH, btnValid);
+		springLayout.putConstraint(SpringLayout.WEST, scrollpane, 65, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollpane, 119, SpringLayout.SOUTH, btnValid);
+		springLayout.putConstraint(SpringLayout.EAST, scrollpane, 7, SpringLayout.EAST, comboBoxInitialFormat);
+		add(scrollpane);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Valid")){
-			Operator.dateStringtoTimestamp(myFile, column, initialFormat);
-			Operator.timeStampToDate(myFile, column, requiredFormat);
-
-			try {
-				Writer.writeCsv(myFile, "CsvData/testsurlesdates.csv");
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			if (textFieldFileName.getText().equals("")){
+				textArea.append("Please, select a file name. \n");
+			}
+			else{
+				if(requiredFormat.equals("Timestamp")){
+					Operator.dateStringtoTimestamp(myFile, column, initialFormat);
+				}
+				else if(initialFormat.equals("Timestamp")){
+					Operator.timeStampToDate(myFile, column, requiredFormat);
+				}
+				else{
+					Operator.dateStringtoTimestamp(myFile, column, initialFormat);
+					Operator.timeStampToDate(myFile, column, requiredFormat);
+				}
+				try {
+					Writer.writeCsv(myFile, "CsvData/"+textFieldFileName.getText()+".csv");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				textArea.append("Operation was a success. \n");
 			}
 		}
+
 		else if (cmd.equals("comboBoxColumn")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			column = choice.getSelectedIndex();

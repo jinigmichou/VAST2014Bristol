@@ -30,7 +30,9 @@ public class AccessView1  extends JPanel implements ActionListener {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-
+		//this.setSize(frame.getSize());
+		setSize(640, 480);
+		
 		JLabel lblSelectReferenceColumn = new JLabel("Select reference column for:");
 		springLayout.putConstraint(SpringLayout.NORTH, lblSelectReferenceColumn, 35, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblSelectReferenceColumn, 46, SpringLayout.WEST, this);

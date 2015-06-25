@@ -348,5 +348,13 @@ public class Operator {
 		}
 		return myFileResult;
 	}
+	
+	public static ArrayList<String[]> appendFileToAnOther(ArrayList<String[]> myFile1, ArrayList<String[]> myFile2){
+		
+		for(int i = 1 ; i<myFile2.size() ; i++ ){
+			myFile1.add(myFile2.get(i));
+		}
+		return myFile1;
+	}
 
 }

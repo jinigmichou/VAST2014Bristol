@@ -45,7 +45,9 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		this.frame = frame;
 		setLayout(null);
 		String unit="N";
+		
 		setBackground(Color.LIGHT_GRAY);
+		this.setSize(frame.getSize());
 
 		JLabel lblStart = new JLabel("Start:");
 		lblStart.setBounds(31, 22, 61, 16);

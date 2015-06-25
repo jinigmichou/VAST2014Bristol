@@ -28,7 +28,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class SortView extends JPanel implements ActionListener {
-	
+
 	private JComboBox<String> comboBox;
 	private String[] title;
 	private int columnChoosen;
@@ -40,23 +40,25 @@ public class SortView extends JPanel implements ActionListener {
 	 * Create the panel.
 	 */
 	public SortView(MainView frame, String[] title, ArrayList<String[]> myFile) {
-		
+
 		this.frame = frame;
 		this.myFile=myFile;
 		this.title=title;
 		int columnChoosen=0;
 		SpringLayout springLayout = new SpringLayout();
+		//this.setSize(frame.getSize());
+		setSize(640, 480);
 
 		setLayout(springLayout);
-		
-		
+
+
 		setBackground(Color.LIGHT_GRAY);
-		
+
 		JLabel lblSelectReferenceColumn = new JLabel("Select reference column");
 		springLayout.putConstraint(SpringLayout.NORTH, lblSelectReferenceColumn, 61, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblSelectReferenceColumn, 34, SpringLayout.WEST, this);
 		add(lblSelectReferenceColumn);
-		
+
 		JComboBox comboBox = new JComboBox(title);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBox, -4, SpringLayout.NORTH, lblSelectReferenceColumn);
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 18, SpringLayout.EAST, lblSelectReferenceColumn);
@@ -64,18 +66,18 @@ public class SortView extends JPanel implements ActionListener {
 		comboBox.addActionListener(this);
 		comboBox.setActionCommand("combo");
 		add(comboBox);
-		
+
 		JLabel lblCsvSort = new JLabel("Csv Sort");
 		springLayout.putConstraint(SpringLayout.NORTH, lblCsvSort, 10, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblCsvSort, 185, SpringLayout.WEST, this);
 		add(lblCsvSort);
-		
+
 		JButton btnValid = new JButton("Valid");
 		springLayout.putConstraint(SpringLayout.EAST, btnValid, 0, SpringLayout.EAST, comboBox);
 		btnValid.addActionListener(this);
 		btnValid.setActionCommand("Valid");
 		add(btnValid);
-		
+
 		JButton btnCancel = new JButton("Back");
 		springLayout.putConstraint(SpringLayout.EAST, btnCancel, -22, SpringLayout.WEST, btnValid);
 		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 0, SpringLayout.NORTH, btnCancel);
@@ -83,8 +85,8 @@ public class SortView extends JPanel implements ActionListener {
 		btnCancel.addActionListener(this);
 		btnCancel.setActionCommand("Back");
 		add(btnCancel);
-		
-		 textArea = new JTextArea();
+
+		textArea = new JTextArea();
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 118, SpringLayout.SOUTH, lblSelectReferenceColumn);
 		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 31, SpringLayout.WEST, this);
@@ -92,12 +94,12 @@ public class SortView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 485, SpringLayout.WEST, this);
 		textArea.setEditable(false);
 		add(scrollPane);
-		
+
 		JLabel lblNameOfSorted = new JLabel("Name of sorted file: ");
 		springLayout.putConstraint(SpringLayout.WEST, lblNameOfSorted, 22, SpringLayout.EAST, comboBox);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblNameOfSorted, 0, SpringLayout.SOUTH, lblSelectReferenceColumn);
 		add(lblNameOfSorted);
-		
+
 		textFieldFileName = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldFileName, 0, SpringLayout.NORTH, comboBox);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldFileName, 21, SpringLayout.EAST, lblNameOfSorted);
@@ -125,16 +127,16 @@ public class SortView extends JPanel implements ActionListener {
 		if(cmd.equals("Valid")){ 
 			// We delete title column for sorting
 			this.getMyFile().remove(0);
-			
+
 			Operator.sortColumn(this.getMyFile(), columnChoosen);
-			
+
 			this.getMyFile().add(0, this.getTitle());
 
 			MainView.logger.log(Level.INFO, "Choice of " + this.getTitle()[columnChoosen] + " from the ComboBox to sort the file");
 
 			ArrayList<String[]> test3 = Operator.verifyJourney(getMyFile());
 			String filepath = "CsvData/"+this.textFieldFileName.getText();
-			
+
 			try {
 
 				Writer.writeCsv(this.getMyFile(), "SortFile.csv");
@@ -152,16 +154,16 @@ public class SortView extends JPanel implements ActionListener {
 		}
 
 		else if(cmd.equals("Cancel")){ 
-			
+
 			frame.changePanel(new HomeView(frame));
 			MainView.logger.log(Level.INFO, "Cancel, go back to Home Page ");}
 
 		else if(cmd.equals("Back")){ 
-			
+
 
 			frame.changePanel(new HomeView(frame));
 
-			
+
 		}
 		else if(cmd.equals("combo")){ 
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
