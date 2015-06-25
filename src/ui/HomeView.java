@@ -126,11 +126,8 @@ public class HomeView extends JPanel implements ActionListener{
 		add(btnDate);
 
 		JButton btnMergeCsvFiles = new JButton("Merge Csv files");
-<<<<<<< HEAD
-		springLayout.putConstraint(SpringLayout.NORTH, btnMergeCsvFiles, 6, SpringLayout.SOUTH, btnSelect);
-=======
 
->>>>>>> master-+-nico
+		springLayout.putConstraint(SpringLayout.NORTH, btnMergeCsvFiles, 6, SpringLayout.SOUTH, btnSelect);
 		springLayout.putConstraint(SpringLayout.WEST, btnMergeCsvFiles, 251, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnMergeCsvFiles, 35, SpringLayout.SOUTH, btnSelect);
 		springLayout.putConstraint(SpringLayout.EAST, btnMergeCsvFiles, 431, SpringLayout.WEST, this);
@@ -194,12 +191,12 @@ public class HomeView extends JPanel implements ActionListener{
 		add(btnAppendFileTo);
 		
 		JButton btnDeleteAColumn = new JButton("Delete a column");
-<<<<<<< HEAD
+
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAColumn, 5, SpringLayout.SOUTH, btnMergeCsvFiles);
-=======
+
 
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAColumn, -1, SpringLayout.NORTH, btnCalculate);
->>>>>>> master-+-nico
+
 		springLayout.putConstraint(SpringLayout.WEST, btnDeleteAColumn, 0, SpringLayout.WEST, btnSelect);
 		springLayout.putConstraint(SpringLayout.EAST, btnDeleteAColumn, 0, SpringLayout.EAST, btnSelect);
 		btnDeleteAColumn.addActionListener(this);
@@ -216,18 +213,6 @@ public class HomeView extends JPanel implements ActionListener{
 		btnDeleteAColumn.setActionCommand("delete");
 		add(btnDeleteAColumn);
 		*/
-
-
-		JButton btnAppendFileTo = new JButton("Append file to an other");
-		springLayout.putConstraint(SpringLayout.NORTH, scrollpane, 62, SpringLayout.SOUTH, btnAppendFileTo);
-		springLayout.putConstraint(SpringLayout.NORTH, btnAppendFileTo, -1, SpringLayout.NORTH, btnDate);
-		springLayout.putConstraint(SpringLayout.WEST, btnAppendFileTo, 0, SpringLayout.WEST, btnSelect);
-		springLayout.putConstraint(SpringLayout.EAST, btnAppendFileTo, 0, SpringLayout.EAST, btnSelect);
-		btnAppendFileTo.addActionListener(this);
-		btnAppendFileTo.setActionCommand("append");
-		add(btnAppendFileTo);
-
-
 		setVisible(true);
 	}
 

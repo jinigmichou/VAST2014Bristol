@@ -47,9 +47,9 @@ public class MainView extends JFrame implements ActionListener {
 		//this.persistType = persistType;
 		//On instancie une facadeUser pour la vue
 		if(log==1){
-<<<<<<< HEAD
+
 			try {
-				Handler fh = new FileHandler("log", true);
+				Handler fh = new FileHandler("log.log", true);
 				fh.setFormatter(new SimpleFormatter());
 				logger.addHandler(fh);
 				logger.log(Level.INFO, "Start up of the program");
@@ -62,35 +62,13 @@ public class MainView extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			setTitle("Csv Application");
+			setResizable(false);
+			initialize();
 		}
-		
-=======
-		try {
-			Handler fh = new FileHandler("log.log", true);
-			fh.setFormatter(new SimpleFormatter());
-			logger.addHandler(fh);
-			logger.log(Level.INFO, "Start up of the program");
-			
-			
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
->>>>>>> master-+-nico
-		setTitle("Csv Application");
-		setResizable(false);
-		initialize();
 	}
-}
 
-<<<<<<< HEAD
-
-
-=======
 	private void createWindow(String path){
 		JFrame f = new JFrame("Display the data file");
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -138,7 +116,7 @@ public class MainView extends JFrame implements ActionListener {
 		int returnVal = jf.showOpenDialog(null);
 		if(returnVal==JFileChooser.APPROVE_OPTION){
 			createWindow(jf.getSelectedFile().getPath());
-		
+
 		}
 	}
 
@@ -148,8 +126,7 @@ public class MainView extends JFrame implements ActionListener {
 		}
 		catch(Exception e){}
 	}
-	
->>>>>>> master-+-nico
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -210,11 +187,9 @@ public class MainView extends JFrame implements ActionListener {
 		if(cmd.equals("Manage DB")){ 
 			logger.log(Level.INFO, "Click on the buttom start application");
 			changePanel(new ChooseDataSourceView(this));
-<<<<<<< HEAD
 
-=======
 			//setVisible(true);
->>>>>>> master-+-nico
+
 
 		}
 
