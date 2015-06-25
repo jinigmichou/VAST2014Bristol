@@ -21,7 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.SpringLayout;
 
-public class TracebackView extends JPanel {
+public class TracebackView extends JPanel implements ActionListener{
 
 
 	private MainView frame;
@@ -36,19 +36,16 @@ public class TracebackView extends JPanel {
 		setBackground(Color.LIGHT_GRAY);
 
 		JButton btnTraceback = new JButton("Traceback");
-		btnTraceback.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnTraceback.addActionListener(this);
+		btnTraceback.setActionCommand("Traceback");        
 		        
-		        frame.applyLookAndFeel();
-		        frame.chooseFile();
-			}
-		});
+		
 		SpringLayout springLayout = new SpringLayout();
 		springLayout.putConstraint(SpringLayout.NORTH, btnTraceback, 50, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, btnTraceback, 92, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, btnTraceback, 286, SpringLayout.WEST, this);
 		setLayout(springLayout);
-		btnTraceback.setActionCommand("Dependencies");
+		
 		add(btnTraceback);
 
 		JButton btnDeductionsassumtions = new JButton("Deductions/Assumptions");
@@ -70,14 +67,22 @@ public class TracebackView extends JPanel {
 		springLayout.putConstraint(SpringLayout.WEST, button, 635, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, button, 0, SpringLayout.SOUTH, btnTraceback);
 		springLayout.putConstraint(SpringLayout.EAST, button, 740, SpringLayout.WEST, this);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				frame.changePanel(new HomeView(frame));
-			}
-		});
+		button.addActionListener(this);
 		button.setActionCommand("Return");
 		add(button);
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String cmd = e.getActionCommand();
+		if(cmd.equals("Return")){
+			frame.changePanel(new HomeView(frame));
+		}
+		else if(cmd.equals("Traceback")){
+			frame.applyLookAndFeel();
+	        frame.chooseFile();
+		}
 	}
 }

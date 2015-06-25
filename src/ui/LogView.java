@@ -129,7 +129,7 @@ public class LogView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.NORTH, CancelLog, 48, SpringLayout.SOUTH, textFieldFilePath);
 		CancelLog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				textArea.setText("");
 			}
 		});
@@ -149,13 +149,7 @@ public class LogView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, btnReturn, -121, SpringLayout.NORTH, scrollPane);
 		springLayout.putConstraint(SpringLayout.EAST, btnReturn, -22, SpringLayout.EAST, this);
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, btnReturn);
-		btnReturn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				frame.changePanel(new HomeView(frame));
-
-			}
-		});
+		btnReturn.addActionListener(this);
 		btnReturn.setActionCommand("Return");
 		add(btnReturn);
 
@@ -164,21 +158,8 @@ public class LogView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, CancelLog, -26, SpringLayout.WEST, btnDeleteFiles);
 		springLayout.putConstraint(SpringLayout.WEST, btnDeleteFiles, 216, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, btnDeleteFiles, 0, SpringLayout.EAST, button);
-		btnDeleteFiles.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-				File MyFile = new File(textFieldFilePath.getText());
-				
-				String name = JOptionPane.showInputDialog(frame,
-	                        "Do you want to delete this file?", textFieldFilePath.getText());
-				MyFile.delete();
-				textFieldFilePath.setText("");
-				
-				
-				
-				System.out.println("Delete Files");
-			}
-		});
+		btnDeleteFiles.addActionListener(this);
+		btnDeleteFiles.setActionCommand("delete");
 		add(btnDeleteFiles);
 
 
@@ -188,6 +169,24 @@ public class LogView extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		String cmd = e.getActionCommand();
+		if(cmd.equals("delete")){
+			File MyFile = new File(textFieldFilePath.getText());
+
+			String name = JOptionPane.showInputDialog(frame,
+					"Do you want to delete this file?", textFieldFilePath.getText());
+			MyFile.delete();
+			textFieldFilePath.setText("");
+
+
+
+			System.out.println("Delete Files");
+
+		}
+		else if(cmd.equals("Return")){
+			frame.changePanel(new HomeView(frame));
+
+		}
+
 	}
 }

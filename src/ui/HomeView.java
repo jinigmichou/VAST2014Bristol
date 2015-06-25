@@ -148,28 +148,18 @@ public class HomeView extends JPanel implements ActionListener{
 		springLayout.putConstraint(SpringLayout.NORTH, btnLog, 0, SpringLayout.NORTH, btnSort);
 		springLayout.putConstraint(SpringLayout.WEST, btnLog, 23, SpringLayout.EAST, btnSelect);
 		springLayout.putConstraint(SpringLayout.EAST, btnLog, 203, SpringLayout.EAST, btnSelect);
-		btnLog.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				frame.changePanel(new LogView(frame));
-			}
-		});
+		btnLog.addActionListener(this);
 		btnLog.setActionCommand("Log");
 		add(btnLog);
-		
+
 		JButton btnTraceback = new JButton("Traceback");
 		springLayout.putConstraint(SpringLayout.WEST, btnTraceback, 23, SpringLayout.EAST, btnMergeCsvFiles);
 		springLayout.putConstraint(SpringLayout.NORTH, btnTraceback, 1, SpringLayout.NORTH, btnSortByJourney);
 		springLayout.putConstraint(SpringLayout.EAST, btnTraceback, 203, SpringLayout.EAST, btnMergeCsvFiles);
-		btnTraceback.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				frame.changePanel(new TracebackView(frame));
-			}
-		});
+		btnTraceback.addActionListener(this);
 		btnTraceback.setActionCommand("Traceback");
 		add(btnTraceback);
-		
+
 		JButton btnDeductions = new JButton("Deductions");
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeductions, -1, SpringLayout.NORTH, btnCalculate);
 		springLayout.putConstraint(SpringLayout.WEST, btnDeductions, 0, SpringLayout.WEST, btnLog);
@@ -189,7 +179,7 @@ public class HomeView extends JPanel implements ActionListener{
 		btnAppendFileTo.addActionListener(this);
 		btnAppendFileTo.setActionCommand("append");
 		add(btnAppendFileTo);
-		
+
 		JButton btnDeleteAColumn = new JButton("Delete a column");
 
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAColumn, 5, SpringLayout.SOUTH, btnMergeCsvFiles);
@@ -202,9 +192,9 @@ public class HomeView extends JPanel implements ActionListener{
 		btnDeleteAColumn.addActionListener(this);
 		btnDeleteAColumn.setActionCommand("delete");
 		add(btnDeleteAColumn);
-		
-		
-		
+
+
+
 		/*JButton btnDeleteAColumn = new JButton("Delete a column");
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAColumn, 0, SpringLayout.NORTH, btnReturn);
 		springLayout.putConstraint(SpringLayout.WEST, btnDeleteAColumn, 0, SpringLayout.WEST, scrollpane);
@@ -212,7 +202,7 @@ public class HomeView extends JPanel implements ActionListener{
 		btnDeleteAColumn.addActionListener(this);
 		btnDeleteAColumn.setActionCommand("delete");
 		add(btnDeleteAColumn);
-		*/
+		 */
 		setVisible(true);
 	}
 
@@ -430,6 +420,12 @@ public class HomeView extends JPanel implements ActionListener{
 		}
 		else if(cmd.equals("append")){
 			frame.changePanel(new AppendView(frame));
+		}
+		else if (cmd.equals("Log")){
+			frame.changePanel(new LogView(frame));
+		}
+		else if (cmd.equals("Traceback")){
+			frame.changePanel(new TracebackView(frame));
 		}
 
 	}
