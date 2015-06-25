@@ -108,13 +108,13 @@ public class HomeView extends JPanel implements ActionListener{
 		btnSort.setActionCommand("Sort");
 		add(btnSort);
 
-		JButton btnAccess = new JButton("Building Access");
-		springLayout.putConstraint(SpringLayout.NORTH, btnAccess, 0, SpringLayout.NORTH, btnSort);
-		springLayout.putConstraint(SpringLayout.WEST, btnAccess, 21, SpringLayout.EAST, btnSort);
-		springLayout.putConstraint(SpringLayout.EAST, btnAccess, 201, SpringLayout.EAST, btnSort);
-		btnAccess.addActionListener(this);
-		btnAccess.setActionCommand("Access");	
-		add(btnAccess);
+		JButton btnSelect = new JButton("Select Data");
+		springLayout.putConstraint(SpringLayout.NORTH, btnSelect, 0, SpringLayout.NORTH, btnSort);
+		springLayout.putConstraint(SpringLayout.WEST, btnSelect, 21, SpringLayout.EAST, btnSort);
+		springLayout.putConstraint(SpringLayout.EAST, btnSelect, 201, SpringLayout.EAST, btnSort);
+		btnSelect.addActionListener(this);
+		btnSelect.setActionCommand("Select");	
+		add(btnSelect);
 
 		JButton btnDate = new JButton("Tranform Date");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnReturn, -190, SpringLayout.SOUTH, btnDate);
@@ -127,9 +127,9 @@ public class HomeView extends JPanel implements ActionListener{
 		add(btnDate);
 
 		JButton btnMergeCsvFiles = new JButton("Merge Csv files");
-		springLayout.putConstraint(SpringLayout.NORTH, btnMergeCsvFiles, 6, SpringLayout.SOUTH, btnAccess);
+		springLayout.putConstraint(SpringLayout.NORTH, btnMergeCsvFiles, 6, SpringLayout.SOUTH, btnSelect);
 		springLayout.putConstraint(SpringLayout.WEST, btnMergeCsvFiles, 251, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnMergeCsvFiles, 35, SpringLayout.SOUTH, btnAccess);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnMergeCsvFiles, 35, SpringLayout.SOUTH, btnSelect);
 		springLayout.putConstraint(SpringLayout.EAST, btnMergeCsvFiles, 431, SpringLayout.WEST, this);
 		btnMergeCsvFiles.addActionListener(this);
 		btnMergeCsvFiles.setActionCommand("Merge");
@@ -146,8 +146,8 @@ public class HomeView extends JPanel implements ActionListener{
 
 		JButton btnDeleteAColumn = new JButton("Delete a column");
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAColumn, 5, SpringLayout.SOUTH, btnMergeCsvFiles);
-		springLayout.putConstraint(SpringLayout.WEST, btnDeleteAColumn, 0, SpringLayout.WEST, btnAccess);
-		springLayout.putConstraint(SpringLayout.EAST, btnDeleteAColumn, 0, SpringLayout.EAST, btnAccess);
+		springLayout.putConstraint(SpringLayout.WEST, btnDeleteAColumn, 0, SpringLayout.WEST, btnSelect);
+		springLayout.putConstraint(SpringLayout.EAST, btnDeleteAColumn, 0, SpringLayout.EAST, btnSelect);
 		btnDeleteAColumn.addActionListener(this);
 		btnDeleteAColumn.setActionCommand("delete");
 		add(btnDeleteAColumn);
@@ -155,8 +155,8 @@ public class HomeView extends JPanel implements ActionListener{
 		JButton btnAppendFileTo = new JButton("Append file to an other");
 		springLayout.putConstraint(SpringLayout.NORTH, scrollpane, 62, SpringLayout.SOUTH, btnAppendFileTo);
 		springLayout.putConstraint(SpringLayout.NORTH, btnAppendFileTo, -1, SpringLayout.NORTH, btnDate);
-		springLayout.putConstraint(SpringLayout.WEST, btnAppendFileTo, 0, SpringLayout.WEST, btnAccess);
-		springLayout.putConstraint(SpringLayout.EAST, btnAppendFileTo, 0, SpringLayout.EAST, btnAccess);
+		springLayout.putConstraint(SpringLayout.WEST, btnAppendFileTo, 0, SpringLayout.WEST, btnSelect);
+		springLayout.putConstraint(SpringLayout.EAST, btnAppendFileTo, 0, SpringLayout.EAST, btnSelect);
 		btnAppendFileTo.addActionListener(this);
 		btnAppendFileTo.setActionCommand("append");
 		add(btnAppendFileTo);
@@ -310,7 +310,7 @@ public class HomeView extends JPanel implements ActionListener{
 		}
 
 
-		else if(cmd.equals("Access")){
+		else if(cmd.equals("Select")){
 			if (textFieldFilePath.getText().equals("")){
 				textArea.append("Please, select file from file browser  \n");
 			}
