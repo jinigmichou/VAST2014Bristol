@@ -74,17 +74,17 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 
 		String cmd = e.getActionCommand();
 		if(cmd.equals("CSV")){ 
-			MainView.logger.log(Level.INFO, "Click on the buttom CSV, choice of CSV database");
+			MainView.logger.log(Level.WARNING, "Click on the buttom CSV, choice of CSV database");
 			this.frame.changePanel(new HomeView(frame));
 		}
 		if(cmd.equals("SQL")){ 
-			MainView.logger.log(Level.INFO, "Click on the buttom SQL, choice of SQL database");
+			MainView.logger.log(Level.WARNING, "Click on the buttom SQL, choice of SQL database");
 			testPanel = new Test();
 			//MainView.changePanel(testPanel);
 			setVisible(true);
 		}
 		if(cmd.equals("XML")){
-			MainView.logger.log(Level.INFO, "Click on the buttom XML, choice of XML database");
+			MainView.logger.log(Level.WARNING, "Click on the buttom XML, choice of XML database");
 			testPanel = new Test();
 			//MainView.changePanel(testPanel);
 			setVisible(true);

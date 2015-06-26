@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -93,12 +94,14 @@ public class DeleteColumnView extends JPanel implements ActionListener {
 		String cmd = e.getActionCommand();
 		if(cmd.equals("valid")){
 			if (textField.getText().equals("")){
-				textArea.append("Please, filll a file name");
+				textArea.append("Please, fill a file name");
 			}
 			else {
 				ArrayList<String[]> myFileResult = Operator.deleteColumn(myFile, columnToDelete);
 				try {
-					Writer.writeCsv(myFileResult, "CsvData/"+textField.getText()+".csv");
+					Writer.writeCsv(myFileResult, "./src/csvData/"+textField.getText()+".csv");
+					MainView.logger.log(Level.WARNING, "The column deleted is : " +  columnToDelete 
+							+ "and the new file is " + myFileResult);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -108,6 +111,7 @@ public class DeleteColumnView extends JPanel implements ActionListener {
 		}
 		else if (cmd.equals("back")){
 
+			MainView.logger.log(Level.INFO, "Come back to HomePage");
 			frame.changePanel(new HomeView(frame));
 
 		}

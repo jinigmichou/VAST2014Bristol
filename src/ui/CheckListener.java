@@ -44,7 +44,6 @@ public class CheckListener implements ActionListener{
 			}
 			ManageCsv.getInstance().writeFile(path, lines);
 			JOptionPane.showMessageDialog(frame, "Modifications recorded", "Recording", JOptionPane.INFORMATION_MESSAGE);
-			System.out.println("bonjour");
 
 		}
 		catch(Exception e){

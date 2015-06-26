@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -41,6 +42,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 	 * Create the panel.
 	 */
 	public CalculJourneyView(MainView frame, String[] title, ArrayList<String[]> myFile) {
+		this.setTitle(title);
 		this.myFile=myFile;
 		this.frame = frame;
 		setLayout(null);
@@ -167,7 +169,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		if(cmd.equals("Valid")){
 			ArrayList<String[]> myFile2 = new ArrayList<String[]>();
 			ArrayList<String[]> myFileError = new ArrayList<String[]>();
-			String fileName= "CsvData/"+this.textFieldFileName.getText();
+			String fileName= "./src/csvData/"+this.textFieldFileName.getText();
 			myFile2 = Operator.journeyCalculation(myFile, S_Time, F_Time, S_Lat, S_Lon, F_Lat, F_Lon, unit);
 			myFileError = Operator.verifyJourney(myFile2);
 			try {
@@ -183,11 +185,24 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 			
 			this.getTextArea().append("file "+fileName+".csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 			this.getTextArea().append("file "+fileName+"Error.csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
-		
+
+			
+			MainView.logger.log(Level.WARNING, "Calculate journey with parameters : \n" + "file : " + fileName 
+					+ ", start-time : " + this.getTitle()[S_Time]
+					+ ", final-time : " + this.getTitle()[F_Time]
+					+ ", start-lat : " +  this.getTitle()[S_Lat]
+					+ ", start-long : " + this.getTitle()[S_Lon]
+					+ ", final-time : " + this.getTitle()[F_Lat]
+					+ ", fianl-time : " + this.getTitle()[F_Lon]
+					+ ", unit : " + unit);
+
+			MainView.logger.log(Level.WARNING, "file : \n" + fileName + ".csv and "
+			+ fileName + "Error.csv" + " have been created");
 			
 		}
 		else if (cmd.equals("Cancel")){
 			
+			MainView.logger.log(Level.INFO, "Go back to homePage");
 			frame.changePanel(new HomeView(frame));
 			
 		}
@@ -236,5 +251,12 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 
 	public void setTextArea(JTextArea textArea) {
 		this.textArea = textArea;
+	}
+	
+	public String[] getTitle() {
+		return title;
+	}
+	public void setTitle(String[] title) {
+		this.title = title;
 	}
 }
