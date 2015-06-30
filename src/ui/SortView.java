@@ -6,11 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-
 import java.util.logging.Level;
-
 import java.util.Date;
-
 
 import javafx.scene.control.ComboBox;
 
@@ -132,17 +129,18 @@ public class SortView extends JPanel implements ActionListener {
 
 			this.getMyFile().add(0, this.getTitle());
 
-			MainView.logger.log(Level.INFO, "Choice of " + this.getTitle()[columnChoosen] + " from the ComboBox to sort the file");
+			MainView.logger.log(Level.WARNING, "Choice of " + this.getTitle()[columnChoosen] + " from the ComboBox to sort the file");
 
 			ArrayList<String[]> test3 = Operator.verifyJourney(getMyFile());
-			String filepath = "CsvData/"+this.textFieldFileName.getText();
+			String filepath = "./src/csvData/"+this.textFieldFileName.getText();
 
 			try {
 
-				Writer.writeCsv(this.getMyFile(), "SortFile.csv");
-
 				Writer.writeCsv(this.getMyFile(), filepath+".csv");
 				Writer.writeCsv(test3, filepath+"Error.csv");
+				
+				MainView.logger.log(Level.WARNING, "It created : " + filepath + ".csv and " 
+						+ filepath + " Error.csv");
 
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -155,12 +153,13 @@ public class SortView extends JPanel implements ActionListener {
 
 		else if(cmd.equals("Cancel")){ 
 
+			MainView.logger.log(Level.INFO, "Go back to homePage");
 			frame.changePanel(new HomeView(frame));
-			MainView.logger.log(Level.INFO, "Cancel, go back to Home Page ");}
+		}
 
 		else if(cmd.equals("Back")){ 
 
-
+			MainView.logger.log(Level.INFO, "Go back to homePage");
 			frame.changePanel(new HomeView(frame));
 
 

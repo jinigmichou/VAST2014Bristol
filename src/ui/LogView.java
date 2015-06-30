@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -40,37 +41,43 @@ public class LogView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, 542, SpringLayout.NORTH, this);
 		add(scrollPane);
 
-
 		JButton btnLog = new JButton("Display Log");
 		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, btnLog);
 		springLayout.putConstraint(SpringLayout.WEST, btnLog, 23, SpringLayout.WEST, this);
 		btnLog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				FileReader flux= null;
-				BufferedReader input= null;
-				String str;
-
-				try{ 
-					flux= new FileReader (textFieldFilePath.getText());
-
-					input= new BufferedReader( flux);
-					while((str=input.readLine())!=null)
-					{
-						textArea.append(str);
-						textArea.append("\n"); 
-					}
-				}catch (IOException e1)
-				{
-					System.out.println("It is impossible to open the file required : " + e1.toString()); 
+				if (textFieldFilePath.getText().equals("")){
+					textArea.append("Please, select file from file browser  \n");
 				}
-				finally
-				{
-					try {
-						flux.close();
-					} catch (IOException e1) {
-						System.out.println("It is impossible to close the file");
-						e1.printStackTrace();
+				else {
+
+					FileReader flux= null;
+					BufferedReader input= null;
+					String str;
+
+					try{ 
+						flux= new FileReader (textFieldFilePath.getText());
+
+						input= new BufferedReader( flux);
+						while((str=input.readLine())!=null)
+						{
+							textArea.append(str);
+							textArea.append("\n"); 
+						}
+						MainView.logger.log(Level.INFO, "Displaying content of the file : " + flux); 
+					}catch (IOException e1)
+
+					{
+						System.out.println("It is impossible to open the file required : " + e1.toString()); 
+					}
+					finally
+					{
+						try {
+							flux.close();
+						} catch (IOException e1) {
+							System.out.println("It is impossible to close the file");
+							e1.printStackTrace();
+						}
 					}
 				}				
 			}
@@ -94,10 +101,13 @@ public class LogView extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				String cmd = e.getActionCommand();
 				if(cmd.equals("Browse")){ 
+
 					textFieldFilePath.setText(this.selectFile());
 					String get;
 					get = textFieldFilePath.getText();
+					MainView.logger.log(Level.INFO, "Click on the button Browse"); 
 				}
+
 			}
 
 			private String selectFile() {
@@ -131,6 +141,7 @@ public class LogView extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 
 				textArea.setText("");
+				MainView.logger.log(Level.INFO, "Erasing content of the textArea");
 			}
 		});
 		CancelLog.setActionCommand("Erase content");
@@ -162,8 +173,6 @@ public class LogView extends JPanel implements ActionListener {
 		btnDeleteFiles.setActionCommand("delete");
 		add(btnDeleteFiles);
 
-
-
 	}
 
 	@Override
@@ -171,20 +180,23 @@ public class LogView extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("delete")){
-			File MyFile = new File(textFieldFilePath.getText());
+			if (textFieldFilePath.getText().equals("")){
+				textArea.append("Please, select file from file browser  \n");
+			}
+			else {
+				File MyFile = new File(textFieldFilePath.getText());
 
-			String name = JOptionPane.showInputDialog(frame,
-					"Do you want to delete this file?", textFieldFilePath.getText());
-			MyFile.delete();
-			textFieldFilePath.setText("");
-
-
-
-			System.out.println("Delete Files");
-
+				String name = JOptionPane.showInputDialog(frame,
+						"Do you want to delete this file?", textFieldFilePath.getText());
+				MyFile.delete();
+				MainView.logger.log(Level.INFO, "Destruction of the file : " + MyFile);
+				textFieldFilePath.setText("");
+			}
 		}
 		else if(cmd.equals("Return")){
+			MainView.logger.log(Level.INFO, "Go back to homePage");
 			frame.changePanel(new HomeView(frame));
+
 
 		}
 

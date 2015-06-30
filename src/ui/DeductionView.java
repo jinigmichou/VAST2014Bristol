@@ -1,6 +1,8 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -9,7 +11,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-public class DeductionView extends JPanel {
+public class DeductionView extends JPanel implements ActionListener{
 	
 	private MainView frame;
 	private JTextField textFieldFilePath;
@@ -28,5 +30,11 @@ public class DeductionView extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, 542, SpringLayout.NORTH, this);
 		add(scrollPane);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

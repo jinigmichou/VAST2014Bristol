@@ -49,7 +49,7 @@ public class MainView extends JFrame implements ActionListener {
 		if(log==1){
 
 			try {
-				Handler fh = new FileHandler("log.log", true);
+				Handler fh = new FileHandler("./src/logFiles/log", true);
 				fh.setFormatter(new SimpleFormatter());
 				logger.addHandler(fh);
 				logger.log(Level.INFO, "Start up of the program");
@@ -185,7 +185,7 @@ public class MainView extends JFrame implements ActionListener {
 	{
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Manage DB")){ 
-			logger.log(Level.INFO, "Click on the buttom start application");
+			logger.log(Level.INFO, "Click on the button start application");
 			changePanel(new ChooseDataSourceView(this));
 
 			//setVisible(true);

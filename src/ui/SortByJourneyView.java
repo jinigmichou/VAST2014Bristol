@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 
 public class SortByJourneyView extends JPanel implements ActionListener{
 
-	private Integer timeChoosen;
+	private Integer timeChosen;
 	private ArrayList<String[]> myFile;
 	private JTextArea textArea;
 	private JTextField textFieldfileName;
@@ -91,14 +91,14 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		if(cmd.equals("Order")){ 
 			getMyFile().remove(0);
 			Operator.tranformDate(this.getMyFile(), 0);
-			System.out.println(timeChoosen*60000);
-			ArrayList<String[]> test = Operator.sortTimestamp(this.getMyFile(), 0, timeChoosen*60000);
+			ArrayList<String[]> test = Operator.sortTimestamp(this.getMyFile(), 0, timeChosen*60000);
 			ArrayList<String[]> testError = Operator.verifyJourney(test);
-			String fileName = "CsvData/"+this.textFieldfileName.getText();
+			String fileName = "./src/csvData/"+this.textFieldfileName.getText();
 			try {
 
 
-				MainView.logger.log(Level.INFO, "Click on the buttom SortByJourney, new file is "+this.textFieldfileName.getText());
+				MainView.logger.log(Level.WARNING, "SortByJourney, new file is "+this.textFieldfileName.getText());
+				MainView.logger.log(Level.WARNING, "SortTimestamp chosen is "+ timeChosen);
 
 				Writer.writeCsv(test, fileName+".csv");
 				Writer.writeCsv(testError, fileName+"Error.csv");
@@ -113,17 +113,21 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 			this.textArea.append("file "+fileName+".csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 			this.textArea.append("file "+fileName+"Error.csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 
+			MainView.logger.log(Level.WARNING, "file : " + fileName + ".csv and "
+					+ fileName + " Error.csv" + " have been created");
+			
 			frame.changePanel(new HomeView(frame));
 
 		}
 		else if(cmd.equals("Cancel")){
 
+			MainView.logger.log(Level.INFO, "Go back to homePage");
 			frame.changePanel(new HomeView(frame));
 
 		}
 		else if (cmd.equals("combo")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
-			timeChoosen = (Integer) choice.getSelectedItem();
+			timeChosen = (Integer) choice.getSelectedItem();
 
 		}
 	}
@@ -135,4 +139,6 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 	public void setMyFile(ArrayList<String[]> myFile) {
 		this.myFile = myFile;
 	}
+	
+	
 }

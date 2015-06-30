@@ -164,10 +164,7 @@ public class HomeView extends JPanel implements ActionListener{
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeductions, -1, SpringLayout.NORTH, btnCalculate);
 		springLayout.putConstraint(SpringLayout.WEST, btnDeductions, 0, SpringLayout.WEST, btnLog);
 		springLayout.putConstraint(SpringLayout.EAST, btnDeductions, 4, SpringLayout.EAST, scrollpane);
-		btnDeductions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnDeductions.addActionListener(this);
 		btnDeductions.setActionCommand("Deductions");
 		add(btnDeductions);
 
@@ -193,6 +190,7 @@ public class HomeView extends JPanel implements ActionListener{
 		btnDeleteAColumn.setActionCommand("delete");
 		add(btnDeleteAColumn);
 		
+
 		JButton btnAddActivities = new JButton("Add Activities");
 		springLayout.putConstraint(SpringLayout.NORTH, btnAddActivities, 8, SpringLayout.SOUTH, btnAppendFileTo);
 		springLayout.putConstraint(SpringLayout.WEST, btnAddActivities, 0, SpringLayout.WEST, btnSelect);
@@ -201,7 +199,15 @@ public class HomeView extends JPanel implements ActionListener{
 		btnAddActivities.setActionCommand("Activities");
 		add(btnAddActivities);
 
+		JButton btnAssumptions = new JButton("Assumptions");
 
+
+		springLayout.putConstraint(SpringLayout.NORTH, btnAssumptions, -1, SpringLayout.NORTH, btnDate);
+		springLayout.putConstraint(SpringLayout.WEST, btnAssumptions, 0, SpringLayout.WEST, btnLog);
+		springLayout.putConstraint(SpringLayout.EAST, btnAssumptions, 0, SpringLayout.EAST, btnLog);
+		btnAssumptions.addActionListener(this);
+		btnAssumptions.setActionCommand("Assumptions");
+		add(btnAssumptions);
 
 		/*JButton btnDeleteAColumn = new JButton("Delete a column");
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAColumn, 0, SpringLayout.NORTH, btnReturn);
@@ -213,8 +219,6 @@ public class HomeView extends JPanel implements ActionListener{
 		 */
 		setVisible(true);
 	}
-
-
 
 	public String selectFile(){
 		String file= new String();
@@ -252,7 +256,7 @@ public class HomeView extends JPanel implements ActionListener{
 			String recup;
 			recup = textFieldFilePath.getText();
 
-			MainView.logger.log(Level.INFO, "Click on the buttom Browse, choice of the file "+ recup);
+			MainView.logger.log(Level.INFO, "Click on the button Browse, choice of the file "+ recup);
 
 
 		}
@@ -269,7 +273,7 @@ public class HomeView extends JPanel implements ActionListener{
 				ArrayList<String[]> test2 = new ArrayList<String[]>();
 				String filePath= textFieldFilePath.getText();
 
-				MainView.logger.log(Level.INFO, "Click on the buttom Sort, it sorted the file " + filePath);
+				MainView.logger.log(Level.INFO, "Click on the button Sort, it sorted the file " + filePath);
 
 				Reader myreader= new Reader(filePath);
 
@@ -306,7 +310,7 @@ public class HomeView extends JPanel implements ActionListener{
 				String filePath= textFieldFilePath.getText();
 
 
-				MainView.logger.log(Level.INFO, "Click on the buttom SortByJourney, choice of the file "+ filePath);
+				MainView.logger.log(Level.INFO, "Click on the button SortByJourney, choice of the file "+ filePath);
 
 
 				Reader myreader= new Reader(filePath);
@@ -337,6 +341,8 @@ public class HomeView extends JPanel implements ActionListener{
 			else{
 				ArrayList<String[]> test2 = new ArrayList<String[]>();
 				String filePath= textFieldFilePath.getText();
+				
+				MainView.logger.log(Level.INFO, "Click on the button Calculate, choice of the file "+ filePath);
 
 				Reader myreader= new Reader(filePath);
 
@@ -415,6 +421,7 @@ public class HomeView extends JPanel implements ActionListener{
 
 				ArrayList<String[]> myTab = new ArrayList<String[]>();
 				String filePath= textFieldFilePath.getText();
+				MainView.logger.log(Level.INFO, "Click on the button delete column, the file selected is : " + filePath );
 
 				Reader myreader= new Reader(filePath);
 				try {
@@ -428,12 +435,23 @@ public class HomeView extends JPanel implements ActionListener{
 		}
 		else if(cmd.equals("append")){
 			frame.changePanel(new AppendView(frame));
+			MainView.logger.log(Level.INFO, "Click on the button Append file to an other");
 		}
 		else if (cmd.equals("Log")){
 			frame.changePanel(new LogView(frame));
+			MainView.logger.log(Level.INFO, "Click on the button Log Application");
 		}
 		else if (cmd.equals("Traceback")){
 			frame.changePanel(new TracebackView(frame));
+			MainView.logger.log(Level.INFO, "Click on the button Traceback");
+		}
+		else if (cmd.equals("Deductions")){
+			frame.changePanel(new DeductionView(frame));
+			MainView.logger.log(Level.INFO, "Click on the button Traceback");
+		}
+		else if (cmd.equals("Assumptions")){
+			frame.changePanel(new AssumptionView(frame));
+			MainView.logger.log(Level.INFO, "Click on the button Traceback");
 		}
 		else if (cmd.equals("Activities")){
 			frame.changePanel(new ActivityView1(frame));
