@@ -139,10 +139,11 @@ public class Operator {
 		long i2= Long.parseLong(s2);
 
 		if (i2-i1<timeInterval){
-
+			System.out.println("true");
 			return true;
 		}
 		else 
+			
 			return false;
 
 
@@ -356,17 +357,25 @@ public class Operator {
 		}
 		return myFile1;
 	}
-	
+
 	public static ArrayList<String[]> selectValuesBetweenTwoTimestamps(ArrayList<String[]> myFile, int columnDay, String date1, String date2){
 		ArrayList<String[]> myFileResult = new ArrayList<String[]>();
-		myFileResult.add(myFile.get(0));
+		//myFileResult.add(myFile.get(0));
 		for (int i = 1;  i< myFile.size() ; i++){
-			if (Operator.compareTimeStamp(date1, myFile.get(i)[columnDay], 0)
-					&& Operator.compareTimeStamp(myFile.get(i)[columnDay], date2, 0)){
+			
+			if (Operator.compareTimeStamp(myFile.get(i)[columnDay], date1, 0)
+					&& Operator.compareTimeStamp(date2, myFile.get(i)[columnDay], 0)){
 				myFileResult.add(myFile.get(i));
 			}
 		}
 		return myFileResult ;
+	}
+	public static boolean containInArray(String[] tab, String myValue){
+		boolean result = false;
+		for (int i= 0 ; i<tab.length ; i++){
+			if (tab[i].equals(myValue)) result = true;
+		}
+		return result;
 	}
 
 }

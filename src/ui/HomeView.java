@@ -192,6 +192,14 @@ public class HomeView extends JPanel implements ActionListener{
 		btnDeleteAColumn.addActionListener(this);
 		btnDeleteAColumn.setActionCommand("delete");
 		add(btnDeleteAColumn);
+		
+		JButton btnAddActivities = new JButton("Add Activities");
+		springLayout.putConstraint(SpringLayout.NORTH, btnAddActivities, 8, SpringLayout.SOUTH, btnAppendFileTo);
+		springLayout.putConstraint(SpringLayout.WEST, btnAddActivities, 0, SpringLayout.WEST, btnSelect);
+		springLayout.putConstraint(SpringLayout.EAST, btnAddActivities, 0, SpringLayout.EAST, btnSelect);
+		btnAddActivities.addActionListener(this);
+		btnAddActivities.setActionCommand("Activities");
+		add(btnAddActivities);
 
 
 
@@ -426,6 +434,9 @@ public class HomeView extends JPanel implements ActionListener{
 		}
 		else if (cmd.equals("Traceback")){
 			frame.changePanel(new TracebackView(frame));
+		}
+		else if (cmd.equals("Activities")){
+			frame.changePanel(new ActivityView1(frame));
 		}
 
 	}
