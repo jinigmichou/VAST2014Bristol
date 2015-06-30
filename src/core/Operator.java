@@ -142,9 +142,9 @@ public class Operator {
 
 			return true;
 		}
-		else {
+		else 
 			return false;
-		}
+
 
 	}
 
@@ -348,13 +348,25 @@ public class Operator {
 		}
 		return myFileResult;
 	}
-	
+
 	public static ArrayList<String[]> appendFileToAnOther(ArrayList<String[]> myFile1, ArrayList<String[]> myFile2){
-		
+
 		for(int i = 1 ; i<myFile2.size() ; i++ ){
 			myFile1.add(myFile2.get(i));
 		}
 		return myFile1;
+	}
+	
+	public static ArrayList<String[]> selectValuesBetweenTwoTimestamps(ArrayList<String[]> myFile, int columnDay, String date1, String date2){
+		ArrayList<String[]> myFileResult = new ArrayList<String[]>();
+		myFileResult.add(myFile.get(0));
+		for (int i = 1;  i< myFile.size() ; i++){
+			if (Operator.compareTimeStamp(date1, myFile.get(i)[columnDay], 0)
+					&& Operator.compareTimeStamp(myFile.get(i)[columnDay], date2, 0)){
+				myFileResult.add(myFile.get(i));
+			}
+		}
+		return myFileResult ;
 	}
 
 }

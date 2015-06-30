@@ -1,5 +1,6 @@
 package ui;
 
+import javax.print.attribute.DateTimeSyntax;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
@@ -81,6 +82,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 		ArrayList<String[]> myFilestamp1 = Operator.cloneArrayList(myFile);
 		Operator.dateStringtoTimestamp(myFilestamp1, columnDay, dateFormat);
 		Operator.timeStampToDate(myFilestamp1, columnDay, "yyyy-MM-dd");
+		
 
 		ArrayList<String> day = Operator.selectDistinctValuesInAColumn(myFilestamp1, columnDay);
 		JComboBox comboBoxDay = new JComboBox();
@@ -143,7 +145,8 @@ public class AccessView2 extends JPanel implements ActionListener {
 
 		myFilestampForWriting = new ArrayList<String[]>();
 		myFilestampForWriting.add(myFile.get(0));
-
+		
+		
 
 	}
 	@Override
@@ -174,7 +177,8 @@ public class AccessView2 extends JPanel implements ActionListener {
 			for (int i = 1; i<myFile.size(); i++){
 
 
-				if(myFile.get(i)[columnID].equals(user) && Operator.compareTimeStamp(date, myFilestamp2.get(i)[columnDay], 86400000))
+				if(myFile.get(i)[columnID].equals(user) && Operator.compareTimeStamp(date, myFilestamp2.get(i)[columnDay], 86400000)
+						&& Operator.compareTimeStamp(myFilestamp2.get(i)[columnDay], date, 0))
 				{	myFilestampForWriting.add(myFile.get(i));
 				for(int j =0; j< myFile.get(i).length;j++){
 					this.textArea.append(myFile.get(0)[j]+" : "+myFile.get(i)[j].toString()+" ; ");
