@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -139,7 +140,6 @@ public class Operator {
 		long i2= Long.parseLong(s2);
 
 		if (i2-i1<timeInterval){
-			System.out.println("true");
 			return true;
 		}
 		else 
@@ -257,6 +257,14 @@ public class Operator {
 			myFile.get(i)[columnDate] = sdf.format(date);
 		}
 	}
+	public static void timeStampToDateForOneValue(String myValue, String dateFormat){
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+		Date date = new Date( Long.parseLong(myValue));
+		Calendar cal = new GregorianCalendar();
+		sdf.setCalendar(cal);
+		cal.setTime(date);
+		myValue = sdf.format(date);
+	}
 	public static void dateStringtoTimestamp(ArrayList<String[]> myFile, int columnDate, String dateFormat){
 		int i = 0;
 		SimpleDateFormat format = new SimpleDateFormat(dateFormat);
@@ -274,6 +282,21 @@ public class Operator {
 			myFile.get(i)[columnDate] = Long.toString(timestamp);
 
 		}
+	}
+	public static  String dateStringtoTimestampForOneValue(String myValue, String dateFormat){
+		SimpleDateFormat format = new SimpleDateFormat(dateFormat);
+		Date date = new Date();
+		try {
+			date = format.parse(myValue);
+
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		long timestamp = date.getTime();
+		return Long.toString(timestamp);
+		
 	}
 	/**
 	 * Function to remove journey which distance is null or equals to NaN
@@ -377,5 +400,6 @@ public class Operator {
 		}
 		return result;
 	}
+	
 
 }

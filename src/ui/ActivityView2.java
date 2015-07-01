@@ -25,15 +25,21 @@ public class ActivityView2 extends JPanel implements ActionListener {
 	private int columnFile;
 	private int columnDate1;
 	private int columnDate2;
+	private String dateFormat1;
+	private String dateFormat2;
 
 	private JTextField textFieldFilePath;
 	private JTextArea textArea;
+	
 
 	public ActivityView2(MainView frame, ArrayList<String[]> file1,  ArrayList<String[]> file2) {
 
 		this.frame = frame;
 		this.file1 = file1;
 		this.file2 = file2;
+		this.columnDate1 = columnDate1;
+		this.columnDate2 = columnDate2;
+
 
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
@@ -42,31 +48,26 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		setSize(640, 480);
 
 		JComboBox comboBox1 = new JComboBox(this.file1.get(0));
-		springLayout.putConstraint(SpringLayout.EAST, comboBox1, -204, SpringLayout.EAST, this);
 		comboBox1.addActionListener(this);
 		comboBox1.setActionCommand("combo");
 		add(comboBox1);
 
 		JComboBox comboBoxDate1 = new JComboBox(this.file1.get(0));
-		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDate1, 24, SpringLayout.SOUTH, comboBox1);
-		springLayout.putConstraint(SpringLayout.EAST, comboBoxDate1, 0, SpringLayout.EAST, comboBox1);
-		springLayout.putConstraint(SpringLayout.WEST, comboBoxDate1, 262, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, comboBox1, -20, SpringLayout.NORTH, comboBoxDate1);
+		springLayout.putConstraint(SpringLayout.EAST, comboBox1, 0, SpringLayout.EAST, comboBoxDate1);
+		springLayout.putConstraint(SpringLayout.EAST, comboBoxDate1, -204, SpringLayout.EAST, this);
 		comboBoxDate1.addActionListener(this);
 		comboBoxDate1.setActionCommand("comboDate1");
 		add(comboBoxDate1);
 
 		JComboBox comboBoxDate2 = new JComboBox(this.file2.get(0));
-		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDate2, 20, SpringLayout.SOUTH, comboBoxDate1);
-		springLayout.putConstraint(SpringLayout.WEST, comboBoxDate2, 264, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, comboBoxDate2, 0, SpringLayout.EAST, comboBox1);
+		springLayout.putConstraint(SpringLayout.WEST, comboBox1, 0, SpringLayout.WEST, comboBoxDate2);
 		comboBoxDate2.addActionListener(this);
 		comboBoxDate2.setActionCommand("comboDate2");
 		add(comboBoxDate2);
 
 
 		JLabel lblFile = new JLabel("Choose argument to link:");
-		springLayout.putConstraint(SpringLayout.NORTH, comboBox1, -4, SpringLayout.NORTH, lblFile);
-		springLayout.putConstraint(SpringLayout.WEST, comboBox1, 4, SpringLayout.EAST, lblFile);
 		springLayout.putConstraint(SpringLayout.NORTH, lblFile, 35, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblFile, 64, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, lblFile, -382, SpringLayout.EAST, this);
@@ -98,14 +99,58 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		add(scrollpane);
 
 		JLabel lblColumnDatefile = new JLabel("Column Date (File 1): ");
-		springLayout.putConstraint(SpringLayout.NORTH, lblColumnDatefile, 0, SpringLayout.NORTH, comboBoxDate1);
+		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDate1, -4, SpringLayout.NORTH, lblColumnDatefile);
+		springLayout.putConstraint(SpringLayout.WEST, comboBoxDate1, 62, SpringLayout.EAST, lblColumnDatefile);
+		springLayout.putConstraint(SpringLayout.NORTH, lblColumnDatefile, 31, SpringLayout.SOUTH, lblFile);
 		springLayout.putConstraint(SpringLayout.WEST, lblColumnDatefile, 0, SpringLayout.WEST, lblFile);
 		add(lblColumnDatefile);
 
 		JLabel lblColumnDatefile_1 = new JLabel("Column Date (File 2): ");
-		springLayout.putConstraint(SpringLayout.NORTH, lblColumnDatefile_1, 0, SpringLayout.NORTH, comboBoxDate2);
+		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDate2, -4, SpringLayout.NORTH, lblColumnDatefile_1);
+		springLayout.putConstraint(SpringLayout.WEST, comboBoxDate2, 64, SpringLayout.EAST, lblColumnDatefile_1);
+		springLayout.putConstraint(SpringLayout.NORTH, lblColumnDatefile_1, 31, SpringLayout.SOUTH, lblColumnDatefile);
 		springLayout.putConstraint(SpringLayout.EAST, lblColumnDatefile_1, 0, SpringLayout.EAST, lblColumnDatefile);
 		add(lblColumnDatefile_1);
+		
+		JLabel lblFormat = new JLabel("Format: ");
+		springLayout.putConstraint(SpringLayout.NORTH, lblFormat, 0, SpringLayout.NORTH, comboBoxDate1);
+		springLayout.putConstraint(SpringLayout.WEST, lblFormat, 12, SpringLayout.EAST, comboBoxDate1);
+		add(lblFormat);
+		
+		JLabel lblFormat_1 = new JLabel("Format: ");
+		springLayout.putConstraint(SpringLayout.EAST, comboBoxDate2, -12, SpringLayout.WEST, lblFormat_1);
+		springLayout.putConstraint(SpringLayout.NORTH, lblFormat_1, 0, SpringLayout.NORTH, comboBoxDate2);
+		springLayout.putConstraint(SpringLayout.WEST, lblFormat_1, 0, SpringLayout.WEST, lblFormat);
+		add(lblFormat_1);
+		
+		String [] dateFormat = {"dd/MM/yyyy HH:mm:ss","dd-MM-yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm","MM/dd/yyy HH:mm:ss", "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy","Timestamp"};
+		JComboBox comboBoxFormat1 = new JComboBox(dateFormat);
+		springLayout.putConstraint(SpringLayout.NORTH, comboBoxFormat1, 0, SpringLayout.NORTH, comboBoxDate1);
+		springLayout.putConstraint(SpringLayout.WEST, comboBoxFormat1, 11, SpringLayout.EAST, lblFormat);
+		springLayout.putConstraint(SpringLayout.EAST, comboBoxFormat1, 115, SpringLayout.EAST, lblFormat);
+		comboBoxFormat1.addActionListener(this);
+		comboBoxFormat1.setActionCommand("comboFormat1");
+		add(comboBoxFormat1);
+		
+		JComboBox comboBoxFormat2 = new JComboBox(dateFormat);
+		springLayout.putConstraint(SpringLayout.NORTH, comboBoxFormat2, 20, SpringLayout.SOUTH, comboBoxFormat1);
+		springLayout.putConstraint(SpringLayout.WEST, comboBoxFormat2, 11, SpringLayout.EAST, lblFormat_1);
+		springLayout.putConstraint(SpringLayout.EAST, comboBoxFormat2, 115, SpringLayout.EAST, lblFormat_1);
+		comboBoxFormat2.addActionListener(this);
+		comboBoxFormat2.setActionCommand("comboFormat2");
+		add(comboBoxFormat2);
+		
+		JLabel lblFileName = new JLabel("File name:");
+		springLayout.putConstraint(SpringLayout.NORTH, lblFileName, 31, SpringLayout.SOUTH, lblColumnDatefile_1);
+		springLayout.putConstraint(SpringLayout.EAST, lblFileName, 0, SpringLayout.EAST, lblColumnDatefile);
+		add(lblFileName);
+		
+		textFieldFilePath = new JTextField();
+		springLayout.putConstraint(SpringLayout.WEST, textFieldFilePath, 0, SpringLayout.WEST, comboBox1);
+		springLayout.putConstraint(SpringLayout.SOUTH, textFieldFilePath, -6, SpringLayout.NORTH, btnValid);
+		springLayout.putConstraint(SpringLayout.EAST, textFieldFilePath, 0, SpringLayout.EAST, comboBox1);
+		add(textFieldFilePath);
+		textFieldFilePath.setColumns(10);
 
 	}
 
@@ -115,41 +160,51 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Valid")){ 
 			ArrayList<String[]> finalResult = new ArrayList<String[]>();
-			Operator.dateStringtoTimestamp(file1, columnDate1, "yyyy-MM-dd'T'HH:mm");
-			Operator.dateStringtoTimestamp(file2, columnDate2, "yyyy-MM-dd'T'HH:mm");
 
-			for (int k = 0; k<file1.get(1).length;k++){
-				textArea.append(file1.get(0)[k]+" : "+file1.get(1)[k]+" ; ");
-			}
-			textArea.append("\n");
+			Operator.dateStringtoTimestamp(file2, columnDate2, dateFormat2);
+			Operator.dateStringtoTimestamp(file1, columnDate1, dateFormat1);
 
-			for (int i = 1; i< file1.size()-1; i++){
 
+
+			for (int i = 1 ; i< file1.size(); i++){
+				
 				ArrayList<String[]> resultStamp = new ArrayList<String[]>();
+				if (i < file1.size()-1){
+				resultStamp = Operator.selectValuesBetweenTwoTimestamps(file2, columnDate2, 
+						file1.get(i)[columnDate1],
+						file1.get(i+1)[columnDate1]);}
+				// There is not activity between this two dates
+
+				finalResult.add(file1.get(i));
+
+				if (resultStamp.isEmpty()){
+
+					System.out.println("result samtp:  "+resultStamp);
+				}
+				// There are activities between this two dates
+				else {
 
 
-
-
-				resultStamp = Operator.selectValuesBetweenTwoTimestamps(file2, columnDate2, file1.get(i)[columnDate1], file1.get(i+1)[columnDate1]);
-
-				for (int j = 0 ; j<resultStamp.size();j++){
-					System.out.println("IP       "+file1.get(1)[columnFile]);
-					if (Operator.containInArray(resultStamp.get(j), file1.get(1)[columnFile])){
-						for (int k = 0; k<resultStamp.get(j).length;k++){
-							textArea.append(file2.get(0)[k]+" : "+resultStamp.get(j)[k]+" ; ");
+					int j = 0;
+					while (j < resultStamp.size()){
+						if(!Operator.containInArray(resultStamp.get(j), file1.get(1)[columnFile])){
+							resultStamp.remove(j);
 						}
-						textArea.append("\n");
-
+						else j++;	
 					}
+					
+					Operator.appendFileToAnOther(finalResult, resultStamp);
+
 				}
 
-				for (int k = 0; k<file1.get(i+1).length;k++){
-					textArea.append(file1.get(0)[k]+" : "+file1.get(i+1)[k]+" ; ");
-				}
-				textArea.append("\n");
 			}
-
-
+			
+			try {
+				Writer.writeCsv(finalResult, "CsvData/"+textFieldFilePath.getText()+".csv");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 		}
 		else if(cmd.equals("cancel")){ 
@@ -167,6 +222,14 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		else if(cmd.equals("comboDate2")){ 
 			JComboBox<String> choiceDate2 = (JComboBox<String>)e.getSource();
 			columnDate2 = choiceDate2.getSelectedIndex();
+		}
+		else if(cmd.equals("comboFormat1")){ 
+			JComboBox<String> choiceFormat1 = (JComboBox<String>)e.getSource();
+			dateFormat1 = (String) choiceFormat1.getSelectedItem();
+		}
+		else if(cmd.equals("comboFormat2")){ 
+			JComboBox<String> choiceFormat2 = (JComboBox<String>)e.getSource();
+			dateFormat2 = (String) choiceFormat2.getSelectedItem();
 		}
 	}
 }
