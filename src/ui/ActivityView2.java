@@ -30,7 +30,7 @@ public class ActivityView2 extends JPanel implements ActionListener {
 
 	private JTextField textFieldFilePath;
 	private JTextArea textArea;
-	
+
 
 	public ActivityView2(MainView frame, ArrayList<String[]> file1,  ArrayList<String[]> file2) {
 
@@ -111,18 +111,18 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.NORTH, lblColumnDatefile_1, 31, SpringLayout.SOUTH, lblColumnDatefile);
 		springLayout.putConstraint(SpringLayout.EAST, lblColumnDatefile_1, 0, SpringLayout.EAST, lblColumnDatefile);
 		add(lblColumnDatefile_1);
-		
+
 		JLabel lblFormat = new JLabel("Format: ");
 		springLayout.putConstraint(SpringLayout.NORTH, lblFormat, 0, SpringLayout.NORTH, comboBoxDate1);
 		springLayout.putConstraint(SpringLayout.WEST, lblFormat, 12, SpringLayout.EAST, comboBoxDate1);
 		add(lblFormat);
-		
+
 		JLabel lblFormat_1 = new JLabel("Format: ");
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxDate2, -12, SpringLayout.WEST, lblFormat_1);
 		springLayout.putConstraint(SpringLayout.NORTH, lblFormat_1, 0, SpringLayout.NORTH, comboBoxDate2);
 		springLayout.putConstraint(SpringLayout.WEST, lblFormat_1, 0, SpringLayout.WEST, lblFormat);
 		add(lblFormat_1);
-		
+
 		String [] dateFormat = {"dd/MM/yyyy HH:mm:ss","dd-MM-yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm","MM/dd/yyy HH:mm:ss", "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy","Timestamp"};
 		JComboBox comboBoxFormat1 = new JComboBox(dateFormat);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxFormat1, 0, SpringLayout.NORTH, comboBoxDate1);
@@ -131,7 +131,7 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		comboBoxFormat1.addActionListener(this);
 		comboBoxFormat1.setActionCommand("comboFormat1");
 		add(comboBoxFormat1);
-		
+
 		JComboBox comboBoxFormat2 = new JComboBox(dateFormat);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxFormat2, 20, SpringLayout.SOUTH, comboBoxFormat1);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxFormat2, 11, SpringLayout.EAST, lblFormat_1);
@@ -139,12 +139,12 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		comboBoxFormat2.addActionListener(this);
 		comboBoxFormat2.setActionCommand("comboFormat2");
 		add(comboBoxFormat2);
-		
+
 		JLabel lblFileName = new JLabel("File name:");
 		springLayout.putConstraint(SpringLayout.NORTH, lblFileName, 31, SpringLayout.SOUTH, lblColumnDatefile_1);
 		springLayout.putConstraint(SpringLayout.EAST, lblFileName, 0, SpringLayout.EAST, lblColumnDatefile);
 		add(lblFileName);
-		
+
 		textFieldFilePath = new JTextField();
 		springLayout.putConstraint(SpringLayout.WEST, textFieldFilePath, 0, SpringLayout.WEST, comboBox1);
 		springLayout.putConstraint(SpringLayout.SOUTH, textFieldFilePath, -6, SpringLayout.NORTH, btnValid);
@@ -160,45 +160,33 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Valid")){ 
 			ArrayList<String[]> finalResult = new ArrayList<String[]>();
-
-			Operator.dateStringtoTimestamp(file2, columnDate2, dateFormat2);
+			Operator.tradeTwoColumns(file2, columnDate1, columnDate2);
+			Operator.dateStringtoTimestamp(file2, columnDate1, dateFormat2);
 			Operator.dateStringtoTimestamp(file1, columnDate1, dateFormat1);
 
-
+			finalResult.add(file1.get(0));
 
 			for (int i = 1 ; i< file1.size(); i++){
-				
+
 				ArrayList<String[]> resultStamp = new ArrayList<String[]>();
 				if (i < file1.size()-1){
-				resultStamp = Operator.selectValuesBetweenTwoTimestamps(file2, columnDate2, 
-						file1.get(i)[columnDate1],
-						file1.get(i+1)[columnDate1]);}
-				// There is not activity between this two dates
+					resultStamp = Operator.selectValuesBetweenTwoTimestamps(file2, columnDate1, 
+							file1.get(i)[columnDate1],
+							file1.get(i+1)[columnDate1]);
+				}
 
 				finalResult.add(file1.get(i));
 
-				if (resultStamp.isEmpty()){
-
-					System.out.println("result samtp:  "+resultStamp);
-				}
-				// There are activities between this two dates
-				else {
-
-
-					int j = 0;
-					while (j < resultStamp.size()){
-						if(!Operator.containInArray(resultStamp.get(j), file1.get(1)[columnFile])){
-							resultStamp.remove(j);
-						}
-						else j++;	
+				int j = 0;
+				while (j < resultStamp.size()){
+					if(!Operator.containInArray(resultStamp.get(j), file1.get(1)[columnFile])){
+						resultStamp.remove(j);
 					}
-					
-					Operator.appendFileToAnOther(finalResult, resultStamp);
-
+					else j++;	
 				}
+				Operator.appendFileToAnOther(finalResult, resultStamp);
 
 			}
-			
 			try {
 				Writer.writeCsv(finalResult, "CsvData/"+textFieldFilePath.getText()+".csv");
 			} catch (Exception e1) {

@@ -400,6 +400,13 @@ public class Operator {
 		}
 		return result;
 	}
-	
+	public static void tradeTwoColumns(ArrayList<String[]> myFile, int column1, int column2){
+		for(int i = 0 ;i<myFile.size(); i++){
+			String stamp = new String ();
+			stamp = myFile.get(i)[column1];
+			myFile.get(i)[column1] = myFile.get(i)[column2];
+			 myFile.get(i)[column2] = stamp; 
+		}
+	}
 
 }
