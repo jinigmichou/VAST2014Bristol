@@ -99,7 +99,8 @@ public class DeleteColumnView extends JPanel implements ActionListener {
 			else {
 				ArrayList<String[]> myFileResult = Operator.deleteColumn(myFile, columnToDelete);
 				try {
-					Writer.writeCsv(myFileResult, "./src/csvData/"+textField.getText()+".csv");
+					System.out.println("coucou");
+					Writer.writeCsv(myFileResult, "CsvData/"+textField.getText()+".csv");
 					MainView.logger.log(Level.WARNING, "The column deleted is : " +  columnToDelete 
 							+ "and the new file is " + myFileResult);
 				} catch (Exception e1) {

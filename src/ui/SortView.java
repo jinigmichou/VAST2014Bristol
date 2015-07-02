@@ -132,7 +132,7 @@ public class SortView extends JPanel implements ActionListener {
 			MainView.logger.log(Level.WARNING, "Choice of " + this.getTitle()[columnChoosen] + " from the ComboBox to sort the file");
 
 			ArrayList<String[]> test3 = Operator.verifyJourney(getMyFile());
-			String filepath = "./src/csvData/"+this.textFieldFileName.getText();
+			String filepath = "CsvData/"+this.textFieldFileName.getText();
 
 			try {
 

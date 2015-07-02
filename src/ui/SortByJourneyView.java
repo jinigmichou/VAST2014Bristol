@@ -93,7 +93,7 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 			Operator.tranformDate(this.getMyFile(), 0);
 			ArrayList<String[]> test = Operator.sortTimestamp(this.getMyFile(), 0, timeChosen*60000);
 			ArrayList<String[]> testError = Operator.verifyJourney(test);
-			String fileName = "./src/csvData/"+this.textFieldfileName.getText();
+			String fileName = "CsvData/"+this.textFieldfileName.getText();
 			try {
 
 

@@ -33,32 +33,31 @@ public class ActivityView1 extends JPanel implements ActionListener {
 		setLayout(springLayout_1);
 		setBackground(Color.LIGHT_GRAY);
 
-		JLabel lblTheOtherFile = new JLabel("file 1: ");
+		JLabel lblTheOtherFile = new JLabel("user file: ");
 		springLayout_1.putConstraint(SpringLayout.WEST, lblTheOtherFile, 10, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, lblTheOtherFile, 48, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblTheOtherFile, 10, SpringLayout.WEST, this);
 		add(lblTheOtherFile);
 
 		textFieldFile1 = new JTextField();
-		springLayout_1.putConstraint(SpringLayout.WEST, textFieldFile1, 82, SpringLayout.WEST, this);
+		springLayout_1.putConstraint(SpringLayout.WEST, textFieldFile1, 106, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldFile1, -6, SpringLayout.NORTH, lblTheOtherFile);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldFile1, 17, SpringLayout.EAST, lblTheOtherFile);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldFile1, 222, SpringLayout.EAST, lblTheOtherFile);
 		add(textFieldFile1);
 		textFieldFile1.setColumns(10);
 
-		JLabel lblFile = new JLabel("file 2: ");
-		springLayout_1.putConstraint(SpringLayout.NORTH, lblFile, 113, SpringLayout.NORTH, this);
+		JLabel lblFile = new JLabel("activity file: ");
 		springLayout_1.putConstraint(SpringLayout.SOUTH, lblTheOtherFile, -37, SpringLayout.NORTH, lblFile);
-		springLayout_1.putConstraint(SpringLayout.EAST, lblFile, 0, SpringLayout.EAST, lblTheOtherFile);
+		springLayout_1.putConstraint(SpringLayout.WEST, lblFile, 0, SpringLayout.WEST, lblTheOtherFile);
 		springLayout.putConstraint(SpringLayout.NORTH, lblFile, 34, SpringLayout.SOUTH, textFieldFile1);
 		springLayout.putConstraint(SpringLayout.WEST, lblFile, 0, SpringLayout.WEST, lblTheOtherFile);
 		add(lblFile);
 
 		textFieldFile2 = new JTextField();
+		springLayout_1.putConstraint(SpringLayout.WEST, textFieldFile2, 18, SpringLayout.EAST, lblFile);
+		springLayout_1.putConstraint(SpringLayout.NORTH, lblFile, 6, SpringLayout.NORTH, textFieldFile2);
 		springLayout_1.putConstraint(SpringLayout.SOUTH, textFieldFile1, -25, SpringLayout.NORTH, textFieldFile2);
-		springLayout_1.putConstraint(SpringLayout.WEST, textFieldFile2, 0, SpringLayout.WEST, textFieldFile1);
-		springLayout_1.putConstraint(SpringLayout.EAST, textFieldFile2, 0, SpringLayout.EAST, textFieldFile1);
 		springLayout_1.putConstraint(SpringLayout.NORTH, textFieldFile2, 107, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldFile2, 28, SpringLayout.SOUTH, textFieldFile1);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldFile2, 0, SpringLayout.WEST, textFieldFile1);
@@ -77,7 +76,8 @@ public class ActivityView1 extends JPanel implements ActionListener {
 		add(btnBrowse1);
 
 		JButton btnBrowse2 = new JButton("Browse");
-		springLayout_1.putConstraint(SpringLayout.NORTH, btnBrowse2, -5, SpringLayout.NORTH, lblFile);
+		springLayout_1.putConstraint(SpringLayout.EAST, textFieldFile2, -6, SpringLayout.WEST, btnBrowse2);
+		springLayout_1.putConstraint(SpringLayout.NORTH, btnBrowse2, 24, SpringLayout.SOUTH, btnBrowse1);
 		springLayout_1.putConstraint(SpringLayout.WEST, btnBrowse2, 0, SpringLayout.WEST, btnBrowse1);
 		springLayout.putConstraint(SpringLayout.WEST, btnBrowse2, 0, SpringLayout.WEST, btnBrowse1);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnBrowse2, 0, SpringLayout.SOUTH, textFieldFile2);
@@ -87,7 +87,6 @@ public class ActivityView1 extends JPanel implements ActionListener {
 
 		JButton btnValid = new JButton("Valid");
 		springLayout_1.putConstraint(SpringLayout.NORTH, btnValid, 26, SpringLayout.SOUTH, textFieldFile2);
-		springLayout_1.putConstraint(SpringLayout.EAST, btnValid, 0, SpringLayout.EAST, textFieldFile1);
 		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 47, SpringLayout.SOUTH, btnBrowse2);
 		springLayout.putConstraint(SpringLayout.WEST, btnValid, 0, SpringLayout.WEST, btnBrowse1);
 		springLayout.putConstraint(SpringLayout.EAST, btnValid, 0, SpringLayout.EAST, btnBrowse1);
@@ -96,6 +95,7 @@ public class ActivityView1 extends JPanel implements ActionListener {
 		add(btnValid);
 
 		JButton btnBack = new JButton("Back");
+		springLayout_1.putConstraint(SpringLayout.WEST, btnValid, 6, SpringLayout.EAST, btnBack);
 		springLayout_1.putConstraint(SpringLayout.NORTH, btnBack, 0, SpringLayout.NORTH, btnValid);
 		springLayout_1.putConstraint(SpringLayout.WEST, btnBack, 175, SpringLayout.WEST, this);
 		springLayout_1.putConstraint(SpringLayout.EAST, btnBack, 250, SpringLayout.WEST, this);

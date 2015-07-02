@@ -364,6 +364,7 @@ public class Operator {
 			int k = 0;
 			for (int j = 0 ; j < myFile.get(i).length ; j++){
 				if (j!=column){
+					System.out.println("jojo "+j);
 					tabStamp[k] = myFile.get(i)[j];
 					k++;
 				}
