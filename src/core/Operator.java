@@ -390,6 +390,7 @@ public class Operator {
 			if (Operator.compareTimeStamp(myFile.get(i)[columnDay], date1, 0)
 					&& Operator.compareTimeStamp(date2, myFile.get(i)[columnDay], 0)){
 				myFileResult.add(myFile.get(i));
+				
 			}
 		}
 		return myFileResult ;

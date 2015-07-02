@@ -123,7 +123,7 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.WEST, lblFormat_1, 0, SpringLayout.WEST, lblFormat);
 		add(lblFormat_1);
 
-		String [] dateFormat = {"dd/MM/yyyy HH:mm:ss","dd-MM-yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm","MM/dd/yyy HH:mm:ss", "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy","Timestamp"};
+		String [] dateFormat = {"dd/MM/yyyy HH:mm:ss","dd-MM-yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm","MM/dd/yyyy HH:mm:ss","MM/dd/yyyy","MM/dd/yyyy HH:mm", "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy","Timestamp"};
 		JComboBox comboBoxFormat1 = new JComboBox(dateFormat);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxFormat1, 0, SpringLayout.NORTH, comboBoxDate1);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxFormat1, 11, SpringLayout.EAST, lblFormat);
@@ -160,9 +160,11 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Valid")){ 
 			ArrayList<String[]> finalResult = new ArrayList<String[]>();
-			Operator.tradeTwoColumns(file2, columnDate1, columnDate2);
-			Operator.dateStringtoTimestamp(file2, columnDate1, dateFormat2);
-			Operator.dateStringtoTimestamp(file1, columnDate1, dateFormat1);
+			Operator.tradeTwoColumns(file2, columnDate2, 0);
+			Operator.tradeTwoColumns(file1, columnDate1, 0);
+			
+			Operator.dateStringtoTimestamp(file2, 0, dateFormat2);
+			Operator.dateStringtoTimestamp(file1, 0, dateFormat1);
 
 			finalResult.add(file1.get(0));
 
@@ -170,9 +172,10 @@ public class ActivityView2 extends JPanel implements ActionListener {
 
 				ArrayList<String[]> resultStamp = new ArrayList<String[]>();
 				if (i < file1.size()-1){
-					resultStamp = Operator.selectValuesBetweenTwoTimestamps(file2, columnDate1, 
-							file1.get(i)[columnDate1],
-							file1.get(i+1)[columnDate1]);
+					resultStamp = Operator.selectValuesBetweenTwoTimestamps(file2, 0, 
+							file1.get(i)[0],
+							file1.get(i+1)[0]);
+					//System.out.println("nom : "+resultStamp.get(i)[4]);
 				}
 
 				finalResult.add(file1.get(i));
@@ -180,6 +183,7 @@ public class ActivityView2 extends JPanel implements ActionListener {
 				int j = 0;
 				while (j < resultStamp.size()){
 					if(!Operator.containInArray(resultStamp.get(j), file1.get(1)[columnFile])){
+						System.out.println("coucou"+j);
 						resultStamp.remove(j);
 					}
 					else j++;	
