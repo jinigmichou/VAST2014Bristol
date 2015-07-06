@@ -167,10 +167,6 @@ public class MergeView extends JPanel implements ActionListener {
 
 				myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
 				myFile2 = myreader2.readCsv(myreader2.getMyFilePath());
-				/*for (int i= 0; i<test2.get(0).length; i++){
-					result = result + test2.get(0)[i] + ", ";
-					//comboBoxColumnName.addItem(test2.get(0)[i]);
-				}*/
 
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

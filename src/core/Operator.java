@@ -1,5 +1,7 @@
 package core;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +12,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import javax.swing.JFileChooser;
 
 public class Operator {
 	private ArrayList<String[]> myFile;
@@ -409,6 +413,25 @@ public class Operator {
 			myFile.get(i)[column1] = myFile.get(i)[column2];
 			 myFile.get(i)[column2] = stamp; 
 		}
+	}
+	
+	public static String selectFile(){
+		
+		String file= new String();
+		
+		File repertoireCourant = null;
+		try {
+			repertoireCourant = new File(".").getCanonicalFile();
+			
+		} catch(IOException e) {}
+
+		JFileChooser dialogue = new JFileChooser(repertoireCourant);
+
+		// affichage
+		dialogue.showOpenDialog(null);
+
+		file= dialogue.getSelectedFile().toString();
+		return file;
 	}
 
 }

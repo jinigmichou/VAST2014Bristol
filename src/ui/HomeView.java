@@ -208,6 +208,14 @@ public class HomeView extends JPanel implements ActionListener{
 		btnAssumptions.addActionListener(this);
 		btnAssumptions.setActionCommand("Assumptions");
 		add(btnAssumptions);
+		
+		JButton btnExecute = new JButton("Execute your code");
+		springLayout.putConstraint(SpringLayout.NORTH, btnExecute, 10, SpringLayout.SOUTH, btnDate);
+		springLayout.putConstraint(SpringLayout.WEST, btnExecute, 0, SpringLayout.WEST, lblFilePath);
+		springLayout.putConstraint(SpringLayout.EAST, btnExecute, 0, SpringLayout.EAST, lblFilePath);
+		btnExecute.addActionListener(this);
+		btnExecute.setActionCommand("Execute");
+		add(btnExecute);
 
 		/*JButton btnDeleteAColumn = new JButton("Delete a column");
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAColumn, 0, SpringLayout.NORTH, btnReturn);
@@ -455,6 +463,9 @@ public class HomeView extends JPanel implements ActionListener{
 		}
 		else if (cmd.equals("Activities")){
 			frame.changePanel(new ActivityView1(frame));
+		}
+		else if (cmd.equals("Execute")){
+			frame.changePanel(new ExecuteUserCodeView(frame));
 		}
 
 	}
