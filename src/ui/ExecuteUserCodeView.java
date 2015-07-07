@@ -41,7 +41,11 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 		setBackground(Color.LIGHT_GRAY);
 		//this.setSize(frame.getSize());
 		setSize(640, 480);
+		initialize();
 
+	}
+	
+	public void initialize(){
 		JLabel lblNewLabel = new JLabel("Number of input files: ");
 		lblNewLabel.setBounds(16, 22, 151, 35);
 
@@ -65,10 +69,8 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 		JButton btnBack = new JButton("Back");
 		btnBack.setBounds(92, 74, 75, 29);
 		add(btnBack);
-
-
-
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -76,28 +78,7 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 		if(cmd.equals("Valid")){ 
 
 			this.removeAll();
-			JLabel lblNewLabel = new JLabel("Number of input files: ");
-			lblNewLabel.setBounds(16, 22, 151, 35);
-			add(lblNewLabel);
-
-			String[] inputfileNumber = {"1","2","3","4"};
-			JComboBox comboBoxInputFiles = new JComboBox(inputfileNumber);
-			comboBoxInputFiles.setBounds(170, 30, 74, 20);
-
-			comboBoxInputFiles.addActionListener(this);
-			comboBoxInputFiles.setActionCommand("comboInput");
-			add(comboBoxInputFiles);
-
-			JButton btnValid = new JButton("Valid");
-			btnValid.setBounds(170, 74, 74, 29);
-
-			btnValid.addActionListener(this);
-			btnValid.setActionCommand("Valid");
-			add(btnValid);
-
-			JButton btnBack = new JButton("Back");
-			btnBack.setBounds(92, 74, 75, 29);
-			add(btnBack);
+			this.initialize();
 
 			textArea = new JTextArea();
 			JScrollPane scrollPane = new JScrollPane(textArea);

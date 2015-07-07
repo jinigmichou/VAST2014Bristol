@@ -3,6 +3,9 @@ package ui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -11,9 +14,10 @@ import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
-	
+
 	private MainView frame;
 	private ArrayList<String[]> file1;
 	private ArrayList<String[]> file2;
@@ -30,100 +34,100 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 	public ExecuteUserCodeView1(MainView frame, ArrayList<String[]> file1) {
 		this.frame = frame;
 		this.file1 = file1;
-		
+
 		initialize();
 		textArea.append("File 1 : \n");
 		for (int i = 0 ; i< file1.get(0).length; i++){
 			textArea.append("column "+i+" : "+file1.get(0)[i]+"\n");
 		}
-		
+
 	}
-	
+
 	public ExecuteUserCodeView1(MainView frame, ArrayList<String[]> file1, ArrayList<String[]> file2) {
 		this.frame = frame;
 		this.file1 = file1;
 		this.file2 = file2;
-		
+
 		initialize();
-		
+
 		textArea.append("File 1 : \n");
 		for (int i = 0 ; i< file1.get(0).length; i++){
 			textArea.append("column "+i+" : "+file1.get(0)[i]+"\n");
 		}
-		
-		
+
+
 		textArea.append("File 2 : \n");
 		for (int i = 0 ; i< file2.get(0).length; i++){
 			textArea.append("column "+i+" : "+file2.get(0)[i]+"\n");
 		}
-		
-		
+
+
 	}
-	
+
 	public ExecuteUserCodeView1(MainView frame, ArrayList<String[]> file1, ArrayList<String[]> file2, ArrayList<String[]> file3) {
 		this.frame = frame;
 		this.file1 = file1;
 		this.file2 = file2;
 		this.file3 = file3;
-		
+
 		initialize();
-		
+
 		textArea.append("File 1 : \n");
 		for (int i = 0 ; i< file1.get(0).length; i++){
 			textArea.append("column "+i+" : "+file1.get(0)[i]+"\n");
 		}
-		
+
 		textArea.append("File 2 : \n");
 		for (int i = 0 ; i< file2.get(0).length; i++){
 			textArea.append("column "+i+" : "+file2.get(0)[i]+"\n");
 		}
-		
+
 		textArea.append("File 3 : \n");
 		for (int i = 0 ; i< file3.get(0).length; i++){
 			textArea.append("column "+i+" : "+file3.get(0)[i]+"\n");
 		}
-		
+
 	}
-	
+
 	public ExecuteUserCodeView1(MainView frame, ArrayList<String[]> file1, ArrayList<String[]> file2, ArrayList<String[]> file3,ArrayList<String[]> file4) {
 		this.frame = frame;
 		this.file1 = file1;
 		this.file2 = file2;
 		this.file3 = file3;
 		this.file4 = file4;
-		
+
 		initialize();
-		
+
 
 		textArea.append("File 1 : \n");
 		for (int i = 0 ; i< file1.get(0).length; i++){
 			textArea.append("column "+i+" : "+file1.get(0)[i]+"\n");
 		}
-		
+
 		textArea.append("File 2 : \n");
 		for (int i = 0 ; i< file2.get(0).length; i++){
 			textArea.append("column "+i+" : "+file2.get(0)[i]+"\n");
 		}
-		
+
 		textArea.append("File 3 : \n");
 		for (int i = 0 ; i< file3.get(0).length; i++){
 			textArea.append("column "+i+" : "+file3.get(0)[i]+"\n");
 		}
-		
+
 		textArea.append("File 4 : \n");
 		for (int i = 0 ; i< file4.get(0).length; i++){
 			textArea.append("column "+i+" : "+file4.get(0)[i]+"\n");
 		}
-		
-		
-		
+
+
+
 	}
 	public void initialize(){
 		SpringLayout springLayout = new SpringLayout();
 		setSize(640, 480);
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-		
+
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
@@ -131,43 +135,43 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -57, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 182, SpringLayout.WEST, this);
 		add(scrollPane);
-		
+
 		JLabel lblFileColumns = new JLabel("File Columns:");
 		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 6, SpringLayout.SOUTH, lblFileColumns);
 		springLayout.putConstraint(SpringLayout.WEST, lblFileColumns, 26, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, lblFileColumns, 10, SpringLayout.NORTH, this);
 		add(lblFileColumns);
-		
+
 		textFieldNameOfOutput = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldNameOfOutput, 4, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, textFieldNameOfOutput, 32, SpringLayout.NORTH, this);
 		add(textFieldNameOfOutput);
 		textFieldNameOfOutput.setColumns(10);
-		
+
 		JLabel lblOutputFileName = new JLabel("Output File Name: ");
 		springLayout.putConstraint(SpringLayout.WEST, textFieldNameOfOutput, 32, SpringLayout.EAST, lblOutputFileName);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldNameOfOutput, 215, SpringLayout.EAST, lblOutputFileName);
 		springLayout.putConstraint(SpringLayout.NORTH, lblOutputFileName, 0, SpringLayout.NORTH, lblFileColumns);
 		springLayout.putConstraint(SpringLayout.WEST, lblOutputFileName, 88, SpringLayout.EAST, lblFileColumns);
 		add(lblOutputFileName);
-		
+
 		JLabel lblExecutableFileName = new JLabel("Executable File Name: ");
 		springLayout.putConstraint(SpringLayout.NORTH, lblExecutableFileName, 15, SpringLayout.SOUTH, lblOutputFileName);
 		springLayout.putConstraint(SpringLayout.WEST, lblExecutableFileName, 0, SpringLayout.WEST, lblOutputFileName);
 		add(lblExecutableFileName);
-		
+
 		textFieldExecutableName = new JTextField();
 		springLayout.putConstraint(SpringLayout.EAST, textFieldExecutableName, 191, SpringLayout.EAST, lblExecutableFileName);
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldExecutableName, 32, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldExecutableName, 8, SpringLayout.EAST, lblExecutableFileName);
 		add(textFieldExecutableName);
 		textFieldExecutableName.setColumns(10);
-		
+
 		JLabel lblYourCode = new JLabel("Your code: ");
 		springLayout.putConstraint(SpringLayout.NORTH, lblYourCode, 10, SpringLayout.SOUTH, textFieldExecutableName);
 		springLayout.putConstraint(SpringLayout.WEST, lblYourCode, 19, SpringLayout.EAST, scrollPane);
 		add(lblYourCode);
-		
+
 		textAreaCode = new JTextArea();
 		JScrollPane scrollPaneCode = new JScrollPane(textAreaCode);
 		springLayout.putConstraint(SpringLayout.NORTH, scrollPaneCode, 6, SpringLayout.SOUTH, lblYourCode);
@@ -175,13 +179,37 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, scrollPaneCode, 0, SpringLayout.SOUTH, scrollPane);
 		springLayout.putConstraint(SpringLayout.EAST, scrollPaneCode, -21, SpringLayout.EAST, this);
 		add(scrollPaneCode);
-		
-		
+
+		JButton btnExecuteCode = new JButton("Execute code");
+		springLayout.putConstraint(SpringLayout.NORTH, btnExecuteCode, 6, SpringLayout.SOUTH, scrollPaneCode);
+		springLayout.putConstraint(SpringLayout.EAST, btnExecuteCode, -23, SpringLayout.EAST, this);
+		btnExecuteCode.addActionListener(this);
+		btnExecuteCode.setActionCommand("Execute");
+		add(btnExecuteCode);
+
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		String cmd = e.getActionCommand();
+		if(cmd.equals("Execute")){ 
+			
+			Runtime runtime = Runtime.getRuntime();
+			//String Cmd = new String("java -jar /Users/jacquez/Desktop/monAppli.jar");
+			String Cmd = new String("javac /Users/jacquez/Documents/workspace/VAST2014Bristol/bodyAppli/*.java");
+			String Cmd1 = new String("java /Users/jacquez/Documents/workspace/VAST2014Bristol/bodyAppli/*MainView.java");
+			try {
+				Process process = runtime.exec(Cmd);
+				Process process1 = runtime.exec(Cmd1);
+				System.out.println(process.getInputStream());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+
+		}
 	}
 }
