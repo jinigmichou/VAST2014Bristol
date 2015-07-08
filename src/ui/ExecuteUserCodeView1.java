@@ -16,6 +16,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import core.Writer;
+
 public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 
 	private MainView frame;
@@ -195,14 +197,19 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Execute")){ 
-			
+			try {
+				Writer.writeFile(textAreaCode.getText(), "Main");
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			Runtime runtime = Runtime.getRuntime();
-			//String Cmd = new String("java -jar /Users/jacquez/Desktop/monAppli.jar");
-			String Cmd = new String("javac /Users/jacquez/Documents/workspace/VAST2014Bristol/bodyAppli/*.java");
-			String Cmd1 = new String("java /Users/jacquez/Documents/workspace/VAST2014Bristol/bodyAppli/*MainView.java");
+			String Cmd = new String("java -jar /Users/jacquez/Desktop/folder/monAppli.jar");
+			//String Cmd = new String("javac /Users/jacquez/Documents/workspace/VAST2014Bristol/bodyAppli/*.java");
+			//String Cmd1 = new String("java /Users/jacquez/Documents/workspace/VAST2014Bristol/bodyAppli/*MainView.java");
 			try {
 				Process process = runtime.exec(Cmd);
-				Process process1 = runtime.exec(Cmd1);
+				//Process process1 = runtime.exec(Cmd1);
 				System.out.println(process.getInputStream());
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block

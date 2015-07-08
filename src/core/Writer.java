@@ -32,6 +32,10 @@ public class Writer {
 
 		WriterCSV.writeCsv(myFile, myFilePath);
 	}
+	public static void writeFile(String myText, String myFilePath) throws Exception{
+
+		WriterCSV.writeFile(myText, myFilePath);
+	}
 		
 	public ArrayList<String[]> getMyFile() {
 		return myFile;

@@ -1,6 +1,8 @@
 package persist;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.opencsv.CSVWriter;
@@ -47,8 +49,24 @@ public class WriterCSV extends Writer {
 
 		}
 		writer.close();
-
-
+	}
+	public static void writeFile(String myText, String myFilePath){
+		 FileWriter fw= null;
+	        File file =null;
+	        try {
+	            file=new File(myFilePath+".java");
+	            if(!file.exists()) {
+	                file.createNewFile();
+	            }
+	            fw = new FileWriter(file);
+	            fw.write(myText);
+	            fw.flush();
+	            fw.close();
+	            System.out.println("File written Succesfully");
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		
 	}
 
 }
