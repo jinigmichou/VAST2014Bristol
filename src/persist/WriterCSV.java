@@ -62,7 +62,7 @@ public class WriterCSV extends Writer {
 	            fw.write(myText);
 	            fw.flush();
 	            fw.close();
-	            System.out.println("File written Succesfully");
+	            
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }

@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import core.TerminalOutput;
 import core.Writer;
 
 public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
@@ -197,20 +198,53 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Execute")){ 
+			
+			String bodyMainClass = "public class Main {"
+					+ "\n\n"
+					+ "public static void main(String [ ] args){";
 			try {
-				Writer.writeFile(textAreaCode.getText(), "Main");
+				Writer.writeFile(bodyMainClass+"\n"+
+			textAreaCode.getText()+"\n}"
+					+ "\n}", "Main");
 			} catch (Exception e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
 			Runtime runtime = Runtime.getRuntime();
-			String Cmd = new String("java -jar /Users/jacquez/Desktop/folder/monAppli.jar");
-			//String Cmd = new String("javac /Users/jacquez/Documents/workspace/VAST2014Bristol/bodyAppli/*.java");
-			//String Cmd1 = new String("java /Users/jacquez/Documents/workspace/VAST2014Bristol/bodyAppli/*MainView.java");
+			
+			String Cmd = new String("javac Main.java");
+			String Cmd1 = new String("jar cvmf MANIFEST.MF "
+					+ textFieldExecutableName.getText()+".jar"
+					+" Main.class");
+			
+			
+			String Cmd2 = new String("java -jar "+textFieldExecutableName.getText()+".jar");
+		
 			try {
 				Process process = runtime.exec(Cmd);
-				//Process process1 = runtime.exec(Cmd1);
-				System.out.println(process.getInputStream());
+				try {
+					process.waitFor();
+					
+					process = runtime.exec(Cmd1);
+					process.waitFor();
+					
+					process = runtime.exec(Cmd2);
+					process.waitFor();
+					
+				} catch (InterruptedException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				
+				System.out.println("Resultat apres execution");
+				TerminalOutput output= new TerminalOutput(process.getInputStream()); 
+				output.run();
+				/*
+				System.out.println("erreur");
+				TerminalOutput outputE= new TerminalOutput(process.getErrorStream()); 
+				outputE.run();*/
+
+			
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
