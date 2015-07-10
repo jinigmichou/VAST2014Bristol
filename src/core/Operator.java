@@ -147,7 +147,7 @@ public class Operator {
 			return true;
 		}
 		else 
-			
+
 			return false;
 
 
@@ -300,7 +300,7 @@ public class Operator {
 		}
 		long timestamp = date.getTime();
 		return Long.toString(timestamp);
-		
+
 	}
 	/**
 	 * Function to remove journey which distance is null or equals to NaN
@@ -390,11 +390,11 @@ public class Operator {
 		ArrayList<String[]> myFileResult = new ArrayList<String[]>();
 		//myFileResult.add(myFile.get(0));
 		for (int i = 1;  i< myFile.size() ; i++){
-			
+
 			if (Operator.compareTimeStamp(myFile.get(i)[columnDay], date1, 0)
 					&& Operator.compareTimeStamp(date2, myFile.get(i)[columnDay], 0)){
 				myFileResult.add(myFile.get(i));
-				
+
 			}
 		}
 		return myFileResult ;
@@ -411,18 +411,18 @@ public class Operator {
 			String stamp = new String ();
 			stamp = myFile.get(i)[column1];
 			myFile.get(i)[column1] = myFile.get(i)[column2];
-			 myFile.get(i)[column2] = stamp; 
+			myFile.get(i)[column2] = stamp; 
 		}
 	}
-	
+
 	public static String selectFile(){
-		
+
 		String file= new String();
-		
+
 		File repertoireCourant = null;
 		try {
 			repertoireCourant = new File(".").getCanonicalFile();
-			
+
 		} catch(IOException e) {}
 
 		JFileChooser dialogue = new JFileChooser(repertoireCourant);
@@ -432,6 +432,21 @@ public class Operator {
 
 		file= dialogue.getSelectedFile().toString();
 		return file;
+	}
+	public static ArrayList<String> directoryListWithPattern(File directory, String pattern){ 
+
+		String [] fileList; 
+		ArrayList<String> result  = new ArrayList<String>();
+
+		int i; 
+		fileList=directory.list(); 
+		for(i=0;i<fileList.length;i++){ 
+			if(fileList[i].endsWith(pattern)==true){ 
+				result.add(fileList[i]);				
+			} 
+			
+		} 
+		return result;
 	}
 
 }
