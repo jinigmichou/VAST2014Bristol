@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -16,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import core.Operator;
 import core.Reader;
 
 import javax.swing.JTextArea;
@@ -26,17 +26,13 @@ public class MergeView extends JPanel implements ActionListener {
 	private JTextField textFieldFile1;
 	private JTextField textFieldFile2;
 	private JTextArea textArea;
-	/**
-	 * Create the panel.
-	 */
 
 	public MergeView(MainView frame) {
-		this.frame = frame;
 
+		this.frame = frame;
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
 
 		JLabel lblTheOtherFile = new JLabel("file 1: ");
@@ -93,7 +89,6 @@ public class MergeView extends JPanel implements ActionListener {
 		btnBack.setActionCommand("back");
 		add(btnBack);
 
-
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
@@ -136,51 +131,45 @@ public class MergeView extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("browse1")){ 
-			textFieldFile1.setText(this.selectFile());
-
+			textFieldFile1.setText(Operator.selectFile());
 		}
+
 		else if(cmd.equals("browse2")){ 
-			textFieldFile2.setText(this.selectFile());
-
+			textFieldFile2.setText(Operator.selectFile());
 		}
+
 		else if(cmd.equals("valid")){ 
+
 			if (textFieldFile1.getText().equals("")){
 				textArea.append("Please, select a file from file browser 1 \n");
 			}
 			else if(textFieldFile2.getText().equals("")){
 				textArea.append("Please, select a file from file browser 2 \n");
 			}
-			ArrayList<String[]> myFile1 = new ArrayList<String[]>();
-			ArrayList<String[]> myFile2 = new ArrayList<String[]>();
 
-			String filePath1= textFieldFile1.getText();
-			String filePath2= textFieldFile2.getText();
+			else {
 
+				ArrayList<String[]> myFile1 = new ArrayList<String[]>();
+				ArrayList<String[]> myFile2 = new ArrayList<String[]>();
 
-			Reader myreader1 = new Reader(filePath1);
-			Reader myreader2 = new Reader(filePath2);
+				String filePath1= textFieldFile1.getText();
+				String filePath2= textFieldFile2.getText();
 
-			//String result = "" ;
+				Reader myreader1 = new Reader(filePath1);
+				Reader myreader2 = new Reader(filePath2);
 
-			try {
-
-
-				myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
-				myFile2 = myreader2.readCsv(myreader2.getMyFilePath());
-
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				try {
+					myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
+					myFile2 = myreader2.readCsv(myreader2.getMyFilePath());
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				frame.changePanel(new MergingView(frame, myFile1, myFile2));
 			}
-
-
-			frame.changePanel(new MergingView(frame, myFile1, myFile2));
-
-
 		}
+
 		else if(cmd.equals("back")){ 
 			frame.changePanel(new HomeView(frame));
-
 		}
 	}	
 }

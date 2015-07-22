@@ -27,7 +27,6 @@ public class ActivityView2 extends JPanel implements ActionListener {
 	private int columnDate2;
 	private String dateFormat1;
 	private String dateFormat2;
-
 	private JTextField textFieldFilePath;
 	private JTextArea textArea;
 
@@ -44,7 +43,6 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
 
 		JComboBox comboBox1 = new JComboBox(this.file1.get(0));
@@ -66,13 +64,11 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		comboBoxDate2.setActionCommand("comboDate2");
 		add(comboBoxDate2);
 
-
 		JLabel lblFile = new JLabel("Choose argument to link:");
 		springLayout.putConstraint(SpringLayout.NORTH, lblFile, 35, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblFile, 64, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, lblFile, -382, SpringLayout.EAST, this);
 		add(lblFile);
-
 
 		JButton btnValid = new JButton("Valid");
 		springLayout.putConstraint(SpringLayout.WEST, btnValid, 361, SpringLayout.WEST, this);
@@ -151,18 +147,19 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, textFieldFilePath, 0, SpringLayout.EAST, comboBox1);
 		add(textFieldFilePath);
 		textFieldFilePath.setColumns(10);
-
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
-		if(cmd.equals("Valid")){ 
+		if(cmd.equals("Valid")){
+
 			ArrayList<String[]> finalResult = new ArrayList<String[]>();
 			Operator.tradeTwoColumns(file2, columnDate2, 0);
 			Operator.tradeTwoColumns(file1, columnDate1, 0);
-			
+
 			Operator.dateStringtoTimestamp(file2, 0, dateFormat2);
 			Operator.dateStringtoTimestamp(file1, 0, dateFormat1);
 
@@ -175,7 +172,6 @@ public class ActivityView2 extends JPanel implements ActionListener {
 					resultStamp = Operator.selectValuesBetweenTwoTimestamps(file2, 0, 
 							file1.get(i)[0],
 							file1.get(i+1)[0]);
-					//System.out.println("nom : "+resultStamp.get(i)[4]);
 				}
 
 				finalResult.add(file1.get(i));
@@ -189,36 +185,39 @@ public class ActivityView2 extends JPanel implements ActionListener {
 					else j++;	
 				}
 				Operator.appendFileToAnOther(finalResult, resultStamp);
-
 			}
+
 			try {
 				Writer.writeCsv(finalResult, "CsvData/"+textFieldFilePath.getText()+".csv");
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
 		}
+
 		else if(cmd.equals("cancel")){ 
 			frame.changePanel(new HomeView(frame));
-
 		}
+
 		else if(cmd.equals("combo")){ 
 			JComboBox<String> choicefile = (JComboBox<String>)e.getSource();
 			columnFile = choicefile.getSelectedIndex();
 		}
+
 		else if(cmd.equals("comboDate1")){ 
 			JComboBox<String> choiceDate1 = (JComboBox<String>)e.getSource();
 			columnDate1 = choiceDate1.getSelectedIndex();
 		}
+
 		else if(cmd.equals("comboDate2")){ 
 			JComboBox<String> choiceDate2 = (JComboBox<String>)e.getSource();
 			columnDate2 = choiceDate2.getSelectedIndex();
 		}
+
 		else if(cmd.equals("comboFormat1")){ 
 			JComboBox<String> choiceFormat1 = (JComboBox<String>)e.getSource();
 			dateFormat1 = (String) choiceFormat1.getSelectedItem();
 		}
+
 		else if(cmd.equals("comboFormat2")){ 
 			JComboBox<String> choiceFormat2 = (JComboBox<String>)e.getSource();
 			dateFormat2 = (String) choiceFormat2.getSelectedItem();

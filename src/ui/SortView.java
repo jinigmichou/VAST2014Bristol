@@ -3,13 +3,9 @@ package ui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.Date;
-
-import javafx.scene.control.ComboBox;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -33,9 +29,7 @@ public class SortView extends JPanel implements ActionListener {
 	private JTextArea textArea;
 	private JTextField textFieldFileName;
 	private MainView frame;
-	/**
-	 * Create the panel.
-	 */
+
 	public SortView(MainView frame, String[] title, ArrayList<String[]> myFile) {
 
 		this.frame = frame;
@@ -43,12 +37,8 @@ public class SortView extends JPanel implements ActionListener {
 		this.title=title;
 		int columnChoosen=0;
 		SpringLayout springLayout = new SpringLayout();
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
-
 		setLayout(springLayout);
-
-
 		setBackground(Color.LIGHT_GRAY);
 
 		JLabel lblSelectReferenceColumn = new JLabel("Select reference column");
@@ -102,9 +92,8 @@ public class SortView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.WEST, textFieldFileName, 21, SpringLayout.EAST, lblNameOfSorted);
 		add(textFieldFileName);
 		textFieldFileName.setColumns(10);
-
-
 	}
+
 	public ArrayList<String[]> getMyFile() {
 		return myFile;
 	}
@@ -117,42 +106,39 @@ public class SortView extends JPanel implements ActionListener {
 	public void setComboBox(JComboBox<String> comboBox) {
 		this.comboBox = comboBox;
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Valid")){ 
+
 			// We delete title column for sorting
 			this.getMyFile().remove(0);
-
 			Operator.sortColumn(this.getMyFile(), columnChoosen);
-
 			this.getMyFile().add(0, this.getTitle());
 
 			MainView.logger.log(Level.WARNING, "Choice of " + this.getTitle()[columnChoosen] + " from the ComboBox to sort the file");
 
-			ArrayList<String[]> test3 = Operator.verifyJourney(getMyFile());
+			ArrayList<String[]> errorFile = Operator.verifyJourney(getMyFile());
 			String filepath = "CsvData/"+this.textFieldFileName.getText();
 
 			try {
-
 				Writer.writeCsv(this.getMyFile(), filepath+".csv");
-				Writer.writeCsv(test3, filepath+"Error.csv");
-				
+				Writer.writeCsv(errorFile, filepath+"Error.csv");
+
 				MainView.logger.log(Level.WARNING, "It created : " + filepath + ".csv and " 
 						+ filepath + " Error.csv");
-
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
 			Date date =new Date();
 			textArea.append("File "+filepath+".csv has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 			textArea.append("File "+filepath+"Error.csv has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 		}
 
 		else if(cmd.equals("Cancel")){ 
-
 			MainView.logger.log(Level.INFO, "Go back to homePage");
 			frame.changePanel(new HomeView(frame));
 		}
@@ -161,17 +147,18 @@ public class SortView extends JPanel implements ActionListener {
 
 			MainView.logger.log(Level.INFO, "Go back to homePage");
 			frame.changePanel(new HomeView(frame));
-
-
 		}
+
 		else if(cmd.equals("combo")){ 
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			columnChoosen = choice.getSelectedIndex();
 		}
 	}
+
 	public String[] getTitle() {
 		return title;
 	}
+
 	public void setTitle(String[] title) {
 		this.title = title;
 	}

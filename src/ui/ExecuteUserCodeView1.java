@@ -3,10 +3,8 @@ package ui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -32,27 +30,21 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 	private JTextArea textAreaCode;
 	private JTextField textFieldNameOfOutput;
 	private JTextField textFieldExecutableName;
-	/**
-	 * Create the panel.
-	 * @wbp.parser.constructor
-	 */
+
 	public ExecuteUserCodeView1(MainView frame, ArrayList<String[]> file1) {
 		this.frame = frame;
 		this.file1 = file1;
-
 		initialize();
 		textArea.append("File 1 : \n");
 		for (int i = 0 ; i< file1.get(0).length; i++){
 			textArea.append("column "+i+" : "+file1.get(0)[i]+"\n");
 		}
-
 	}
 
 	public ExecuteUserCodeView1(MainView frame, ArrayList<String[]> file1, ArrayList<String[]> file2) {
 		this.frame = frame;
 		this.file1 = file1;
 		this.file2 = file2;
-
 		initialize();
 
 		textArea.append("File 1 : \n");
@@ -60,13 +52,10 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 			textArea.append("column "+i+" : "+file1.get(0)[i]+"\n");
 		}
 
-
 		textArea.append("File 2 : \n");
 		for (int i = 0 ; i< file2.get(0).length; i++){
 			textArea.append("column "+i+" : "+file2.get(0)[i]+"\n");
 		}
-
-
 	}
 
 	public ExecuteUserCodeView1(MainView frame, ArrayList<String[]> file1, ArrayList<String[]> file2, ArrayList<String[]> file3) {
@@ -74,7 +63,6 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 		this.file1 = file1;
 		this.file2 = file2;
 		this.file3 = file3;
-
 		initialize();
 
 		textArea.append("File 1 : \n");
@@ -91,7 +79,6 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 		for (int i = 0 ; i< file3.get(0).length; i++){
 			textArea.append("column "+i+" : "+file3.get(0)[i]+"\n");
 		}
-
 	}
 
 	public ExecuteUserCodeView1(MainView frame, ArrayList<String[]> file1, ArrayList<String[]> file2, ArrayList<String[]> file3,ArrayList<String[]> file4) {
@@ -100,9 +87,7 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 		this.file2 = file2;
 		this.file3 = file3;
 		this.file4 = file4;
-
 		initialize();
-
 
 		textArea.append("File 1 : \n");
 		for (int i = 0 ; i< file1.get(0).length; i++){
@@ -123,11 +108,10 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 		for (int i = 0 ; i< file4.get(0).length; i++){
 			textArea.append("column "+i+" : "+file4.get(0)[i]+"\n");
 		}
-
-
-
 	}
+
 	public void initialize(){
+
 		SpringLayout springLayout = new SpringLayout();
 		setSize(640, 480);
 		setLayout(springLayout);
@@ -192,7 +176,12 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 		btnExecuteCode.setActionCommand("Execute");
 		add(btnExecuteCode);
 
-
+		JButton btnBackToMenu = new JButton("Back to menu");
+		springLayout.putConstraint(SpringLayout.NORTH, btnBackToMenu, 6, SpringLayout.SOUTH, scrollPaneCode);
+		springLayout.putConstraint(SpringLayout.EAST, btnBackToMenu, -6, SpringLayout.WEST, btnExecuteCode);
+		btnBackToMenu.addActionListener(this);
+		btnBackToMenu.setActionCommand("Back");
+		add(btnBackToMenu);
 	}
 
 	@Override
@@ -204,103 +193,69 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 			String bodyMainClass = "public class Main {"
 					+ "\n\n"
 					+ "public static void main(String [ ] args){";
+
 			File file = new File ("/Users/jacquez/Documents/workspace/VAST2014Bristol/");
 			ArrayList<String> myresultFileJava = Operator.directoryListWithPattern(file, ".java");
-			//System.out.println("taille "+myresultFileJava.size());
 
 			try {
 				Writer.writeFile(bodyMainClass+"\n"+
 						textAreaCode.getText()+"\n}"
 						+ "\n}", "Main");
 			} catch (Exception e2) {
-				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
+
 			Runtime runtime = Runtime.getRuntime();
-
-			//String Cmd = new String("javac *.java");
-			String Cmd1 = new String("jar cvmf MANIFEST.MF "
-					+ textFieldExecutableName.getText()+".jar"
-					+" *.class");
-
-
-			String Cmd2 = new String("java -jar "+textFieldExecutableName.getText()+".jar");
-
 			try {
+
 				Process process = runtime.exec("cd test");
-				TerminalOutput outputE= new TerminalOutput(process.getErrorStream()); 
-				TerminalOutput output= new TerminalOutput(process.getInputStream());
-				
+
 				//Equivalent to javac *.java
 				String argsJava = new String();
 				for (int i = 0 ; i< myresultFileJava.size(); i++){
 					argsJava = argsJava+myresultFileJava.get(i)+" ";
 				}
+				process = runtime.exec(new String ( " javac  "+argsJava));
 
-					process = runtime.exec(new String ( " javac  "+argsJava));
-					
-					try {
-						
-						process.waitFor();
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
+				try {
+					process.waitFor();
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
 
 				ArrayList<String> myresultFileClass = Operator.directoryListWithPattern(file, ".class");
 				String argsClass = new String();
 				for (int i = 0 ; i< myresultFileClass.size(); i++){
 					argsClass = argsClass+myresultFileClass.get(i)+" ";
-					//System.out.println(argsClass);
 				}
+
 				try {
 					process = runtime.exec("jar cvmf MANIFEST.MF "
 							+ textFieldExecutableName.getText()+".jar "
 							+argsClass);
-					
 					process.waitFor();
+
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
-
-
-
 				try {
-
-
-					/*
-					process = runtime.exec(Cmd1);
-					outputE.run();
-					process.waitFor();*/
-
 					Process process2 = runtime.exec(new String("java -jar "+textFieldExecutableName.getText()+".jar"));
+
 					TerminalOutput outputE2= new TerminalOutput(process2.getErrorStream()); 
 					TerminalOutput output2= new TerminalOutput(process2.getInputStream());
-					System.out.println("Result after  jar execution");
 					output2.run();
-					System.out.println("Errors after  jar execution");
 					outputE2.run();
 					process2.waitFor();
-					
-					
-
 				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-
-				
-
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+		}
 
-
+		else if (cmd.equals("Back")){
+			frame.changePanel(new HomeView(frame));
 		}
 	}
 }

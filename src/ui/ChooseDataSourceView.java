@@ -13,17 +13,15 @@ import java.util.logging.Level;
 
 public class ChooseDataSourceView extends JPanel implements ActionListener{
 
-	private HomeView homeView;
-	private Test testPanel;
 	private static JPanel panelDisplay;
 	private MainView frame;
 
 	public ChooseDataSourceView(MainView frame) {
+
 		this.frame = frame;
 		setBackground(Color.LIGHT_GRAY);
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
 
 		JLabel lblChooseDataSource = new JLabel("Choose Data Source");
@@ -31,7 +29,6 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 		springLayout.putConstraint(SpringLayout.WEST, lblChooseDataSource, 90, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblChooseDataSource, 47, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, lblChooseDataSource, -180, SpringLayout.EAST, this);
-
 		add(lblChooseDataSource);
 
 		JButton csv = new JButton("CSV");
@@ -46,7 +43,6 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 		JButton sql = new JButton("SQL");
 		springLayout.putConstraint(SpringLayout.WEST, sql, 90, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, sql, 254, SpringLayout.WEST, this);
-
 		add(sql);
 
 		JButton xml = new JButton("XML");
@@ -60,14 +56,8 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-
 		add(xml);
 	}
-
-	/**
-	 * Methode qui change le panel en fonction des actions
-	 * @param panel
-	 */
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -77,17 +67,11 @@ public class ChooseDataSourceView extends JPanel implements ActionListener{
 			MainView.logger.log(Level.WARNING, "Click on the buttom CSV, choice of CSV database");
 			this.frame.changePanel(new HomeView(frame));
 		}
-		if(cmd.equals("SQL")){ 
+		else if(cmd.equals("SQL")){ 
 			MainView.logger.log(Level.WARNING, "Click on the buttom SQL, choice of SQL database");
-			testPanel = new Test();
-			//MainView.changePanel(testPanel);
-			setVisible(true);
 		}
-		if(cmd.equals("XML")){
+		else if(cmd.equals("XML")){
 			MainView.logger.log(Level.WARNING, "Click on the buttom XML, choice of XML database");
-			testPanel = new Test();
-			//MainView.changePanel(testPanel);
-			setVisible(true);
 		}
 	}
 }

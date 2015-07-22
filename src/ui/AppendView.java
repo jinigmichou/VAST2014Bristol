@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -29,9 +28,7 @@ public class AppendView extends JPanel implements ActionListener {
 	private JTextField textFieldFile2;
 	private JTextArea textArea;
 	private JTextField textFieldFileName;
-	/**
-	 * Create the panel.
-	 */
+
 
 	public AppendView(MainView frame) {
 		this.frame = frame;
@@ -39,7 +36,6 @@ public class AppendView extends JPanel implements ActionListener {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
 
 		JLabel lblTheOtherFile = new JLabel("file 1: ");
@@ -96,7 +92,6 @@ public class AppendView extends JPanel implements ActionListener {
 		btnBack.setActionCommand("back");
 		add(btnBack);
 
-
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
@@ -150,32 +145,31 @@ public class AppendView extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("browse1")){ 
-			textFieldFile1.setText(this.selectFile());
+			textFieldFile1.setText(Operator.selectFile());
 
 		}
 		else if(cmd.equals("browse2")){ 
-			textFieldFile2.setText(this.selectFile());
+			textFieldFile2.setText(Operator.selectFile());
 
 		}
 		else if(cmd.equals("valid")){ 
+
 			if (textFieldFile1.getText().equals("")){
 				textArea.append("Please, select a file from file browser 1 \n");
 			}
+
 			else if(textFieldFile2.getText().equals("")){
 				textArea.append("Please, select a file from file browser 2 \n");
 			}
+
 			ArrayList<String[]> myFile1 = new ArrayList<String[]>();
 			ArrayList<String[]> myFile2 = new ArrayList<String[]>();
 
 			String filePath1= textFieldFile1.getText();
 			String filePath2= textFieldFile2.getText();
 
-
 			Reader myreader1 = new Reader(filePath1);
 			Reader myreader2 = new Reader(filePath2);
-
-
-
 
 			try {
 				myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
@@ -185,9 +179,11 @@ public class AppendView extends JPanel implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
 			if (myFile1.get(0).length!=myFile2.get(0).length){
 				textArea.append("It is impossible to append these two files because they does not have the same number of columns. \n");
 			}
+
 			else{
 				try {
 					Writer.writeCsv(Operator.appendFileToAnOther(myFile1, myFile2), "CsvData/"+textFieldFileName.getText()+".csv");
@@ -196,14 +192,11 @@ public class AppendView extends JPanel implements ActionListener {
 					e1.printStackTrace();
 				}
 				textArea.append("Operation was a sucess, "+filePath2+" have been appended to "+filePath1+"; \n");
-
 			}
-
-
 		}
+
 		else if(cmd.equals("back")){ 
 			frame.changePanel(new HomeView(frame));
-
 		}
 	}	
 }

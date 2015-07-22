@@ -1,15 +1,14 @@
 package ui;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -25,7 +24,6 @@ import javax.swing.JTextField;
 public class CalculJourneyView extends JPanel implements ActionListener{
 
 	private String[] title;
-	
 	private int S_Time;
 	private int F_Time;
 	private int S_Lat;
@@ -35,8 +33,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 	private String unit;
 	private ArrayList<String[]> myFile;
 	private MainView frame;
-	
-	public JTextArea textArea;
+	private JTextArea textArea;
 	private JTextField textFieldFileName;
 	/**
 	 * Create the panel.
@@ -46,8 +43,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		this.myFile=myFile;
 		this.frame = frame;
 		setLayout(null);
-		String unit="N";
-		
+
 		setBackground(Color.LIGHT_GRAY);
 		this.setSize(frame.getSize());
 
@@ -130,11 +126,11 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		btnCancel.addActionListener(this);
 		btnCancel.setActionCommand("Cancel");
 		add(btnCancel);
-		
+
 		JLabel lblDistanceUnit = new JLabel("Distance unit:");
 		lblDistanceUnit.setBounds(31, 235, 110, 16);
 		add(lblDistanceUnit);
-		
+
 		JComboBox comboBox_unit = new JComboBox();
 		comboBox_unit.addItem("Mile");
 		comboBox_unit.addItem("Km");
@@ -142,117 +138,121 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		comboBox_unit.addActionListener(this);
 		comboBox_unit.setActionCommand("Unit");
 		add(comboBox_unit);
-		
+
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(30, 344, 649, 118);
 		add(scrollPane);
-		
+
 		JLabel lblNameOfNew = new JLabel("Name of new file: ");
 		lblNameOfNew.setBounds(31, 284, 133, 16);
 		add(lblNameOfNew);
-		
+
 		textFieldFileName = new JTextField();
 		textFieldFileName.setBounds(186, 278, 169, 28);
 		add(textFieldFileName);
 		textFieldFileName.setColumns(10);
-	
+
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Valid")){
+
 			ArrayList<String[]> myFile2 = new ArrayList<String[]>();
 			ArrayList<String[]> myFileError = new ArrayList<String[]>();
-			String fileName= "./src/csvData/"+this.textFieldFileName.getText();
+
+			String fileName= "./CsvData/"+this.textFieldFileName.getText();
+
 			myFile2 = Operator.journeyCalculation(myFile, S_Time, F_Time, S_Lat, S_Lon, F_Lat, F_Lon, unit);
+
 			myFileError = Operator.verifyJourney(myFile2);
+
 			try {
 				Writer.writeCsv(myFile2, fileName+".csv");
 				Writer.writeCsv(myFileError, fileName+"Error.csv");
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+
 			Date date =new Date();
-			//date = format.parse(date.getTime());
-			
+
 			this.getTextArea().append("file "+fileName+".csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 			this.getTextArea().append("file "+fileName+"Error.csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 
-			
 			MainView.logger.log(Level.WARNING, "Calculate journey with parameters : \n" + "file : " + fileName 
 					+ ", start-time : " + this.getTitle()[S_Time]
-					+ ", final-time : " + this.getTitle()[F_Time]
-					+ ", start-lat : " +  this.getTitle()[S_Lat]
-					+ ", start-long : " + this.getTitle()[S_Lon]
-					+ ", final-time : " + this.getTitle()[F_Lat]
-					+ ", fianl-time : " + this.getTitle()[F_Lon]
-					+ ", unit : " + unit);
+							+ ", final-time : " + this.getTitle()[F_Time]
+									+ ", start-lat : " +  this.getTitle()[S_Lat]
+											+ ", start-long : " + this.getTitle()[S_Lon]
+													+ ", final-time : " + this.getTitle()[F_Lat]
+															+ ", fianl-time : " + this.getTitle()[F_Lon]
+																	+ ", unit : " + unit);
 
 			MainView.logger.log(Level.WARNING, "file : \n" + fileName + ".csv and "
-			+ fileName + "Error.csv" + " have been created");
-			
+					+ fileName + "Error.csv" + " have been created");
+
 		}
+
 		else if (cmd.equals("Cancel")){
-			
 			MainView.logger.log(Level.INFO, "Go back to homePage");
-			frame.changePanel(new HomeView(frame));
-			
+			frame.changePanel(new HomeView(frame));	
 		}
+
 		else if (cmd.equals("comboBox_S_Time")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			S_Time = choice.getSelectedIndex();
 		}
+
 		else if (cmd.equals("comboBox_F_Time")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			F_Time = choice.getSelectedIndex();
 		}
+
 		else if (cmd.equals("comboBox_S_Lat")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			S_Lat = choice.getSelectedIndex();
 		}
+
 		else if (cmd.equals("comboBox_S_Lon")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			S_Lon = choice.getSelectedIndex();
 		}
+
 		else if (cmd.equals("comboBox_F_Lat")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			F_Lat = choice.getSelectedIndex();
 		}
+
 		else if (cmd.equals("comboBox_F_Lon")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			F_Lon = choice.getSelectedIndex();
 		}
+
 		else if (cmd.equals("Unit")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			int unit_index = choice.getSelectedIndex();
-				if (unit_index==0){
-					unit="N";
-				}
-				else if (unit_index==1){
-					unit="K";
-				}
+			if (unit_index==0){
+				unit="N";
+			}
+			else if (unit_index==1){
+				unit="K";
+			}
 		}
-
 	}
-
 
 	public JTextArea getTextArea() {
 		return textArea;
 	}
 
-
 	public void setTextArea(JTextArea textArea) {
 		this.textArea = textArea;
 	}
-	
+
 	public String[] getTitle() {
 		return title;
 	}

@@ -1,6 +1,5 @@
 package ui;
 
-import javax.print.attribute.DateTimeSyntax;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
@@ -34,9 +33,8 @@ public class AccessView2 extends JPanel implements ActionListener {
 	private int columnID;
 	private JTextArea textArea;
 	private JTextField textFieldFilePath;
-	/**
-	 * Create the panel.
-	 */
+
+
 	public AccessView2(MainView frame, ArrayList<String[]> myFile, int columnID, int columnDay, String dateFormat) {
 
 		setForeground(Color.LIGHT_GRAY);
@@ -49,7 +47,6 @@ public class AccessView2 extends JPanel implements ActionListener {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
 
 
@@ -82,7 +79,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 		ArrayList<String[]> myFilestamp1 = Operator.cloneArrayList(myFile);
 		Operator.dateStringtoTimestamp(myFilestamp1, columnDay, dateFormat);
 		Operator.timeStampToDate(myFilestamp1, columnDay, "yyyy-MM-dd");
-		
+
 
 		ArrayList<String> day = Operator.selectDistinctValuesInAColumn(myFilestamp1, columnDay);
 		JComboBox comboBoxDay = new JComboBox();
@@ -145,8 +142,8 @@ public class AccessView2 extends JPanel implements ActionListener {
 
 		myFilestampForWriting = new ArrayList<String[]>();
 		myFilestampForWriting.add(myFile.get(0));
-		
-		
+
+
 
 	}
 	@Override
@@ -155,9 +152,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 		String cmd = e.getActionCommand();
 		if(cmd.equals("valid")){
 
-
 			ArrayList<String[]> myFilestamp2 = Operator.cloneArrayList(myFile);
-
 
 			Operator.dateStringtoTimestamp(myFilestamp2, columnDay, dateFormat);
 
@@ -165,45 +160,40 @@ public class AccessView2 extends JPanel implements ActionListener {
 			Date myDate= new Date();
 			try {
 				myDate =  format.parse(date);
-
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
 
 			long timestamp = myDate.getTime();
 			date = Long.toString(timestamp);
 			for (int i = 1; i<myFile.size(); i++){
 
-
 				if(myFile.get(i)[columnID].equals(user) && Operator.compareTimeStamp(date, myFilestamp2.get(i)[columnDay], 86400000)
-						&& Operator.compareTimeStamp(myFilestamp2.get(i)[columnDay], date, 0))
-				{	myFilestampForWriting.add(myFile.get(i));
-				for(int j =0; j< myFile.get(i).length;j++){
-					this.textArea.append(myFile.get(0)[j]+" : "+myFile.get(i)[j].toString()+" ; ");
+						&& Operator.compareTimeStamp(myFilestamp2.get(i)[columnDay], date, 0)){	
+					myFilestampForWriting.add(myFile.get(i));
 
-				}
-				this.textArea.append("\n");
+					for(int j =0; j< myFile.get(i).length;j++){
+						this.textArea.append(myFile.get(0)[j]+" : "+myFile.get(i)[j].toString()+" ; ");
+					}
+					this.textArea.append("\n");
 				}
 			}
-
 		}
-
 
 		else if (cmd.equals("back")){
-
 			frame.changePanel(new AccessView1(frame, myFile));
-
 		}
+
 		else if (cmd.equals("comboUser")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			user = choice.getSelectedItem().toString();
 		}
+
 		else if (cmd.equals("comboDay")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			date = choice.getSelectedItem().toString();
 		}
+
 		else if (cmd.equals("write")){
 			if(textFieldFilePath.getText().equals("")){
 				textArea.append("Please, fill file name. \n");
@@ -212,12 +202,11 @@ public class AccessView2 extends JPanel implements ActionListener {
 				try {
 					Writer.writeCsv(myFilestampForWriting, "CsvData/"+textFieldFilePath.getText()+".csv");
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
-
 		}
+
 		else if (cmd.equals("erase")){
 			textArea.setText("");
 			for (int i =1; i<myFilestampForWriting.size();i++){

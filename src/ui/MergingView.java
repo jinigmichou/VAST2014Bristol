@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
 public class MergingView extends JPanel implements ActionListener {
+
 	private MainView frame;
 	private ArrayList<String[]> file1;
 	private ArrayList<String[]> file2;
@@ -27,17 +27,15 @@ public class MergingView extends JPanel implements ActionListener {
 	private int columnFile2;
 	private JTextField textFieldFilePath;
 	private JTextArea textArea;
-	/**
-	 * Create the panel.
-	 */
+
 	public MergingView(MainView frame, ArrayList<String[]> file1,  ArrayList<String[]> file2) {
+
 		this.frame = frame;
 		this.file1 = file1;
 		this.file2 = file2;
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
 
 		JComboBox comboBox1 = new JComboBox(this.file1.get(0));
@@ -108,34 +106,36 @@ public class MergingView extends JPanel implements ActionListener {
 		add(scrollpane);
 
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Valid")){ 
 			if (textFieldFilePath.getText().equals("")){
-
 				textArea.append("Please, fill file name.  \n");
 			}
-			else{
 
+			else{
 				ArrayList<String[]> result = Operator.twoCsvFilesMerging(file1, columnFile1, file2, columnFile2);
 				try {
 					Writer.writeCsv(result,"CsvData/"+textFieldFilePath.getText()+".csv" );
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		}
+
 		else if (cmd.equals("combo1")){
 			JComboBox<String> choice1 = (JComboBox<String>)e.getSource();
 			columnFile1 = choice1.getSelectedIndex();
 		}
+
 		else if (cmd.equals("combo2")){
 			JComboBox<String> choice2 = (JComboBox<String>)e.getSource();
 			columnFile2 =  choice2.getSelectedIndex();
 		}
+
 		else if (cmd.equals("back")){
 			frame.changePanel(new HomeView(frame));
 		}

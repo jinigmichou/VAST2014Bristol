@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
 public class DateView extends JPanel implements ActionListener {
+
 	private MainView frame;
 	private ArrayList<String[]> myFile;
 	private int column;
@@ -26,16 +27,13 @@ public class DateView extends JPanel implements ActionListener {
 	private String requiredFormat;
 	private JTextField textFieldFileName;
 	private JTextArea textArea;
-	/**
-	 * Create the panel.
-	 */
+
 	public DateView (MainView frame, ArrayList<String[]> myFile) {
 		this.frame = frame;
 		this.myFile = myFile;
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
 
 		JLabel lblColumnReference = new JLabel("Column Reference: ");
@@ -113,29 +111,34 @@ public class DateView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, scrollpane, 7, SpringLayout.EAST, comboBoxInitialFormat);
 		add(scrollpane);
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Valid")){
+
 			if (textFieldFileName.getText().equals("")){
 				textArea.append("Please, select a file name. \n");
 			}
+
 			else{
 				if(requiredFormat.equals("Timestamp")){
 					Operator.dateStringtoTimestamp(myFile, column, initialFormat);
 				}
+
 				else if(initialFormat.equals("Timestamp")){
 					Operator.timeStampToDate(myFile, column, requiredFormat);
 				}
+
 				else{
 					Operator.dateStringtoTimestamp(myFile, column, initialFormat);
 					Operator.timeStampToDate(myFile, column, requiredFormat);
 				}
+
 				try {
 					Writer.writeCsv(myFile, "CsvData/"+textFieldFileName.getText()+".csv");
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				textArea.append("Operation was a success. \n");
@@ -146,17 +149,19 @@ public class DateView extends JPanel implements ActionListener {
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			column = choice.getSelectedIndex();
 		}
+
 		else if (cmd.equals("comboBoxInitialFormat")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			initialFormat = choice.getSelectedItem().toString();
 		}
+
 		else if (cmd.equals("comboBoxRequiredDate")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			requiredFormat = choice.getSelectedItem().toString();
 		}
+
 		else if (cmd.equals("back")){
 			frame.changePanel(new HomeView(frame));
-
 		}
 	}
 }

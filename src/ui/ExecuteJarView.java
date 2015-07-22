@@ -13,11 +13,11 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import core.Operator;
-import core.Reader;
+
 
 import javax.swing.JTextArea;
 
-public class ExecuteUserCodeView extends JPanel implements ActionListener{
+public class ExecuteJarView extends JPanel implements ActionListener{
 
 	private String NumberOfInputFiles;
 	private MainView frame;
@@ -27,10 +27,11 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 	private JTextField textFieldFile4;
 	private JTextArea textArea;
 
-	public ExecuteUserCodeView(MainView frame) {
+	public ExecuteJarView(MainView frame) {
 
 		this.frame = frame;
 		this.NumberOfInputFiles = NumberOfInputFiles;
+
 
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -40,7 +41,6 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 
 	public void initialize(){
 
-
 		JLabel lblNewLabel = new JLabel("Number of input files: ");
 		lblNewLabel.setBounds(16, 22, 151, 35);
 		add(lblNewLabel);
@@ -48,6 +48,7 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 		String[] inputfileNumber = {"1","2","3","4"};
 		JComboBox comboBoxInputFiles = new JComboBox(inputfileNumber);
 		comboBoxInputFiles.setBounds(170, 30, 74, 20);
+
 		comboBoxInputFiles.addActionListener(this);
 		comboBoxInputFiles.setActionCommand("comboInput");
 		add(comboBoxInputFiles);
@@ -104,7 +105,6 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 				this.revalidate();
 				this.repaint();	
 			}
-
 			else if (NumberOfInputFiles.equals("2")){
 
 				JLabel label = new JLabel("File 1: ");
@@ -204,7 +204,6 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 				this.repaint();
 
 			}
-
 			else if (NumberOfInputFiles.equals("4")){
 
 				JLabel label = new JLabel("File 1: ");
@@ -308,14 +307,8 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 			else {
 				ArrayList<String[]> myFile1 = new ArrayList<String[]>();
 				String filePath1= textFieldFile1.getText();
-				Reader myreader1 = new Reader(filePath1);
-
-				try {
-					myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				frame.changePanel(new ExecuteUserCodeView1(frame, myFile1));
+				String filesPath = filePath1;
+				frame.changePanel(new ExecuteJarView1(frame, filesPath));
 			}
 		}
 
@@ -330,24 +323,11 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 			}
 
 			else {
-				ArrayList<String[]> myFile1 = new ArrayList<String[]>();
-				ArrayList<String[]> myFile2 = new ArrayList<String[]>();
-
 				String filePath1= textFieldFile1.getText();
 				String filePath2= textFieldFile2.getText();
+				String filesPath = filePath1+" "+filePath2;
 
-				Reader myreader1 = new Reader(filePath1);
-				Reader myreader2 = new Reader(filePath2);
-
-				try {
-					myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
-					myFile2 = myreader2.readCsv(myreader2.getMyFilePath());
-
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
-				frame.changePanel(new ExecuteUserCodeView1(frame, myFile1, myFile2));
+				frame.changePanel(new ExecuteJarView1(frame, filesPath));
 			}
 		}
 
@@ -356,35 +336,22 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 			if (textFieldFile1.getText().equals("")){
 				textArea.append("Please, select a file from file browser 1 \n");
 			}
+
 			else if(textFieldFile2.getText().equals("")){
 				textArea.append("Please, select a file from file browser 2 \n");
 			}
+
 			else if(textFieldFile3.getText().equals("")){
 				textArea.append("Please, select a file from file browser 3 \n");
 			}
 
 			else {
-				ArrayList<String[]> myFile1 = new ArrayList<String[]>();
-				ArrayList<String[]> myFile2 = new ArrayList<String[]>();
-				ArrayList<String[]> myFile3 = new ArrayList<String[]>();
-
 				String filePath1= textFieldFile1.getText();
 				String filePath2= textFieldFile2.getText();
 				String filePath3= textFieldFile3.getText();
+				String filesPath = filePath1+" "+filePath2+" "+filePath3;
 
-				Reader myreader1 = new Reader(filePath1);
-				Reader myreader2 = new Reader(filePath2);
-				Reader myreader3 = new Reader(filePath3);
-
-				try {
-					myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
-					myFile2 = myreader2.readCsv(myreader2.getMyFilePath());
-					myFile3 = myreader3.readCsv(myreader3.getMyFilePath());
-
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				frame.changePanel(new ExecuteUserCodeView1(frame, myFile1, myFile2, myFile3));
+				frame.changePanel(new ExecuteJarView1(frame, filesPath));
 			}
 		}
 
@@ -402,37 +369,17 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 			else if(textFieldFile4.getText().equals("")){
 				textArea.append("Please, select a file from file browser 4 \n");
 			}
-
 			else {
-				ArrayList<String[]> myFile1 = new ArrayList<String[]>();
-				ArrayList<String[]> myFile2 = new ArrayList<String[]>();
-				ArrayList<String[]> myFile3 = new ArrayList<String[]>();
-				ArrayList<String[]> myFile4 = new ArrayList<String[]>();
 
 				String filePath1= textFieldFile1.getText();
 				String filePath2= textFieldFile2.getText();
 				String filePath3= textFieldFile3.getText();
 				String filePath4= textFieldFile4.getText();
+				String filesPath = filePath1+" "+filePath2+" "+filePath3+" "+filePath4;
 
-				Reader myreader1 = new Reader(filePath1);
-				Reader myreader2 = new Reader(filePath2);
-				Reader myreader3 = new Reader(filePath3);
-				Reader myreader4 = new Reader(filePath4);
-
-				try {
-					myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
-					myFile2 = myreader2.readCsv(myreader2.getMyFilePath());
-					myFile3 = myreader3.readCsv(myreader3.getMyFilePath());
-					myFile4 = myreader4.readCsv(myreader4.getMyFilePath());
-
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
-				frame.changePanel(new ExecuteUserCodeView1(frame, myFile1, myFile2, myFile3, myFile4));
+				frame.changePanel(new ExecuteJarView1(frame, filesPath));
 			}
 		}
-
 		else if (cmd.equals("Back")){
 			frame.changePanel(new HomeView(frame));
 		}

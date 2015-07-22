@@ -1,13 +1,20 @@
 package persist;
 
 import java.io.FileReader;
+
 import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
 
 import core.Reader;
 
+/**
+ * This class permits to read a csv file and put its content into an Arraylist<String[]>
+ * @author jacquez
+ *
+ */
 public class ReaderCSV extends Reader{
+	
 	private ArrayList<String[]> myFile;
 	private String myFilePath;
 	
@@ -15,6 +22,7 @@ public class ReaderCSV extends Reader{
 		this.myFilePath= myFilePath;
 	}
 	
+	//This method permits to read a CSV file and put it into an Arraylist<String[]>
 	@Override
 	public ArrayList<String[]> readCsv(String myFilePath) throws Exception {
 		
@@ -27,6 +35,9 @@ public class ReaderCSV extends Reader{
 		reader.close();
 		return myTab ;
 	}
+	
+	//Getters and Setters
+	
 	public ArrayList<String[]> getMyFile() {
 		return myFile;
 	}

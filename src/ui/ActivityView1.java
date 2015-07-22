@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import core.Operator;
 import core.Reader;
 
 public class ActivityView1 extends JPanel implements ActionListener {
@@ -26,6 +27,7 @@ public class ActivityView1 extends JPanel implements ActionListener {
 	private JTextArea textArea;
 
 	public ActivityView1(MainView frame) {
+
 		this.frame = frame;
 		setSize(640, 480);
 		SpringLayout springLayout = new SpringLayout();
@@ -106,7 +108,6 @@ public class ActivityView1 extends JPanel implements ActionListener {
 		btnBack.setActionCommand("back");
 		add(btnBack);
 
-
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
@@ -121,87 +122,49 @@ public class ActivityView1 extends JPanel implements ActionListener {
 		add(scrollPane);
 	}
 
-	public String selectFile(){
-		String file= new String();
-		// Exemple numéro 2
-		// Boîte de sélection de fichier à partir du répertoire courant
-		File repertoireCourant = null;
-		try {
-			// obtention d'un objet File qui désigne le répertoire courant. Le
-			// "getCanonicalFile" n'est pas absolument nécessaire mais permet
-			// d'éviter les /Truc/./Chose/ ...
-			repertoireCourant = new File(".").getCanonicalFile();
-			//System.out.println("Répertoire courant : " + repertoireCourant);
-		} catch(IOException e) {}
-
-		// création de la boîte de dialogue dans ce répertoire courant
-		// (ou dans "home" s'il y a eu une erreur d'entrée/sortie, auquel
-		// cas repertoireCourant vaut null)
-		JFileChooser dialogue = new JFileChooser(repertoireCourant);
-
-		// affichage
-		dialogue.showOpenDialog(null);
-
-		// récupération du fichier sélectionné
-		//System.out.println("Fichier choisi : " + dialogue.getSelectedFile());
-		file= dialogue.getSelectedFile().toString();
-		return file;
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
+
 		if(cmd.equals("browse1")){ 
-			textFieldFile1.setText(this.selectFile());
-
+			textFieldFile1.setText(Operator.selectFile());
 		}
+
 		else if(cmd.equals("browse2")){ 
-			textFieldFile2.setText(this.selectFile());
-
+			textFieldFile2.setText(Operator.selectFile());
 		}
+
 		else if(cmd.equals("valid")){ 
 			if (textFieldFile1.getText().equals("")){
 				textArea.append("Please, select a file from file browser 1 \n");
 			}
+
 			else if(textFieldFile2.getText().equals("")){
 				textArea.append("Please, select a file from file browser 2 \n");
 			}
+
 			ArrayList<String[]> myFile1 = new ArrayList<String[]>();
 			ArrayList<String[]> myFile2 = new ArrayList<String[]>();
 
 			String filePath1= textFieldFile1.getText();
 			String filePath2= textFieldFile2.getText();
 
-
 			Reader myreader1 = new Reader(filePath1);
 			Reader myreader2 = new Reader(filePath2);
 
-			//String result = "" ;
-
 			try {
-
-
 				myFile1 = myreader1.readCsv(myreader1.getMyFilePath());
 				myFile2 = myreader2.readCsv(myreader2.getMyFilePath());
-				/*for (int i= 0; i<test2.get(0).length; i++){
-					result = result + test2.get(0)[i] + ", ";
-					//comboBoxColumnName.addItem(test2.get(0)[i]);
-				}*/
-
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
-
 			frame.changePanel(new ActivityView2(frame, myFile1, myFile2));
-
-
 		}
+
 		else if(cmd.equals("back")){ 
 			frame.changePanel(new HomeView(frame));
-
 		}
 	}	
 }

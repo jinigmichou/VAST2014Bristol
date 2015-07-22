@@ -27,18 +27,11 @@ public class MainView extends JFrame implements ActionListener {
 	private SpringLayout springLayout;
 
 	private ChooseDataSourceView chooseDataSourceView;
-	private Test testPanel;
-
 	protected static Logger logger=
 			Logger.getLogger("ui.MainView");
 
-
-
 	//private AccountView accountPanel;
 
-	/**
-	 * Create the application.
-	 */
 	public static void main(String[] args){
 		new MainView(1);
 	}
@@ -54,12 +47,9 @@ public class MainView extends JFrame implements ActionListener {
 				logger.addHandler(fh);
 				logger.log(Level.INFO, "Start up of the program");
 
-
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -155,45 +145,26 @@ public class MainView extends JFrame implements ActionListener {
 		homeButton.setActionCommand("Manage DB");
 		getContentPane().add(homeButton);
 
-
-
 		setVisible(true);
 
 	}
 
 	/**
-	 * Methode qui change le panel en fonction des actions
+	 * This method allows to change panel
 	 * @param panel
 	 */
-
 	public void changePanel(JPanel panel){
-		//remove ancient JPanel if exist
-		/*panelDisplay.removeAll();
-		panelDisplay.repaint();
-		panelDisplay.revalidate();*/
-		//add the new JPanel
-		/*panelDisplay.add(panel);
-		panelDisplay.repaint();
-		panelDisplay.revalidate();*/
-
 		this.setContentPane(panel);
 		setVisible(true);	
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e){
+
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Manage DB")){ 
 			logger.log(Level.INFO, "Click on the button start application");
 			changePanel(new ChooseDataSourceView(this));
-
-			//setVisible(true);
-
-
 		}
-
-
 	}
-
 }

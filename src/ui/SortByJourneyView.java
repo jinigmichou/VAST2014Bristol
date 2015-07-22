@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.Date;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -27,15 +26,13 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 	private JTextArea textArea;
 	private JTextField textFieldfileName;
 	private MainView frame;
-	/**
-	 * Create the panel.
-	 */
+
 	public SortByJourneyView(MainView frame, ArrayList<String[]> myFile)  {
+
 		this.frame = frame;
 		this.myFile=myFile;
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
 
 		JLabel lblTimeBetweenTwo = new JLabel("Time between two journeys: ");
@@ -89,13 +86,13 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Order")){ 
+
 			getMyFile().remove(0);
 			Operator.tranformDate(this.getMyFile(), 0);
 			ArrayList<String[]> test = Operator.sortTimestamp(this.getMyFile(), 0, timeChosen*60000);
 			ArrayList<String[]> testError = Operator.verifyJourney(test);
 			String fileName = "CsvData/"+this.textFieldfileName.getText();
 			try {
-
 
 				MainView.logger.log(Level.WARNING, "SortByJourney, new file is "+this.textFieldfileName.getText());
 				MainView.logger.log(Level.WARNING, "SortTimestamp chosen is "+ timeChosen);
@@ -104,31 +101,29 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 				Writer.writeCsv(testError, fileName+"Error.csv");
 
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
 			Date date =new Date();
-			//date = format.parse(date.getTime());
 
 			this.textArea.append("file "+fileName+".csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 			this.textArea.append("file "+fileName+"Error.csv"+" has been created at "+Operator.usingDateFormatter(date.getTime())+"\n");
 
 			MainView.logger.log(Level.WARNING, "file : " + fileName + ".csv and "
 					+ fileName + " Error.csv" + " have been created");
-			
+
 			frame.changePanel(new HomeView(frame));
 
 		}
-		else if(cmd.equals("Cancel")){
 
+		else if(cmd.equals("Cancel")){
 			MainView.logger.log(Level.INFO, "Go back to homePage");
 			frame.changePanel(new HomeView(frame));
-
 		}
+
 		else if (cmd.equals("combo")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			timeChosen = (Integer) choice.getSelectedItem();
-
 		}
 	}
 
@@ -139,6 +134,6 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 	public void setMyFile(ArrayList<String[]> myFile) {
 		this.myFile = myFile;
 	}
-	
-	
+
+
 }

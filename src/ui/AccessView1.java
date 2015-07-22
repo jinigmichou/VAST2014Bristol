@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
@@ -12,9 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-import core.Operator;
-import core.Writer;
-
+@SuppressWarnings("serial")
 public class AccessView1  extends JPanel implements ActionListener {
 
 	private MainView frame;
@@ -30,9 +27,8 @@ public class AccessView1  extends JPanel implements ActionListener {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
-		
+
 		JLabel lblSelectReferenceColumn = new JLabel("Select reference column for:");
 		springLayout.putConstraint(SpringLayout.NORTH, lblSelectReferenceColumn, 35, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblSelectReferenceColumn, 46, SpringLayout.WEST, this);
@@ -99,26 +95,23 @@ public class AccessView1  extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("valid")){
-
-				frame.changePanel(new AccessView2(frame, myFile, columnID,columnDay,dateFormat));
-
-
+			frame.changePanel(new AccessView2(frame, myFile, columnID,columnDay,dateFormat));
 		}
+
 		else if (cmd.equals("back")){
-
 			frame.changePanel(new HomeView(frame));
-
 		}
+
 		else if (cmd.equals("comboID")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
-			columnID = choice.getSelectedIndex();
-			
+			columnID = choice.getSelectedIndex();	
 		}
+
 		else if (cmd.equals("comboDay")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
-			columnDay = choice.getSelectedIndex();
-			
+			columnDay = choice.getSelectedIndex();	
 		}
+
 		else if (cmd.equals("comboDateFormat")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			dateFormat = choice.getSelectedItem().toString();

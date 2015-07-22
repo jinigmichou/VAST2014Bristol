@@ -19,22 +19,20 @@ import core.Operator;
 import core.Writer;
 
 public class DeleteColumnView extends JPanel implements ActionListener {
+
 	private JTextField textField;
 	private JTextArea textArea;
 	private MainView frame;
 	private ArrayList<String[]> myFile;
 	private int columnToDelete;
 
-	/**
-	 * Create the panel.
-	 */
 	public DeleteColumnView(MainView frame, ArrayList<String[]> myFile) {
+
 		this.frame = frame;
 		this.myFile = myFile;
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		setBackground(Color.LIGHT_GRAY);
-		//this.setSize(frame.getSize());
 		setSize(640, 480);
 
 		JLabel lblChooseAColumn = new JLabel("Choose a column: ");
@@ -76,7 +74,6 @@ public class DeleteColumnView extends JPanel implements ActionListener {
 		btnBack.setActionCommand("back");
 		add(btnBack);
 
-
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		JScrollPane scrollpane = new JScrollPane(textArea);
@@ -85,7 +82,6 @@ public class DeleteColumnView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, textArea, -46, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, textArea, 0, SpringLayout.EAST, comboBoxDeletedColumn);
 		add(scrollpane);
-
 	}
 
 	@Override
@@ -93,33 +89,31 @@ public class DeleteColumnView extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("valid")){
+
 			if (textField.getText().equals("")){
 				textArea.append("Please, fill a file name");
 			}
+
 			else {
 				ArrayList<String[]> myFileResult = Operator.deleteColumn(myFile, columnToDelete);
 				try {
-					System.out.println("coucou");
 					Writer.writeCsv(myFileResult, "CsvData/"+textField.getText()+".csv");
 					MainView.logger.log(Level.WARNING, "The column deleted is : " +  columnToDelete 
 							+ "and the new file is " + myFileResult);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
-
 		}
-		else if (cmd.equals("back")){
 
+		else if (cmd.equals("back")){
 			MainView.logger.log(Level.INFO, "Come back to HomePage");
 			frame.changePanel(new HomeView(frame));
-
 		}
+
 		else if (cmd.equals("comboColumn")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			columnToDelete = choice.getSelectedIndex();
-
 		}
 
 	}
