@@ -491,7 +491,7 @@ public class Operator {
 	 */
 	public static String selectFile(){
 
-		String file= new String();
+		File file;
 		File repertoireCourant = null;
 		try {
 			repertoireCourant = new File(".").getCanonicalFile();
@@ -501,8 +501,9 @@ public class Operator {
 		JFileChooser dialogue = new JFileChooser(repertoireCourant);
 		// display
 		dialogue.showOpenDialog(null);
-		file= dialogue.getSelectedFile().toString();
-		return file;
+		file = dialogue.getSelectedFile();
+		if (file !=null) {return file.toString();}
+		return null;
 	}
 
 

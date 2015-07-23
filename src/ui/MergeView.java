@@ -20,6 +20,11 @@ import core.Reader;
 
 import javax.swing.JTextArea;
 
+/**
+ * This view concerns "merge CSV files" button
+ * @author jacquez
+ *
+ */
 public class MergeView extends JPanel implements ActionListener {
 
 	private MainView frame;

@@ -2,6 +2,7 @@ package ui;
 
 
 import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +22,11 @@ import core.Writer;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * This view concerns "calculate journey" button
+ * @author jacquez
+ *
+ */
 public class CalculJourneyView extends JPanel implements ActionListener{
 
 	private String[] title;
@@ -43,9 +49,18 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		this.myFile=myFile;
 		this.frame = frame;
 		setLayout(null);
-
 		setBackground(Color.LIGHT_GRAY);
 		this.setSize(frame.getSize());
+		
+		//Initialization of choices
+		 S_Time = 0;
+		 F_Time = 0;
+		 S_Lat  = 0;
+		 S_Lon  = 0;
+		 F_Lat  = 0;
+		 F_Lon  = 0;
+		 unit = "N";
+		 
 
 		JLabel lblStart = new JLabel("Start:");
 		lblStart.setBounds(31, 22, 61, 16);

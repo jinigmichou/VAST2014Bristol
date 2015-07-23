@@ -10,7 +10,11 @@ import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-
+/**
+ * This view concerns "select data" button
+ * @author jacquez
+ *
+ */
 @SuppressWarnings("serial")
 public class AccessView1  extends JPanel implements ActionListener {
 
@@ -87,6 +91,12 @@ public class AccessView1  extends JPanel implements ActionListener {
 		comboBoxDateFormat.addActionListener(this);
 		comboBoxDateFormat.setActionCommand("comboDateFormat");
 		add(comboBoxDateFormat);
+
+		//Initialization
+		
+		columnID = 1;
+		columnDay =1;
+		dateFormat = dateFormatInitial[0];
 
 	}
 

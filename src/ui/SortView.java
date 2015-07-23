@@ -20,6 +20,11 @@ import core.Writer;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * This view concerns "sort" button
+ * @author jacquez
+ *
+ */
 public class SortView extends JPanel implements ActionListener {
 
 	private JComboBox<String> comboBox;

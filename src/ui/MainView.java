@@ -16,7 +16,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.*;
 
-
+/**
+ * This class is the main windows
+ * All panels (equivalent to Views) are displayed on this windows
+ * @author jacquez
+ *
+ */
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener {
 

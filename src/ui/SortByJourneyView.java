@@ -19,6 +19,11 @@ import core.Writer;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * This view concerns "sort by journey" button
+ * @author jacquez
+ *
+ */
 public class SortByJourneyView extends JPanel implements ActionListener{
 
 	private Integer timeChosen;
@@ -38,14 +43,14 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		JLabel lblTimeBetweenTwo = new JLabel("Time between two journeys: ");
 		lblTimeBetweenTwo.setBounds(36, 75, 180, 16);
 		add(lblTimeBetweenTwo);
-
+		
 		Integer[] timeJourney = {1,2,5,10,20};
 		JComboBox comboBoxTime = new JComboBox(timeJourney);
 		comboBoxTime.setBounds(228, 71, 133, 27);
-
 		comboBoxTime.addActionListener(this);
 		comboBoxTime.setActionCommand("combo");
 		add(comboBoxTime);
+		timeChosen=timeJourney[0];
 
 		JButton btnCalculate = new JButton("Order By Journey");
 		btnCalculate.setBounds(89, 134, 152, 29);

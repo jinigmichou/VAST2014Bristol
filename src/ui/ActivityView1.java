@@ -18,7 +18,11 @@ import javax.swing.SpringLayout;
 
 import core.Operator;
 import core.Reader;
-
+/**
+ * This view concerns "add activities" button
+ * @author jacquez
+ *
+ */
 public class ActivityView1 extends JPanel implements ActionListener {
 
 	private MainView frame;

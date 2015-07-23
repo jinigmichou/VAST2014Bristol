@@ -17,6 +17,11 @@ import core.Reader;
 
 import javax.swing.JTextArea;
 
+/**
+ * This view concerns "execute your code" button
+ * @author jacquez
+ *
+ */
 public class ExecuteUserCodeView extends JPanel implements ActionListener{
 
 	private String NumberOfInputFiles;
@@ -30,8 +35,6 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 	public ExecuteUserCodeView(MainView frame) {
 
 		this.frame = frame;
-		this.NumberOfInputFiles = NumberOfInputFiles;
-
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
 		setSize(640, 480);
@@ -103,6 +106,8 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();	
+				
+				NumberOfInputFiles = "1";
 			}
 
 			else if (NumberOfInputFiles.equals("2")){
@@ -145,6 +150,8 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
+				
+				NumberOfInputFiles = "1";
 
 			}
 			else if (NumberOfInputFiles.equals("3")){
@@ -202,6 +209,8 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
+				
+				NumberOfInputFiles = "1";
 
 			}
 
@@ -275,6 +284,8 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
+				
+				NumberOfInputFiles = "1";
 			}
 		}
 

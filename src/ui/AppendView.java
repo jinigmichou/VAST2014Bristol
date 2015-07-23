@@ -20,7 +20,11 @@ import core.Reader;
 import core.Writer;
 
 import javax.swing.JTextArea;
-
+/**
+ * This view concerns "Append file to an other" button
+ * @author jacquez
+ *
+ */
 public class AppendView extends JPanel implements ActionListener {
 
 	private MainView frame;

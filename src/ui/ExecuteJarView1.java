@@ -18,6 +18,11 @@ import core.TerminalOutput;
 
 import javax.swing.JTextArea;
 
+/**
+ * This view concerns "execute jar file" button
+ * @author jacquez
+ *
+ */
 public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 	private String NumberOfOutputFiles;
@@ -34,7 +39,7 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 		this.InputsPath = InputsPath;
 		this.frame = frame;
-		this.NumberOfOutputFiles = NumberOfOutputFiles;
+		NumberOfOutputFiles = "1";
 
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -116,6 +121,9 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();	
+				
+				NumberOfOutputFiles = "1";
+				
 			}
 			else if (NumberOfOutputFiles.equals("2")){
 
@@ -145,6 +153,8 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
+				
+				NumberOfOutputFiles = "1";
 
 			}
 			else if (NumberOfOutputFiles.equals("3")){
@@ -184,6 +194,8 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
+				
+				NumberOfOutputFiles = "1";
 
 			}
 			else if (NumberOfOutputFiles.equals("4")){
@@ -232,6 +244,8 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
+				
+				NumberOfOutputFiles = "1";
 			}
 
 		}
@@ -245,6 +259,10 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 			if (textFieldFileOutput1.getText().equals("")){
 				textArea.append("Please, select a file from file browser 1 \n");
+			}
+			
+			else if( textFieldJarFile.getText().equals("")){
+				textArea.append("Please, select a jar file \n");
 			}
 
 			else {
@@ -284,6 +302,9 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 			else if(textFieldFileOutput2.getText().equals("")){
 				textArea.append("Please, select a file from file browser 2 \n");
 			}
+			else if( textFieldJarFile.getText().equals("")){
+				textArea.append("Please, select a jar file \n");
+			}
 			else {
 
 				String filePath1= textFieldFileOutput1.getText();
@@ -295,9 +316,7 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 					Process process = runtime.exec(new String("java -jar "+textFieldJarFile.getText()+" "
 							+InputsPath.toString()+" "
 							+filesPath.toString()));
-					System.out.println("java -jar "+textFieldJarFile.getText()+" "
-							+InputsPath.toString()+" "
-							+filesPath.toString());
+
 					ArrayList<String> result = new ArrayList<String>();
 					ArrayList<String> resultE = new ArrayList<String>();
 
@@ -326,6 +345,9 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 			}
 			else if(textFieldFileOutput3.getText().equals("")){
 				textArea.append("Please, select a file from file browser 3 \n");
+			}
+			else if( textFieldJarFile.getText().equals("")){
+				textArea.append("Please, select a jar file \n");
 			}
 			else {
 
@@ -371,6 +393,9 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 			}
 			else if(textFieldFileOutput4.getText().equals("")){
 				textArea.append("Please, select a file from file browser 4 \n");
+			}
+			else if( textFieldJarFile.getText().equals("")){
+				textArea.append("Please, select a jar file \n");
 			}
 			else {
 

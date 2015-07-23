@@ -21,7 +21,11 @@ import core.Reader;
 
 import javax.swing.JTextArea;
 
-
+/**
+ * This view concerns the main menu to manage CSV data
+ * @author jacquez
+ *
+ */
 public class HomeView extends JPanel implements ActionListener{
 
 	private MainView frame;
@@ -102,7 +106,7 @@ public class HomeView extends JPanel implements ActionListener{
 		btnSelect.setActionCommand("Select");	
 		add(btnSelect);
 
-		JButton btnDate = new JButton("Tranform Date");
+		JButton btnDate = new JButton("Transform Date");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnReturn, -190, SpringLayout.SOUTH, btnDate);
 		springLayout.putConstraint(SpringLayout.NORTH, btnDate, 6, SpringLayout.SOUTH, btnCalculate);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnDate, 32, SpringLayout.SOUTH, btnCalculate);

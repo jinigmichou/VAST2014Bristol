@@ -22,11 +22,16 @@ import core.Writer;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * This view concerns "select data" button
+ * @author jacquez
+ *
+ */
 public class AccessView2 extends JPanel implements ActionListener {
 	private MainView frame;
 	private ArrayList<String[]> myFile;
 	private ArrayList<String[]> myFilestampForWriting;
-	private String user;
+	private String userString;
 	private String date;
 	private int columnDay;
 	private String dateFormat;
@@ -58,7 +63,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 
 		ArrayList<String> user = Operator.selectDistinctValuesInAColumn(myFile, columnID);
 		JComboBox comboBoxUser = new JComboBox();
-		for(int i = 1;i<user.size();i++ ){ comboBoxUser.addItem(user.get(i));}
+		for(int i = 1 ; i<user.size() ; i++ ){ comboBoxUser.addItem(user.get(i));}
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxUser, 39, SpringLayout.SOUTH, lblDataAreaAccess);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxUser, 124, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxUser, 0, SpringLayout.EAST, lblDataAreaAccess);
@@ -168,7 +173,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 			date = Long.toString(timestamp);
 			for (int i = 1; i<myFile.size(); i++){
 
-				if(myFile.get(i)[columnID].equals(user) && Operator.compareTimeStamp(date, myFilestamp2.get(i)[columnDay], 86400000)
+				if(myFile.get(i)[columnID].equals(userString) && Operator.compareTimeStamp(date, myFilestamp2.get(i)[columnDay], 86400000)
 						&& Operator.compareTimeStamp(myFilestamp2.get(i)[columnDay], date, 0)){	
 					myFilestampForWriting.add(myFile.get(i));
 
@@ -186,7 +191,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 
 		else if (cmd.equals("comboUser")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
-			user = choice.getSelectedItem().toString();
+			userString = choice.getSelectedItem().toString();
 		}
 
 		else if (cmd.equals("comboDay")){
@@ -209,7 +214,8 @@ public class AccessView2 extends JPanel implements ActionListener {
 
 		else if (cmd.equals("erase")){
 			textArea.setText("");
-			for (int i =1; i<myFilestampForWriting.size();i++){
+			int i = 1;
+			while (i<myFilestampForWriting.size()){
 				myFilestampForWriting.remove(i);
 			}
 		}

@@ -17,6 +17,11 @@ import core.Operator;
 
 import javax.swing.JTextArea;
 
+/**
+ * This view concerns "execute jar file" button
+ * @author jacquez
+ *
+ */
 public class ExecuteJarView extends JPanel implements ActionListener{
 
 	private String NumberOfInputFiles;
@@ -30,12 +35,10 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 	public ExecuteJarView(MainView frame) {
 
 		this.frame = frame;
-		this.NumberOfInputFiles = NumberOfInputFiles;
-
-
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
 		setSize(640, 480);
+		NumberOfInputFiles = "1";
 		initialize();
 	}
 
@@ -104,6 +107,8 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();	
+				
+				NumberOfInputFiles = "1";
 			}
 			else if (NumberOfInputFiles.equals("2")){
 
@@ -145,6 +150,8 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
+				
+				NumberOfInputFiles = "1";
 
 			}
 			else if (NumberOfInputFiles.equals("3")){
@@ -202,6 +209,8 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
+				
+				NumberOfInputFiles = "1";
 
 			}
 			else if (NumberOfInputFiles.equals("4")){
@@ -274,6 +283,8 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
+				
+				NumberOfInputFiles = "1";
 			}
 		}
 

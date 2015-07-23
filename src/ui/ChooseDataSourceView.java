@@ -10,7 +10,11 @@ import javax.swing.JButton;
 
 import java.awt.Color;
 import java.util.logging.Level;
-
+/**
+ * This view allows to choice initial data format (Csv, Xml, ...)
+ * @author jacquez
+ *
+ */
 public class ChooseDataSourceView extends JPanel implements ActionListener{
 
 	private static JPanel panelDisplay;

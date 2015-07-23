@@ -18,6 +18,11 @@ import javax.swing.JTextArea;
 import core.Operator;
 import core.Writer;
 
+/**
+ * This view concerns "Delete a column" button
+ * @author jacquez
+ *
+ */
 public class DeleteColumnView extends JPanel implements ActionListener {
 
 	private JTextField textField;
@@ -82,6 +87,9 @@ public class DeleteColumnView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, textArea, -46, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, textArea, 0, SpringLayout.EAST, comboBoxDeletedColumn);
 		add(scrollpane);
+		
+		//Initialization
+		columnToDelete = 0;
 	}
 
 	@Override

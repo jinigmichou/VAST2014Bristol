@@ -18,6 +18,11 @@ import core.Writer;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
+/**
+ * This view concerns "merge CSV files" button
+ * @author jacquez
+ *
+ */
 public class MergingView extends JPanel implements ActionListener {
 
 	private MainView frame;
@@ -104,6 +109,10 @@ public class MergingView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, scrollpane, 126, SpringLayout.SOUTH, btnValid);
 		springLayout.putConstraint(SpringLayout.EAST, scrollpane, 369, SpringLayout.WEST, this);
 		add(scrollpane);
+		
+		//Initialization
+		columnFile1 = 0;
+		columnFile2 = 0 ;
 
 	}
 

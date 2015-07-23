@@ -16,7 +16,11 @@ import javax.swing.SpringLayout;
 
 import core.Operator;
 import core.Writer;
-
+/**
+ * This view concerns "add activities" button
+ * @author jacquez
+ *
+ */
 public class ActivityView2 extends JPanel implements ActionListener {
 
 	private MainView frame;
@@ -72,14 +76,14 @@ public class ActivityView2 extends JPanel implements ActionListener {
 
 		JButton btnValid = new JButton("Valid");
 		springLayout.putConstraint(SpringLayout.WEST, btnValid, 361, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, btnValid, -204, SpringLayout.EAST, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnValid, 436, SpringLayout.WEST, this);
 		btnValid.addActionListener(this);
 		btnValid.setActionCommand("Valid");
 		add(btnValid);
 
 		JButton btnCancel = new JButton("back");
-		springLayout.putConstraint(SpringLayout.NORTH, btnCancel, 0, SpringLayout.NORTH, btnValid);
-		springLayout.putConstraint(SpringLayout.EAST, btnCancel, -6, SpringLayout.WEST, btnValid);
+		springLayout.putConstraint(SpringLayout.WEST, btnCancel, 280, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnCancel, 355, SpringLayout.WEST, this);
 		btnCancel.addActionListener(this);
 		btnCancel.setActionCommand("back");
 		add(btnCancel);
@@ -88,9 +92,9 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		textArea.setEditable(false);
 		JScrollPane scrollpane = new JScrollPane(textArea);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnValid, -23, SpringLayout.NORTH, scrollpane);
-		springLayout.putConstraint(SpringLayout.NORTH, scrollpane, 250, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, scrollpane, -10, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, scrollpane, 615, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollpane, 411, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.NORTH, scrollpane, 250, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, scrollpane, 24, SpringLayout.WEST, this);
 		add(scrollpane);
 
@@ -142,11 +146,19 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		add(lblFileName);
 
 		textFieldFilePath = new JTextField();
-		springLayout.putConstraint(SpringLayout.WEST, textFieldFilePath, 0, SpringLayout.WEST, comboBox1);
 		springLayout.putConstraint(SpringLayout.SOUTH, textFieldFilePath, -6, SpringLayout.NORTH, btnValid);
+		springLayout.putConstraint(SpringLayout.NORTH, btnCancel, 6, SpringLayout.SOUTH, textFieldFilePath);
+		springLayout.putConstraint(SpringLayout.WEST, textFieldFilePath, 0, SpringLayout.WEST, comboBox1);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldFilePath, 0, SpringLayout.EAST, comboBox1);
 		add(textFieldFilePath);
 		textFieldFilePath.setColumns(10);
+		
+		//Initialization
+		columnFile = 0;
+		columnDate1 = 0;
+		columnDate2 = 0;
+		dateFormat1 = dateFormat[0];
+		dateFormat2 = dateFormat[0];
 	}
 
 
@@ -194,7 +206,7 @@ public class ActivityView2 extends JPanel implements ActionListener {
 			}
 		}
 
-		else if(cmd.equals("cancel")){ 
+		else if(cmd.equals("back")){ 
 			frame.changePanel(new HomeView(frame));
 		}
 

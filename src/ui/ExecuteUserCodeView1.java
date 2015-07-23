@@ -19,6 +19,11 @@ import core.Operator;
 import core.TerminalOutput;
 import core.Writer;
 
+/**
+ * This view concerns "execute your code" button
+ * @author jacquez
+ *
+ */
 public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 
 	private MainView frame;
