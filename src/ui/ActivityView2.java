@@ -21,6 +21,7 @@ import core.Writer;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class ActivityView2 extends JPanel implements ActionListener {
 
 	private MainView frame;
@@ -40,8 +41,6 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		this.frame = frame;
 		this.file1 = file1;
 		this.file2 = file2;
-		this.columnDate1 = columnDate1;
-		this.columnDate2 = columnDate2;
 
 
 		SpringLayout springLayout = new SpringLayout();
@@ -49,12 +48,12 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		setBackground(Color.LIGHT_GRAY);
 		setSize(640, 480);
 
-		JComboBox comboBox1 = new JComboBox(this.file1.get(0));
+		JComboBox<String> comboBox1 = new JComboBox<String>(this.file1.get(0));
 		comboBox1.addActionListener(this);
 		comboBox1.setActionCommand("combo");
 		add(comboBox1);
 
-		JComboBox comboBoxDate1 = new JComboBox(this.file1.get(0));
+		JComboBox<String> comboBoxDate1 = new JComboBox<String>(this.file1.get(0));
 		springLayout.putConstraint(SpringLayout.SOUTH, comboBox1, -20, SpringLayout.NORTH, comboBoxDate1);
 		springLayout.putConstraint(SpringLayout.EAST, comboBox1, 0, SpringLayout.EAST, comboBoxDate1);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxDate1, -204, SpringLayout.EAST, this);
@@ -62,7 +61,7 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		comboBoxDate1.setActionCommand("comboDate1");
 		add(comboBoxDate1);
 
-		JComboBox comboBoxDate2 = new JComboBox(this.file2.get(0));
+		JComboBox<String> comboBoxDate2 = new JComboBox<String>(this.file2.get(0));
 		springLayout.putConstraint(SpringLayout.WEST, comboBox1, 0, SpringLayout.WEST, comboBoxDate2);
 		comboBoxDate2.addActionListener(this);
 		comboBoxDate2.setActionCommand("comboDate2");
@@ -124,7 +123,7 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		add(lblFormat_1);
 
 		String [] dateFormat = {"dd/MM/yyyy HH:mm:ss","dd-MM-yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm","MM/dd/yyyy HH:mm:ss","MM/dd/yyyy","MM/dd/yyyy HH:mm", "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy","Timestamp"};
-		JComboBox comboBoxFormat1 = new JComboBox(dateFormat);
+		JComboBox<String> comboBoxFormat1 = new JComboBox<String>(dateFormat);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxFormat1, 0, SpringLayout.NORTH, comboBoxDate1);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxFormat1, 11, SpringLayout.EAST, lblFormat);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxFormat1, 115, SpringLayout.EAST, lblFormat);
@@ -132,7 +131,7 @@ public class ActivityView2 extends JPanel implements ActionListener {
 		comboBoxFormat1.setActionCommand("comboFormat1");
 		add(comboBoxFormat1);
 
-		JComboBox comboBoxFormat2 = new JComboBox(dateFormat);
+		JComboBox<String> comboBoxFormat2 = new JComboBox<String>(dateFormat);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxFormat2, 20, SpringLayout.SOUTH, comboBoxFormat1);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxFormat2, 11, SpringLayout.EAST, lblFormat_1);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxFormat2, 115, SpringLayout.EAST, lblFormat_1);
@@ -162,6 +161,7 @@ public class ActivityView2 extends JPanel implements ActionListener {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

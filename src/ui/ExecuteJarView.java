@@ -3,7 +3,6 @@ package ui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -14,7 +13,6 @@ import javax.swing.JButton;
 
 import core.Operator;
 
-
 import javax.swing.JTextArea;
 
 /**
@@ -22,6 +20,7 @@ import javax.swing.JTextArea;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class ExecuteJarView extends JPanel implements ActionListener{
 
 	private String NumberOfInputFiles;
@@ -49,7 +48,7 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 		add(lblNewLabel);
 
 		String[] inputfileNumber = {"1","2","3","4"};
-		JComboBox comboBoxInputFiles = new JComboBox(inputfileNumber);
+		JComboBox<String> comboBoxInputFiles = new JComboBox<String>(inputfileNumber);
 		comboBoxInputFiles.setBounds(170, 30, 74, 20);
 
 		comboBoxInputFiles.addActionListener(this);
@@ -289,6 +288,7 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 		}
 
 		else if (cmd.equals("comboInput")){
+			@SuppressWarnings("unchecked")
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			NumberOfInputFiles = (String) choice.getSelectedItem();
 		}
@@ -316,7 +316,6 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 			}
 
 			else {
-				ArrayList<String[]> myFile1 = new ArrayList<String[]>();
 				String filePath1= textFieldFile1.getText();
 				String filesPath = filePath1;
 				frame.changePanel(new ExecuteJarView1(frame, filesPath));

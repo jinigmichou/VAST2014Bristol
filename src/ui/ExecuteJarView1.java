@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import core.Reader;
 import core.Operator;
 import core.TerminalOutput;
 
@@ -25,6 +26,12 @@ import javax.swing.JTextArea;
  */
 public class ExecuteJarView1 extends JPanel implements ActionListener{
 
+	/**
+	 * The serialVersionUID is a universal version identifier for a Serializable class.
+	 * Deserialization uses this number to ensure that a loaded class corresponds exactly
+	 * to a serialized object.
+	 */
+	private static final long serialVersionUID = 1L;
 	private String NumberOfOutputFiles;
 	private MainView frame;
 	private JTextField textFieldFileOutput1;
@@ -54,7 +61,7 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 		add(lblNewLabel);
 
 		String[] outputfileNumber = {"1","2","3","4"};
-		JComboBox comboBoxOutputFiles = new JComboBox(outputfileNumber);
+		JComboBox<String> comboBoxOutputFiles = new JComboBox<String>(outputfileNumber);
 		comboBoxOutputFiles.setBounds(170, 30, 74, 20);
 		comboBoxOutputFiles.addActionListener(this);
 		comboBoxOutputFiles.setActionCommand("comboOutput");
@@ -251,7 +258,8 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 		}
 
 		else if (cmd.equals("comboOutput")){
-			JComboBox<String> choice = (JComboBox<String>)e.getSource();
+			@SuppressWarnings("unchecked")
+			JComboBox<String> choice = (JComboBox<String>) e.getSource();
 			NumberOfOutputFiles = (String) choice.getSelectedItem();
 		}
 
@@ -275,6 +283,7 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 					Process process = runtime.exec(new String("java -jar "+textFieldJarFile.getText()+" "
 							+InputsPath.toString()+" "
 							+filesPath.toString()));
+				
 
 					ArrayList<String> result = new ArrayList<String>();
 					ArrayList<String> resultE = new ArrayList<String>();
@@ -287,6 +296,16 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 					for (int i = 0 ; i < result.size(); i++){textArea.setText("results  : "+result.get(i));}
 					for (int i = 0 ; i < resultE.size(); i++){textArea.setText("Errors  : "+resultE.get(i));}
+					
+					ArrayList<String[]> myFile = new ArrayList<String[]>();
+					Reader myreader= new Reader(InputsPath.toString());
+					try {
+						myFile = myreader.readCsv(myreader.getMyFilePath());
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					System.out.println("taille 2  " + myFile.size());
 
 				} catch (IOException e1) {
 					e1.printStackTrace();

@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+
 import persist.ReaderCSV;
 
 /**
@@ -14,10 +15,16 @@ public class Reader{
 	private ReaderCSV myReader;
 	
 	//Constructors
-	public Reader(){}
+	public Reader(){
+		this.myFile = new ArrayList<String[]>() ;
+		this.myFilePath = null;
+		this.myReader = null;
+	}
 	
 	public Reader(String myFilePath){
+		this.myFile = new ArrayList<String[]>() ;
 		this.myFilePath = myFilePath;
+		this.myReader = null;
 	}
 	
 	public Reader(ArrayList<String[]> myFile, String myFilePath, ReaderCSV myReader){
@@ -51,4 +58,13 @@ public class Reader{
 	public void setMyFilePath(String myFilePath) {
 		this.myFilePath = myFilePath;
 	}
+
+	public ReaderCSV getMyReader() {
+		return myReader;
+	}
+
+	public void setMyReader(ReaderCSV myReader) {
+		this.myReader = myReader;
+	}
+	
 }

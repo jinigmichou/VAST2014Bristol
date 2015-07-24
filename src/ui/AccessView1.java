@@ -15,6 +15,7 @@ import javax.swing.JButton;
  * @author jacquez
  *
  */
+
 @SuppressWarnings("serial")
 public class AccessView1  extends JPanel implements ActionListener {
 
@@ -48,7 +49,7 @@ public class AccessView1  extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.WEST, lblDay, 0, SpringLayout.WEST, lblSelectReferenceColumn);
 		add(lblDay);
 
-		JComboBox comboBoxID = new JComboBox(myFile.get(0));
+		JComboBox<String> comboBoxID = new JComboBox<String>(myFile.get(0));
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxID, 31, SpringLayout.SOUTH, lblSelectReferenceColumn);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxID, 24, SpringLayout.EAST, lblId);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxID, 9, SpringLayout.EAST, lblSelectReferenceColumn);
@@ -56,7 +57,7 @@ public class AccessView1  extends JPanel implements ActionListener {
 		comboBoxID.setActionCommand("comboID");
 		add(comboBoxID);
 
-		JComboBox comboBoxDay = new JComboBox(myFile.get(0));
+		JComboBox<String> comboBoxDay = new JComboBox<String>(myFile.get(0));
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDay, 17, SpringLayout.SOUTH, comboBoxID);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxDay, 0, SpringLayout.WEST, comboBoxID);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxDay, 0, SpringLayout.EAST, comboBoxID);
@@ -82,7 +83,7 @@ public class AccessView1  extends JPanel implements ActionListener {
 		add(lblSelectYourDate);
 
 		String [] dateFormatInitial = {"dd/MM/yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm", "Timestamp","MM/dd/yyy HH:mm:ss"};
-		JComboBox comboBoxDateFormat = new JComboBox(dateFormatInitial);
+		JComboBox<String> comboBoxDateFormat = new JComboBox<String>(dateFormatInitial);
 		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 12, SpringLayout.SOUTH, comboBoxDateFormat);
 		springLayout.putConstraint(SpringLayout.NORTH, btnBack, 12, SpringLayout.SOUTH, comboBoxDateFormat);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDateFormat, 6, SpringLayout.SOUTH, lblSelectYourDate);
@@ -100,6 +101,7 @@ public class AccessView1  extends JPanel implements ActionListener {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

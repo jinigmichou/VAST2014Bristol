@@ -6,7 +6,7 @@ public class CSVKit extends PersistKit {
 
 	/**
 	 * Method CSVKit
-	 * @return a data set of type selected
+	 * @return 
 	 */
 
 	@Override

@@ -2,10 +2,8 @@ package ui;
 
 
 import java.awt.Color;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -27,6 +25,7 @@ import javax.swing.JTextField;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class CalculJourneyView extends JPanel implements ActionListener{
 
 	private String[] title;
@@ -70,7 +69,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		lblTime.setBounds(31, 56, 61, 16);
 		add(lblTime);
 
-		JComboBox comboBox_S_Time = new JComboBox(title);
+		JComboBox<String> comboBox_S_Time = new JComboBox<String>(title);
 		comboBox_S_Time.setBounds(70, 52, 133, 27);
 		comboBox_S_Time.addActionListener(this);
 		comboBox_S_Time.setActionCommand("comboBox_S_Time");
@@ -80,7 +79,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		lblLatitude.setBounds(231, 56, 61, 16);
 		add(lblLatitude);
 
-		JComboBox comboBox_S_Lat = new JComboBox(title);
+		JComboBox<String> comboBox_S_Lat = new JComboBox<String>(title);
 		comboBox_S_Lat.setBounds(288, 52, 138, 27);
 		comboBox_S_Lat.addActionListener(this);
 		comboBox_S_Lat.setActionCommand("comboBox_S_Lat");
@@ -90,7 +89,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		lblLongitude.setBounds(438, 56, 74, 16);
 		add(lblLongitude);
 
-		JComboBox comboBox_S_Lon = new JComboBox(title);
+		JComboBox<String> comboBox_S_Lon = new JComboBox<String>(title);
 		comboBox_S_Lon.setBounds(546, 52, 133, 27);
 		comboBox_S_Lon.addActionListener(this);
 		comboBox_S_Lon.setActionCommand("comboBox_S_Lon");
@@ -104,7 +103,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		lblTime_1.setBounds(31, 177, 61, 16);
 		add(lblTime_1);
 
-		JComboBox comboBox_F_Time = new JComboBox(title);
+		JComboBox<String> comboBox_F_Time = new JComboBox<String>(title);
 		comboBox_F_Time.setBounds(70, 173, 133, 27);
 		comboBox_F_Time.addActionListener(this);
 		comboBox_F_Time.setActionCommand("comboBox_F_Time");
@@ -114,7 +113,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		lblLatitude_1.setBounds(231, 177, 61, 16);
 		add(lblLatitude_1);
 
-		JComboBox comboBox_F_Lat = new JComboBox(title);
+		JComboBox<String> comboBox_F_Lat = new JComboBox<String>(title);
 		comboBox_F_Lat.setBounds(288, 173, 138, 27);
 		comboBox_F_Lat.addActionListener(this);
 		comboBox_F_Lat.setActionCommand("comboBox_F_Lat");
@@ -124,7 +123,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		lblLongitude_1.setBounds(438, 177, 74, 16);
 		add(lblLongitude_1);
 
-		JComboBox comboBox_F_Lon = new JComboBox(title);
+		JComboBox<String> comboBox_F_Lon = new JComboBox<String>(title);
 		comboBox_F_Lon.setBounds(546, 173, 133, 27);
 		comboBox_F_Lon.addActionListener(this);
 		comboBox_F_Lon.setActionCommand("comboBox_F_Lon");
@@ -146,7 +145,7 @@ public class CalculJourneyView extends JPanel implements ActionListener{
 		lblDistanceUnit.setBounds(31, 235, 110, 16);
 		add(lblDistanceUnit);
 
-		JComboBox comboBox_unit = new JComboBox();
+		JComboBox<String> comboBox_unit = new JComboBox<String>();
 		comboBox_unit.addItem("Mile");
 		comboBox_unit.addItem("Km");
 		comboBox_unit.setBounds(126, 231, 90, 27);

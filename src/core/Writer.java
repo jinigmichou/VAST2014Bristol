@@ -16,14 +16,20 @@ public class Writer {
 	private WriterCSV myWriter;
 	
 	//Constructors
-	public Writer(){	
+	public Writer(){
+		this.myFile = new ArrayList<String[]>();
+		this.myFilePath = null;
+		this.myWriter = null;
 	}
 	
 	public Writer(ArrayList<String[]> myFile, String myFilePath){
 		this.myFile=myFile;
 		this.myFilePath=myFilePath;	
+		this.myWriter = null;
 	}
 	
+	
+
 	public Writer(ArrayList<String[]> myFile, String myFilePath, WriterCSV myWriter){
 		this.myFile=myFile;
 		this.myFilePath=myFilePath;
@@ -64,5 +70,13 @@ public class Writer {
 	}
 	public void setMyFilePath(String myFilePath) {
 		this.myFilePath = myFilePath;
+	}
+	
+	public WriterCSV getMyWriter() {
+		return myWriter;
+	}
+
+	public void setMyWriter(WriterCSV myWriter) {
+		this.myWriter = myWriter;
 	}
 }

@@ -9,7 +9,7 @@ import com.opencsv.CSVReader;
 import core.Reader;
 
 /**
- * This class permits to read a csv file and put its content into an Arraylist<String[]>
+ * This class permits to read a csv file and put its content into an Arraylist of String array
  * @author jacquez
  *
  */

@@ -3,13 +3,10 @@ package ui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,6 +23,7 @@ import javax.swing.JTextArea;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class HomeView extends JPanel implements ActionListener{
 
 	private MainView frame;
@@ -237,7 +235,7 @@ public class HomeView extends JPanel implements ActionListener{
 				String result = "" ;
 
 				try {
-					myFile=myreader.readCsv(myreader.getMyFilePath());
+					myFile = myreader.readCsv(myreader.getMyFilePath());
 					for (int i= 0; i<myFile.get(0).length; i++){
 						result = result + myFile.get(0)[i] + ", ";
 					}

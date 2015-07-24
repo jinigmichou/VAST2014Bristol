@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class DateView extends JPanel implements ActionListener {
 
 	private MainView frame;
@@ -61,7 +62,7 @@ public class DateView extends JPanel implements ActionListener {
 		add(lblRequiredDateFormat);
 
 		String [] dateFormatInitial = {"dd/MM/yyyy HH:mm:ss","dd-MM-yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm","MM/dd/yyy HH:mm:ss", "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy","Timestamp"};
-		JComboBox comboBoxInitialFormat = new JComboBox(dateFormatInitial);
+		JComboBox<String> comboBoxInitialFormat = new JComboBox<String>(dateFormatInitial);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxInitialFormat, 225, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxInitialFormat, 364, SpringLayout.WEST, this);
 		comboBoxInitialFormat.addActionListener(this);
@@ -69,7 +70,7 @@ public class DateView extends JPanel implements ActionListener {
 		add(comboBoxInitialFormat);
 
 		String [] dateFormatRequired = {"dd/MM/yyyy HH:mm:ss","dd/MM/yyyy HH:mm","dd/MM/yyyy","yyyy-MM-dd'T'HH:mm","Timestamp","MM/dd/yyy HH:mm:ss"};
-		JComboBox comboBoxRequiredFormat = new JComboBox(dateFormatRequired);
+		JComboBox<String> comboBoxRequiredFormat = new JComboBox<String>(dateFormatRequired);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxRequiredFormat, 40, SpringLayout.SOUTH, comboBoxInitialFormat);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxRequiredFormat, 225, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxRequiredFormat, 364, SpringLayout.WEST, this);
@@ -91,7 +92,7 @@ public class DateView extends JPanel implements ActionListener {
 		btnBack.setActionCommand("back");
 		add(btnBack);
 
-		JComboBox comboBoxColumn = new JComboBox(myFile.get(0));
+		JComboBox<String> comboBoxColumn = new JComboBox<String>(myFile.get(0));
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxInitialFormat, 33, SpringLayout.SOUTH, comboBoxColumn);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxColumn, 38, SpringLayout.EAST, lblColumnReference);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxColumn, 178, SpringLayout.EAST, lblColumnReference);
@@ -129,6 +130,7 @@ public class DateView extends JPanel implements ActionListener {
 		column = 0;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

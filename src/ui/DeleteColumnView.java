@@ -23,6 +23,7 @@ import core.Writer;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class DeleteColumnView extends JPanel implements ActionListener {
 
 	private JTextField textField;
@@ -45,7 +46,7 @@ public class DeleteColumnView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.WEST, lblChooseAColumn, 40, SpringLayout.WEST, this);
 		add(lblChooseAColumn);
 
-		JComboBox comboBoxDeletedColumn = new JComboBox(myFile.get(0));
+		JComboBox<String> comboBoxDeletedColumn = new JComboBox<String>(myFile.get(0));
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDeletedColumn, 33, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxDeletedColumn, 24, SpringLayout.EAST, lblChooseAColumn);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxDeletedColumn, 180, SpringLayout.EAST, lblChooseAColumn);
@@ -120,6 +121,7 @@ public class DeleteColumnView extends JPanel implements ActionListener {
 		}
 
 		else if (cmd.equals("comboColumn")){
+			@SuppressWarnings("unchecked")
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			columnToDelete = choice.getSelectedIndex();
 		}

@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class MergingView extends JPanel implements ActionListener {
 
 	private MainView frame;
@@ -43,7 +44,7 @@ public class MergingView extends JPanel implements ActionListener {
 		setBackground(Color.LIGHT_GRAY);
 		setSize(640, 480);
 
-		JComboBox comboBox1 = new JComboBox(this.file1.get(0));
+		JComboBox<String> comboBox1 = new JComboBox<String>(this.file1.get(0));
 		springLayout.putConstraint(SpringLayout.NORTH, comboBox1, 32, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, comboBox1, 64, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, comboBox1, 184, SpringLayout.WEST, this);
@@ -51,7 +52,7 @@ public class MergingView extends JPanel implements ActionListener {
 		comboBox1.setActionCommand("combo1");
 		add(comboBox1);
 
-		JComboBox comboBox2 = new JComboBox(this.file2.get(0));
+		JComboBox<String> comboBox2 = new JComboBox<String>(this.file2.get(0));
 		springLayout.putConstraint(SpringLayout.NORTH, comboBox2, 32, SpringLayout.NORTH, this);
 		comboBox2.addActionListener(this);
 		comboBox2.setActionCommand("combo2");
@@ -116,6 +117,7 @@ public class MergingView extends JPanel implements ActionListener {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -141,6 +143,7 @@ public class MergingView extends JPanel implements ActionListener {
 		}
 
 		else if (cmd.equals("combo2")){
+			
 			JComboBox<String> choice2 = (JComboBox<String>)e.getSource();
 			columnFile2 =  choice2.getSelectedIndex();
 		}

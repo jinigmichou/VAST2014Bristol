@@ -25,6 +25,7 @@ import javax.swing.JTextField;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class SortView extends JPanel implements ActionListener {
 
 	private JComboBox<String> comboBox;
@@ -40,7 +41,6 @@ public class SortView extends JPanel implements ActionListener {
 		this.frame = frame;
 		this.myFile=myFile;
 		this.title=title;
-		int columnChoosen=0;
 		SpringLayout springLayout = new SpringLayout();
 		setSize(640, 480);
 		setLayout(springLayout);
@@ -51,7 +51,7 @@ public class SortView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.WEST, lblSelectReferenceColumn, 34, SpringLayout.WEST, this);
 		add(lblSelectReferenceColumn);
 
-		JComboBox comboBox = new JComboBox(title);
+		JComboBox<String> comboBox = new JComboBox<String>(title);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBox, -4, SpringLayout.NORTH, lblSelectReferenceColumn);
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 18, SpringLayout.EAST, lblSelectReferenceColumn);
 		springLayout.putConstraint(SpringLayout.EAST, comboBox, 173, SpringLayout.EAST, lblSelectReferenceColumn);
@@ -97,6 +97,8 @@ public class SortView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.WEST, textFieldFileName, 21, SpringLayout.EAST, lblNameOfSorted);
 		add(textFieldFileName);
 		textFieldFileName.setColumns(10);
+		
+		columnChoosen=0;
 	}
 
 	public ArrayList<String[]> getMyFile() {
@@ -112,6 +114,7 @@ public class SortView extends JPanel implements ActionListener {
 		this.comboBox = comboBox;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

@@ -27,6 +27,7 @@ import javax.swing.JTextField;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class AccessView2 extends JPanel implements ActionListener {
 	private MainView frame;
 	private ArrayList<String[]> myFile;
@@ -62,7 +63,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 		add(lblDataAreaAccess);
 
 		ArrayList<String> user = Operator.selectDistinctValuesInAColumn(myFile, columnID);
-		JComboBox comboBoxUser = new JComboBox();
+		JComboBox<String> comboBoxUser = new JComboBox<String>();
 		for(int i = 1 ; i<user.size() ; i++ ){ comboBoxUser.addItem(user.get(i));}
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxUser, 39, SpringLayout.SOUTH, lblDataAreaAccess);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxUser, 124, SpringLayout.WEST, this);
@@ -87,7 +88,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 
 
 		ArrayList<String> day = Operator.selectDistinctValuesInAColumn(myFilestamp1, columnDay);
-		JComboBox comboBoxDay = new JComboBox();
+		JComboBox<String> comboBoxDay = new JComboBox<String>();
 		for(int i = 1;i<day.size();i++ ){ comboBoxDay.addItem(day.get(i));}
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDay, 22, SpringLayout.SOUTH, comboBoxUser);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxDay, 0, SpringLayout.WEST, comboBoxUser);
@@ -151,6 +152,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 
 
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

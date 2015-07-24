@@ -24,6 +24,7 @@ import javax.swing.JTextField;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class SortByJourneyView extends JPanel implements ActionListener{
 
 	private Integer timeChosen;
@@ -45,7 +46,7 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		add(lblTimeBetweenTwo);
 		
 		Integer[] timeJourney = {1,2,5,10,20};
-		JComboBox comboBoxTime = new JComboBox(timeJourney);
+		JComboBox<Integer> comboBoxTime = new JComboBox<Integer>(timeJourney);
 		comboBoxTime.setBounds(228, 71, 133, 27);
 		comboBoxTime.addActionListener(this);
 		comboBoxTime.setActionCommand("combo");
@@ -127,6 +128,7 @@ public class SortByJourneyView extends JPanel implements ActionListener{
 		}
 
 		else if (cmd.equals("combo")){
+			@SuppressWarnings("unchecked")
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			timeChosen = (Integer) choice.getSelectedItem();
 		}

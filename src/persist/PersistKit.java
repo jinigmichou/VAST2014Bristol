@@ -14,8 +14,8 @@ public abstract class PersistKit {
 	 //public abstract User createUser(); 
     /**
      * Method getInstance, return an instance of PersistKit based on the type of persist
-     * @param type of persist
-     * @return kit of persist selected
+     * @param type 
+     * @return
      */
 	
 	/* Method generate which creates one class with the good type of persist */

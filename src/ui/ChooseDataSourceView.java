@@ -15,9 +15,9 @@ import java.util.logging.Level;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class ChooseDataSourceView extends JPanel implements ActionListener{
 
-	private static JPanel panelDisplay;
 	private MainView frame;
 
 	public ChooseDataSourceView(MainView frame) {

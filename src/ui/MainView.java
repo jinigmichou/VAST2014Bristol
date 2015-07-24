@@ -31,7 +31,7 @@ public class MainView extends JFrame implements ActionListener {
 	private static JPanel panelDisplay;
 	private SpringLayout springLayout;
 
-	private ChooseDataSourceView chooseDataSourceView;
+	//private ChooseDataSourceView chooseDataSourceView;
 	protected static Logger logger=
 			Logger.getLogger("ui.MainView");
 
@@ -142,7 +142,6 @@ public class MainView extends JFrame implements ActionListener {
 		getContentPane().add(panelDisplay);
 
 		JButton homeButton = new JButton("Click to Start");
-		chooseDataSourceView = new ChooseDataSourceView(this);
 		springLayout.putConstraint(SpringLayout.NORTH, homeButton, 10, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, homeButton, 10, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, homeButton, -613, SpringLayout.EAST, getContentPane());

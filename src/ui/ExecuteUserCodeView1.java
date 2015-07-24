@@ -24,6 +24,7 @@ import core.Writer;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 
 	private MainView frame;
@@ -263,4 +264,22 @@ public class ExecuteUserCodeView1 extends JPanel implements ActionListener {
 			frame.changePanel(new HomeView(frame));
 		}
 	}
+
+	public ArrayList<String[]> getFile1() {
+		return file1;
+	}
+
+	public ArrayList<String[]> getFile2() {
+		return file2;
+	}
+
+	public ArrayList<String[]> getFile3() {
+		return file3;
+	}
+
+	public ArrayList<String[]> getFile4() {
+		return file4;
+	}
+
+	
 }

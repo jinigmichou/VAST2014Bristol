@@ -10,7 +10,7 @@ import com.opencsv.CSVWriter;
 import core.Writer;
 
 /**
- * This class allows to write an ArrayList<String[]> into a CSV file
+ * This class allows to write an Arraylist of String array into a CSV file
  * @author jacquez
  *
  */
@@ -48,7 +48,7 @@ public class WriterCSV extends Writer {
 
 
 	/**
-	 * This method allows to write an Arraylist<String[]> into a csv file
+	 * This method allows to write an Arraylist of String array into a csv file
 	 * @param myFile
 	 * @param myFilePath
 	 * @throws Exception

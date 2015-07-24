@@ -22,6 +22,7 @@ import javax.swing.JTextArea;
  * @author jacquez
  *
  */
+@SuppressWarnings("serial")
 public class ExecuteUserCodeView extends JPanel implements ActionListener{
 
 	private String NumberOfInputFiles;
@@ -49,7 +50,7 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 		add(lblNewLabel);
 
 		String[] inputfileNumber = {"1","2","3","4"};
-		JComboBox comboBoxInputFiles = new JComboBox(inputfileNumber);
+		JComboBox<String> comboBoxInputFiles = new JComboBox<String>(inputfileNumber);
 		comboBoxInputFiles.setBounds(170, 30, 74, 20);
 		comboBoxInputFiles.addActionListener(this);
 		comboBoxInputFiles.setActionCommand("comboInput");
@@ -290,6 +291,7 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 		}
 
 		else if (cmd.equals("comboInput")){
+			@SuppressWarnings("unchecked")
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
 			NumberOfInputFiles = (String) choice.getSelectedItem();
 		}
