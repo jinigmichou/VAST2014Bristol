@@ -40,9 +40,9 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 	private JTextField textFieldFileOutput4;
 	private JTextArea textArea;
 	private JTextField textFieldJarFile;
-	private String InputsPath;
+	private String[] InputsPath;
 
-	public ExecuteJarView1(MainView frame, String InputsPath) {
+	public ExecuteJarView1(MainView frame, String[] InputsPath) {
 
 		this.InputsPath = InputsPath;
 		this.frame = frame;
@@ -128,9 +128,9 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();	
-				
+
 				NumberOfOutputFiles = "1";
-				
+
 			}
 			else if (NumberOfOutputFiles.equals("2")){
 
@@ -160,7 +160,7 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
-				
+
 				NumberOfOutputFiles = "1";
 
 			}
@@ -201,7 +201,7 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
-				
+
 				NumberOfOutputFiles = "1";
 
 			}
@@ -251,7 +251,7 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 				this.revalidate();
 				this.repaint();
-				
+
 				NumberOfOutputFiles = "1";
 			}
 
@@ -268,7 +268,7 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 			if (textFieldFileOutput1.getText().equals("")){
 				textArea.append("Please, select a file from file browser 1 \n");
 			}
-			
+
 			else if( textFieldJarFile.getText().equals("")){
 				textArea.append("Please, select a jar file \n");
 			}
@@ -276,14 +276,24 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 			else {
 
 				String filePath1= textFieldFileOutput1.getText();
-				String filesPath = filePath1;
 
 				Runtime runtime = Runtime.getRuntime();
 				try {
-					Process process = runtime.exec(new String("java -jar "+textFieldJarFile.getText()+" "
-							+InputsPath.toString()+" "
-							+filesPath.toString()));
-				
+					// Building of command line to execute the jar file 
+					int size = 5 + InputsPath.length;
+					String[] param = new String[size];
+					param[0] ="java";
+					param[1] = "-jar";
+					param[2] = textFieldJarFile.getText();
+
+					for(int i=0; i<InputsPath.length; i++){
+						param[3+i]= InputsPath[i];
+					}
+					
+					param[3+InputsPath.length] = filePath1;
+					
+					Process process =  runtime.exec(param);
+
 
 					ArrayList<String> result = new ArrayList<String>();
 					ArrayList<String> resultE = new ArrayList<String>();
@@ -296,7 +306,7 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 					for (int i = 0 ; i < result.size(); i++){textArea.setText("results  : "+result.get(i));}
 					for (int i = 0 ; i < resultE.size(); i++){textArea.setText("Errors  : "+resultE.get(i));}
-					
+
 					ArrayList<String[]> myFile = new ArrayList<String[]>();
 					Reader myreader= new Reader(InputsPath.toString());
 					try {
@@ -328,13 +338,25 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 
 				String filePath1= textFieldFileOutput1.getText();
 				String filePath2= textFieldFileOutput2.getText();
-				String filesPath = filePath1+" "+filePath2;
 
 				Runtime runtime = Runtime.getRuntime();
 				try {
-					Process process = runtime.exec(new String("java -jar "+textFieldJarFile.getText()+" "
-							+InputsPath.toString()+" "
-							+filesPath.toString()));
+					// Building of command line to execute the jar file 
+					int size = 5 + InputsPath.length;
+					String[] param = new String[size];
+					param[0] ="java";
+					param[1] = "-jar";
+					param[2] = textFieldJarFile.getText();
+
+					for(int i=0; i<InputsPath.length; i++){
+						param[3+i]= InputsPath[i];
+					}
+					
+					param[3+InputsPath.length] = filePath1;
+					param[4+InputsPath.length] =filePath2;
+					
+					Process process =  runtime.exec(param);
+
 
 					ArrayList<String> result = new ArrayList<String>();
 					ArrayList<String> resultE = new ArrayList<String>();
@@ -348,114 +370,139 @@ public class ExecuteJarView1 extends JPanel implements ActionListener{
 					for (int i = 0 ; i < result.size(); i++){textArea.setText(result.get(i));}
 					for (int i = 0 ; i < resultE.size(); i++){textArea.setText(resultE.get(i));}
 
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-		}
-
-		else if (cmd.equals("ValidWithThreeOutputs")){
-
-			if (textFieldFileOutput1.getText().equals("")){
-				textArea.append("Please, select a file from file browser 1 \n");
-			}
-			else if(textFieldFileOutput2.getText().equals("")){
-				textArea.append("Please, select a file from file browser 2 \n");
-			}
-			else if(textFieldFileOutput3.getText().equals("")){
-				textArea.append("Please, select a file from file browser 3 \n");
-			}
-			else if( textFieldJarFile.getText().equals("")){
-				textArea.append("Please, select a jar file \n");
-			}
-			else {
-
-				String filePath1= textFieldFileOutput1.getText();
-				String filePath2= textFieldFileOutput2.getText();
-				String filePath3= textFieldFileOutput3.getText();
-				String filesPath = filePath1+" "+filePath2+" "+filePath3;
-
-				Runtime runtime = Runtime.getRuntime();
-				try {
-					Process process = runtime.exec(new String("java -jar "+textFieldJarFile.getText()+" "
-							+InputsPath.toString()+" "
-							+filesPath.toString()));
-
-					ArrayList<String> result = new ArrayList<String>();
-					ArrayList<String> resultE = new ArrayList<String>();
-
-					TerminalOutput output= new TerminalOutput(process.getInputStream());
-					TerminalOutput outputE= new TerminalOutput(process.getErrorStream()); 
-
-					output.run(result);
-					outputE.run(resultE);
-
-					for (int i = 0 ; i < result.size(); i++){textArea.setText("results  : "+result.get(i));}
-					for (int i = 0 ; i < resultE.size(); i++){textArea.setText("Errors  : "+resultE.get(i));}
-
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		}
-
-		else if (cmd.equals("ValidWithFourOutputs")){
-
-			if (textFieldFileOutput1.getText().equals("")){
-				textArea.append("Please, select a file from file browser 1 \n");
-			}
-			else if(textFieldFileOutput2.getText().equals("")){
-				textArea.append("Please, select a file from file browser 2 \n");
-			}
-			else if(textFieldFileOutput3.getText().equals("")){
-				textArea.append("Please, select a file from file browser 3 \n");
-			}
-			else if(textFieldFileOutput4.getText().equals("")){
-				textArea.append("Please, select a file from file browser 4 \n");
-			}
-			else if( textFieldJarFile.getText().equals("")){
-				textArea.append("Please, select a jar file \n");
-			}
-			else {
-
-				String filePath1= textFieldFileOutput1.getText();
-				String filePath2= textFieldFileOutput2.getText();
-				String filePath3= textFieldFileOutput3.getText();
-				String filePath4= textFieldFileOutput4.getText();
-				String filesPath = filePath1+" "+filePath2+" "+filePath3+" "+filePath4;
-
-				Runtime runtime = Runtime.getRuntime();
-				try {
-					Process process = runtime.exec(new String("java -jar "+textFieldJarFile.getText()+" "
-							+InputsPath.toString()+" "
-							+filesPath.toString()));
-
-					ArrayList<String> result = new ArrayList<String>();
-					ArrayList<String> resultE = new ArrayList<String>();
-
-					TerminalOutput output= new TerminalOutput(process.getInputStream());
-					TerminalOutput outputE= new TerminalOutput(process.getErrorStream());
-
-					output.run(result);
-					outputE.run(resultE);
-
-					for (int i = 0 ; i < result.size(); i++){textArea.setText("results  : "+result.get(i));}
-					for (int i = 0 ; i < resultE.size(); i++){textArea.setText("Errors  : "+resultE.get(i));}
-
-
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		}
-
-		else if (cmd.equals("Browse")){
-			textFieldJarFile.setText(Operator.selectFile());
-		}
-
-		else if (cmd.equals("Back")){
-			frame.changePanel(new ExecuteJarView(frame));
 		}
 	}
+
+	else if (cmd.equals("ValidWithThreeOutputs")){
+
+		if (textFieldFileOutput1.getText().equals("")){
+			textArea.append("Please, select a file from file browser 1 \n");
+		}
+		else if(textFieldFileOutput2.getText().equals("")){
+			textArea.append("Please, select a file from file browser 2 \n");
+		}
+		else if(textFieldFileOutput3.getText().equals("")){
+			textArea.append("Please, select a file from file browser 3 \n");
+		}
+		else if( textFieldJarFile.getText().equals("")){
+			textArea.append("Please, select a jar file \n");
+		}
+		else {
+
+			String filePath1= textFieldFileOutput1.getText();
+			String filePath2= textFieldFileOutput2.getText();
+			String filePath3= textFieldFileOutput3.getText();
+
+			Runtime runtime = Runtime.getRuntime();
+			try {
+				// Building of command line to execute the jar file 
+				int size = 5 + InputsPath.length;
+				String[] param = new String[size];
+				param[0] ="java";
+				param[1] = "-jar";
+				param[2] = textFieldJarFile.getText();
+
+				for(int i=0; i<InputsPath.length; i++){
+					param[3+i]= InputsPath[i];
+				}
+				
+				param[3+InputsPath.length] = filePath1;
+				param[4+InputsPath.length] = filePath2;
+				param[5+InputsPath.length] = filePath3;
+				
+				Process process =  runtime.exec(param);
+
+				ArrayList<String> result = new ArrayList<String>();
+				ArrayList<String> resultE = new ArrayList<String>();
+
+				TerminalOutput output= new TerminalOutput(process.getInputStream());
+				TerminalOutput outputE= new TerminalOutput(process.getErrorStream()); 
+
+				output.run(result);
+				outputE.run(resultE);
+
+				for (int i = 0 ; i < result.size(); i++){textArea.setText("results  : "+result.get(i));}
+				for (int i = 0 ; i < resultE.size(); i++){textArea.setText("Errors  : "+resultE.get(i));}
+
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	else if (cmd.equals("ValidWithFourOutputs")){
+
+		if (textFieldFileOutput1.getText().equals("")){
+			textArea.append("Please, select a file from file browser 1 \n");
+		}
+		else if(textFieldFileOutput2.getText().equals("")){
+			textArea.append("Please, select a file from file browser 2 \n");
+		}
+		else if(textFieldFileOutput3.getText().equals("")){
+			textArea.append("Please, select a file from file browser 3 \n");
+		}
+		else if(textFieldFileOutput4.getText().equals("")){
+			textArea.append("Please, select a file from file browser 4 \n");
+		}
+		else if( textFieldJarFile.getText().equals("")){
+			textArea.append("Please, select a jar file \n");
+		}
+		else {
+
+			String filePath1= textFieldFileOutput1.getText();
+			String filePath2= textFieldFileOutput2.getText();
+			String filePath3= textFieldFileOutput3.getText();
+			String filePath4= textFieldFileOutput4.getText();
+
+			Runtime runtime = Runtime.getRuntime();
+			try {
+				// Building of command line to execute the jar file 
+				int size = 5 + InputsPath.length;
+				String[] param = new String[size];
+				param[0] ="java";
+				param[1] = "-jar";
+				param[2] = textFieldJarFile.getText();
+
+				for(int i=0; i<InputsPath.length; i++){
+					param[3+i]= InputsPath[i];
+				}
+				
+				param[3+InputsPath.length] = filePath1;
+				param[4+InputsPath.length] = filePath2;
+				param[5+InputsPath.length] = filePath3;
+				param[6+InputsPath.length] = filePath4;
+				
+				Process process =  runtime.exec(param);
+
+				ArrayList<String> result = new ArrayList<String>();
+				ArrayList<String> resultE = new ArrayList<String>();
+
+				TerminalOutput output= new TerminalOutput(process.getInputStream());
+				TerminalOutput outputE= new TerminalOutput(process.getErrorStream());
+
+				output.run(result);
+				outputE.run(resultE);
+
+				for (int i = 0 ; i < result.size(); i++){textArea.setText("results  : "+result.get(i));}
+				for (int i = 0 ; i < resultE.size(); i++){textArea.setText("Errors  : "+resultE.get(i));}
+
+
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	else if (cmd.equals("Browse")){
+		textFieldJarFile.setText(Operator.selectFile());
+	}
+
+	else if (cmd.equals("Back")){
+		frame.changePanel(new ExecuteJarView(frame));
+	}
+}
 }
 

@@ -316,9 +316,11 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 			}
 
 			else {
-				String filePath1= textFieldFile1.getText();
-				String filesPath = filePath1;
+				
+				String filePath1 = textFieldFile1.getText();
+				String[] filesPath = {filePath1};
 				frame.changePanel(new ExecuteJarView1(frame, filesPath));
+				
 			}
 		}
 
@@ -335,7 +337,8 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 			else {
 				String filePath1= textFieldFile1.getText();
 				String filePath2= textFieldFile2.getText();
-				String filesPath = filePath1+" "+filePath2;
+				String[] filesPath = {filePath1, filePath2};
+				
 
 				frame.changePanel(new ExecuteJarView1(frame, filesPath));
 			}
@@ -359,7 +362,7 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 				String filePath1= textFieldFile1.getText();
 				String filePath2= textFieldFile2.getText();
 				String filePath3= textFieldFile3.getText();
-				String filesPath = filePath1+" "+filePath2+" "+filePath3;
+				String[] filesPath = {filePath1, filePath2, filePath3};
 
 				frame.changePanel(new ExecuteJarView1(frame, filesPath));
 			}
@@ -381,11 +384,11 @@ public class ExecuteJarView extends JPanel implements ActionListener{
 			}
 			else {
 
-				String filePath1= textFieldFile1.getText();
-				String filePath2= textFieldFile2.getText();
-				String filePath3= textFieldFile3.getText();
-				String filePath4= textFieldFile4.getText();
-				String filesPath = filePath1+" "+filePath2+" "+filePath3+" "+filePath4;
+				String filePath1 = textFieldFile1.getText();
+				String filePath2 = textFieldFile2.getText();
+				String filePath3 = textFieldFile3.getText();
+				String filePath4 = textFieldFile4.getText();
+				String[] filesPath = {filePath1, filePath2, filePath3, filePath4};
 
 				frame.changePanel(new ExecuteJarView1(frame, filesPath));
 			}
