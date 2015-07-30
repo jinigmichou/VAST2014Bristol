@@ -5,11 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 /**
  * This view concerns "select data" button
  * @author jacquez
@@ -24,6 +27,11 @@ public class AccessView1  extends JPanel implements ActionListener {
 	private int columnID;
 	private int columnDay;
 	private String dateFormat;
+	private String dateFormatCombo;
+	private JTextField textFieldDateFormat;
+	private JRadioButton rdbtnNewRadioButtonComboDate;
+	private JRadioButton rdbtnNewRadioButtonTextFiledDate;
+	private ButtonGroup groupRadio;
 
 	public AccessView1(MainView frame, ArrayList<String[]> myFile) {
 
@@ -72,7 +80,8 @@ public class AccessView1  extends JPanel implements ActionListener {
 		add(btnValid);
 
 		JButton btnBack = new JButton("Back");
-		springLayout.putConstraint(SpringLayout.WEST, btnBack, 69, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.NORTH, btnBack, 0, SpringLayout.NORTH, btnValid);
+		springLayout.putConstraint(SpringLayout.EAST, btnBack, -6, SpringLayout.WEST, btnValid);
 		btnBack.addActionListener(this);
 		btnBack.setActionCommand("back");
 		add(btnBack);
@@ -82,10 +91,9 @@ public class AccessView1  extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.WEST, lblSelectYourDate, 0, SpringLayout.WEST, lblSelectReferenceColumn);
 		add(lblSelectYourDate);
 
-		String [] dateFormatInitial = {"dd/MM/yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm", "Timestamp","MM/dd/yyy HH:mm:ss"};
+		String [] dateFormatInitial = {"dd/MM/yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm", "Timestamp","MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy HH:mm"};
 		JComboBox<String> comboBoxDateFormat = new JComboBox<String>(dateFormatInitial);
-		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 12, SpringLayout.SOUTH, comboBoxDateFormat);
-		springLayout.putConstraint(SpringLayout.NORTH, btnBack, 12, SpringLayout.SOUTH, comboBoxDateFormat);
+		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 34, SpringLayout.SOUTH, comboBoxDateFormat);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDateFormat, 6, SpringLayout.SOUTH, lblSelectYourDate);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxDateFormat, 0, SpringLayout.WEST, comboBoxID);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxDateFormat, 0, SpringLayout.EAST, comboBoxID);
@@ -93,11 +101,39 @@ public class AccessView1  extends JPanel implements ActionListener {
 		comboBoxDateFormat.setActionCommand("comboDateFormat");
 		add(comboBoxDateFormat);
 
+		rdbtnNewRadioButtonComboDate = new JRadioButton("");
+		springLayout.putConstraint(SpringLayout.NORTH, rdbtnNewRadioButtonComboDate, 0, SpringLayout.NORTH, comboBoxDateFormat);
+		springLayout.putConstraint(SpringLayout.WEST, rdbtnNewRadioButtonComboDate, 6, SpringLayout.EAST, comboBoxDateFormat);
+		rdbtnNewRadioButtonComboDate.addActionListener(this);
+		rdbtnNewRadioButtonComboDate.setActionCommand("radioCombo");
+		add(rdbtnNewRadioButtonComboDate);
+
+		rdbtnNewRadioButtonTextFiledDate = new JRadioButton("");
+		springLayout.putConstraint(SpringLayout.NORTH, rdbtnNewRadioButtonTextFiledDate, 9, SpringLayout.SOUTH, rdbtnNewRadioButtonComboDate);
+		springLayout.putConstraint(SpringLayout.WEST, rdbtnNewRadioButtonTextFiledDate, 0, SpringLayout.WEST, rdbtnNewRadioButtonComboDate);
+		rdbtnNewRadioButtonTextFiledDate.addActionListener(this);
+		rdbtnNewRadioButtonTextFiledDate.setActionCommand("radioText");
+		add(rdbtnNewRadioButtonTextFiledDate);
+
+		rdbtnNewRadioButtonComboDate.setSelected(true);
+		rdbtnNewRadioButtonTextFiledDate.setSelected(false);
+
+		this.groupRadio = new ButtonGroup();
+		this.groupRadio.add(rdbtnNewRadioButtonComboDate);
+		this.groupRadio.add(rdbtnNewRadioButtonTextFiledDate);
+
+		textFieldDateFormat = new JTextField();
+		springLayout.putConstraint(SpringLayout.WEST, textFieldDateFormat, 0, SpringLayout.WEST, comboBoxID);
+		springLayout.putConstraint(SpringLayout.SOUTH, textFieldDateFormat, -6, SpringLayout.NORTH, btnValid);
+		add(textFieldDateFormat);
+		textFieldDateFormat.setColumns(10);
+
 		//Initialization
-		
-		columnID = 1;
-		columnDay =1;
-		dateFormat = dateFormatInitial[0];
+
+		this.columnID = 1;
+		this.columnDay = 1;
+		dateFormatCombo = dateFormatInitial[0];
+
 
 	}
 
@@ -107,6 +143,12 @@ public class AccessView1  extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("valid")){
+			if (rdbtnNewRadioButtonComboDate.isSelected()  || textFieldDateFormat.getText().equals("")){ 
+				dateFormat = dateFormatCombo;
+			}
+			else if (rdbtnNewRadioButtonTextFiledDate.isSelected()) { 
+				dateFormat = textFieldDateFormat.getText();
+			}
 			frame.changePanel(new AccessView2(frame, myFile, columnID,columnDay,dateFormat));
 		}
 
@@ -126,7 +168,7 @@ public class AccessView1  extends JPanel implements ActionListener {
 
 		else if (cmd.equals("comboDateFormat")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
-			dateFormat = choice.getSelectedItem().toString();
+			dateFormatCombo = choice.getSelectedItem().toString();
 		}	
 	}
 }

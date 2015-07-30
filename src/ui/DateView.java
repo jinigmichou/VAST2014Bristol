@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
@@ -17,6 +18,7 @@ import core.Writer;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.JRadioButton;
 
 /**
  * This view concerns "transform date" button
@@ -31,8 +33,18 @@ public class DateView extends JPanel implements ActionListener {
 	private int column;
 	private String initialFormat;
 	private String requiredFormat;
+	private String initialFormatCombo;
+	private String requiredFormatCombo;
 	private JTextField textFieldFileName;
 	private JTextArea textArea;
+	private JTextField textFielddateFormatR;
+	private JTextField textFielddateFormatI;
+	private ButtonGroup groupRadioI;
+	private ButtonGroup groupRadioR;
+	private JRadioButton radioButtonComboFormatI;
+	private JRadioButton radioButtonTextFormatI;
+	private JRadioButton radioButtonComboFormatR;
+	private JRadioButton radioButtonTextFormatR;
 
 	public DateView (MainView frame, ArrayList<String[]> myFile) {
 		this.frame = frame;
@@ -61,7 +73,7 @@ public class DateView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, lblRequiredDateFormat, 205, SpringLayout.WEST, this);
 		add(lblRequiredDateFormat);
 
-		String [] dateFormatInitial = {"dd/MM/yyyy HH:mm:ss","dd-MM-yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm","MM/dd/yyy HH:mm:ss", "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy","Timestamp"};
+		String [] dateFormatInitial = {"dd/MM/yyyy HH:mm:ss","dd-MM-yyyy HH:mm:ss","yyyy-MM-dd'T'HH:mm","MM/dd/yyyy HH:mm:ss", "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy","Timestamp"};
 		JComboBox<String> comboBoxInitialFormat = new JComboBox<String>(dateFormatInitial);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxInitialFormat, 225, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxInitialFormat, 364, SpringLayout.WEST, this);
@@ -69,7 +81,7 @@ public class DateView extends JPanel implements ActionListener {
 		comboBoxInitialFormat.setActionCommand("comboBoxInitialFormat");
 		add(comboBoxInitialFormat);
 
-		String [] dateFormatRequired = {"dd/MM/yyyy HH:mm:ss","dd/MM/yyyy HH:mm","dd/MM/yyyy","yyyy-MM-dd'T'HH:mm","Timestamp","MM/dd/yyy HH:mm:ss"};
+		String [] dateFormatRequired = {"dd/MM/yyyy HH:mm:ss","dd/MM/yyyy HH:mm","dd/MM/yyyy","yyyy-MM-dd'T'HH:mm","Timestamp","MM/dd/yyyy HH:mm:ss"};
 		JComboBox<String> comboBoxRequiredFormat = new JComboBox<String>(dateFormatRequired);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxRequiredFormat, 40, SpringLayout.SOUTH, comboBoxInitialFormat);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxRequiredFormat, 225, SpringLayout.WEST, this);
@@ -104,12 +116,12 @@ public class DateView extends JPanel implements ActionListener {
 		textFieldFileName = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, btnBack, 18, SpringLayout.SOUTH, textFieldFileName);
 		springLayout.putConstraint(SpringLayout.NORTH, btnValid, 18, SpringLayout.SOUTH, textFieldFileName);
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldFileName, 39, SpringLayout.SOUTH, comboBoxRequiredFormat);
+		springLayout.putConstraint(SpringLayout.EAST, textFieldFileName, 0, SpringLayout.EAST, comboBoxInitialFormat);
 		add(textFieldFileName);
 		textFieldFileName.setColumns(10);
 
 		JLabel lblNameOfNew = new JLabel("Name of new file: ");
-		springLayout.putConstraint(SpringLayout.WEST, textFieldFileName, 46, SpringLayout.EAST, lblNameOfNew);
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldFileName, -6, SpringLayout.NORTH, lblNameOfNew);
 		springLayout.putConstraint(SpringLayout.NORTH, lblNameOfNew, 52, SpringLayout.SOUTH, lblRequiredDateFormat);
 		springLayout.putConstraint(SpringLayout.WEST, lblNameOfNew, 65, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.EAST, lblNameOfNew, 179, SpringLayout.WEST, this);
@@ -123,6 +135,50 @@ public class DateView extends JPanel implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, scrollpane, -42, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, scrollpane, -269, SpringLayout.EAST, this);
 		add(scrollpane);
+		
+		textFielddateFormatR = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFielddateFormatR, 5, SpringLayout.SOUTH, comboBoxRequiredFormat);
+		springLayout.putConstraint(SpringLayout.EAST, textFielddateFormatR, 0, SpringLayout.EAST, comboBoxInitialFormat);
+		add(textFielddateFormatR);
+		textFielddateFormatR.setColumns(10);
+		
+		textFielddateFormatI = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFielddateFormatI, 6, SpringLayout.SOUTH, comboBoxInitialFormat);
+		springLayout.putConstraint(SpringLayout.EAST, textFielddateFormatI, 0, SpringLayout.EAST, comboBoxInitialFormat);
+		add(textFielddateFormatI);
+		textFielddateFormatI.setColumns(10);
+		
+		radioButtonComboFormatI = new JRadioButton("");
+		springLayout.putConstraint(SpringLayout.NORTH, radioButtonComboFormatI, 0, SpringLayout.NORTH, lblNewLabel);
+		springLayout.putConstraint(SpringLayout.WEST, radioButtonComboFormatI, 5, SpringLayout.EAST, comboBoxInitialFormat);
+		add(radioButtonComboFormatI);
+		radioButtonComboFormatI.setSelected(true);
+		
+		radioButtonTextFormatI = new JRadioButton("");
+		springLayout.putConstraint(SpringLayout.WEST, radioButtonTextFormatI, 6, SpringLayout.EAST, textFielddateFormatI);
+		springLayout.putConstraint(SpringLayout.SOUTH, radioButtonTextFormatI, -6, SpringLayout.NORTH, comboBoxRequiredFormat);
+		add(radioButtonTextFormatI);
+		
+		radioButtonComboFormatR = new JRadioButton("");
+		springLayout.putConstraint(SpringLayout.NORTH, radioButtonComboFormatR, 0, SpringLayout.NORTH, lblRequiredDateFormat);
+		springLayout.putConstraint(SpringLayout.WEST, radioButtonComboFormatR, 6, SpringLayout.EAST, comboBoxRequiredFormat);
+		add(radioButtonComboFormatR);
+		radioButtonComboFormatR.setSelected(true);
+		
+		radioButtonTextFormatR = new JRadioButton("");
+		springLayout.putConstraint(SpringLayout.WEST, radioButtonTextFormatR, 6, SpringLayout.EAST, textFielddateFormatR);
+		springLayout.putConstraint(SpringLayout.SOUTH, radioButtonTextFormatR, 0, SpringLayout.SOUTH, textFielddateFormatR);
+		add(radioButtonTextFormatR);
+		
+		this.groupRadioI = new ButtonGroup();
+		this.groupRadioI.add(radioButtonComboFormatI);
+		this.groupRadioI.add(radioButtonTextFormatI);
+		
+		this.groupRadioR = new ButtonGroup();
+		this.groupRadioR.add(radioButtonComboFormatR);
+		this.groupRadioR.add(radioButtonTextFormatR);
+		
+		
 
 		//Initialization of choices
 		initialFormat = dateFormatInitial[0] ;
@@ -136,7 +192,21 @@ public class DateView extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		String cmd = e.getActionCommand();
 		if(cmd.equals("Valid")){
-
+			
+			if (radioButtonComboFormatI.isSelected()  || textFielddateFormatI.getText().equals("")){ 
+				initialFormat = initialFormatCombo;
+			}
+			else if (radioButtonTextFormatI.isSelected()) { 
+				initialFormat = textFielddateFormatI.getText();
+			}
+			
+			if (radioButtonComboFormatR.isSelected()  || textFielddateFormatR.getText().equals("")){ 
+				requiredFormat = requiredFormatCombo;
+			}
+			else if (radioButtonTextFormatR.isSelected()) { 
+				requiredFormat = textFielddateFormatR.getText();
+			}
+			
 			if (textFieldFileName.getText().equals("")){
 				textArea.append("Please, select a file name. \n");
 			}
@@ -171,12 +241,12 @@ public class DateView extends JPanel implements ActionListener {
 
 		else if (cmd.equals("comboBoxInitialFormat")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
-			initialFormat = choice.getSelectedItem().toString();
+			initialFormatCombo = choice.getSelectedItem().toString();
 		}
 
 		else if (cmd.equals("comboBoxRequiredDate")){
 			JComboBox<String> choice = (JComboBox<String>)e.getSource();
-			requiredFormat = choice.getSelectedItem().toString();
+			requiredFormatCombo = choice.getSelectedItem().toString();
 		}
 
 		else if (cmd.equals("back")){

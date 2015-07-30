@@ -39,6 +39,7 @@ public class ExecuteUserCodeView extends JPanel implements ActionListener{
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
 		setSize(640, 480);
+		NumberOfInputFiles = "1";
 		initialize();
 	}
 

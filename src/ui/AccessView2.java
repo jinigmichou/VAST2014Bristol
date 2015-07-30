@@ -83,7 +83,9 @@ public class AccessView2 extends JPanel implements ActionListener {
 		add(lblDay);
 
 		ArrayList<String[]> myFilestamp1 = Operator.cloneArrayList(myFile);
-		Operator.dateStringtoTimestamp(myFilestamp1, columnDay, dateFormat);
+		if(!dateFormat.equals("Timestamp")){
+			Operator.dateStringtoTimestamp(myFilestamp1, columnDay, dateFormat);
+		}
 		Operator.timeStampToDate(myFilestamp1, columnDay, "yyyy-MM-dd");
 
 
@@ -160,9 +162,9 @@ public class AccessView2 extends JPanel implements ActionListener {
 		if(cmd.equals("valid")){
 
 			ArrayList<String[]> myFilestamp2 = Operator.cloneArrayList(myFile);
-
-			Operator.dateStringtoTimestamp(myFilestamp2, columnDay, dateFormat);
-
+			if(!dateFormat.equals("Timestamp")){
+				Operator.dateStringtoTimestamp(myFilestamp2, columnDay, dateFormat);
+			}
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date myDate= new Date();
 			try {
@@ -173,6 +175,7 @@ public class AccessView2 extends JPanel implements ActionListener {
 
 			long timestamp = myDate.getTime();
 			date = Long.toString(timestamp);
+
 			for (int i = 1; i<myFile.size(); i++){
 
 				if(myFile.get(i)[columnID].equals(userString) && Operator.compareTimeStamp(date, myFilestamp2.get(i)[columnDay], 86400000)
